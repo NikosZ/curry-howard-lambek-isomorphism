@@ -1,0 +1,90 @@
+\subsection{Lambda Calculus}
+\label{sec:bg_lc}
+The $ \lambda $-calculus is a family of prototype programming languages. The simplest of these languages is the pure lambda calculus which studies only functions and their applicative behavior but does not contain any constants or types.
+
+The syntax of $ \lambda $-terms in pure lambda calculus is simple. A $ \lambda $-term can be a term-variable, an application, or an abstraction. Application is one of the primitive operations. A lambda application $ F A $ denotes that the function $ F $ is applied to the argument $ A $. Another basic operation is abstraction. Let $ M \equiv M[x] $ be an expression possibly containing or depending on variable $ x $. Then the lambda abstraction $ \lambda x.M $ denotes the function $ x \mapsto M[x] $.
+
+There are three kinds of equivalences playing an important role in $ \lambda $-calculus. The first one, $ \alpha $-equivalence, states that a change of bound variables in a $ \lambda $-term does not change its meaning. $ \beta $-equivalence shows how to evaluate an application by using substitution. And $ \eta $-equivalence refers to the idea of extensionality. All of them will be discussed in more detail in \ref{sec:bg_lc_eps} which is about the proof system of the simply typed lambda calculus.
+
+
+%---------------------------------------------------------------------------%
+%Simply Typed Lambda Calculus
+\subsubsection{Simply Typed Lambda Calculus $ \lambda ^\to $}
+\label{sec:bg_lc_stlc}
+Church introduced a typed interpretation of lambda calculus, now called the \emph{simply typed lambda calculus}, by giving each $ \lambda $-term a unique type as its structure. The types in simply typed lambda calculus do not contain type variables. The standard type forms include functions, products, sums, initial and terminal types.
+
+The one with only function type constructor $ \to $ is called the \emph{simply typed lambda calculus with function types}, indicated by $ \lambda ^\to $. With products, sums and functions, we have $ \lambda ^\to{}^,{}^\times{}^,{}^+ $ and so on. However, $ \lambda ^\to $ is as expressive as other versions of simply typed lambda calculus. We will have a look at $ \lambda ^\to $ first and then introduce the other types into it.
+
+To begin with, we give the definition of types in $ \lambda ^\to $.
+\begin{definition}
+Assume that a set of type-constants is given. Then the types in $ \lambda ^\to $ are defined as follows:
+\begin{myitemize}
+\item[(i)] each type-constant b is a type, called an \emph{atom} (or \emph{atomic type});
+\item[(ii)] if $ \sigma $ and $ \tau $ are types then $ \sigma \to \tau $ is a type, called a \emph{function type}.
+\end{myitemize}
+\end{definition}
+
+There are two general frameworks for describing the denotational semantics of typed lambda calculus, \emph{Henkin models} and \emph{cartesian closed categories}. In a Henkin model, each type expression is interpreted as a set, the set of values of that type. But we will not go into Henkin models too much. The interpretation in CCCs will be discussed in \ref{sec:co_t2m}.
+
+The syntax of $ \lambda ^\to $ is essentially that of the pure lambda calculus itself. By assigning type $ \sigma $ to a lambda term $ M $, we have an expression $ M:\sigma $ called a \emph{type-assignment}, saying that term $ M $ has type $ \sigma $. Here, $ M $ is called its \emph{subject} and $ \sigma $ its \emph{predicate}.
+
+However, not every pure $ \lambda $-term can be given a type. The typing constraints are context sensitive. A \emph{type-context} is any finite set of type-assignments $ \Gamma = \{ x_1 : \sigma _1 , \cdots , x_n : \sigma _n \} $ whose subjects are term-variables. We say a type-context is consistent if no term-variable in it is the subject of more than one assignment. If not specified, the type-contexts used in this dissertation are consistent.
+
+Since a type-context is a set, it does not change when its members are permuted or repeated. For notational convenience, the following abbreviations are often used:
+\begin{myitemize}
+\item $x_1 : \sigma _1 , \cdots , x_n : \sigma _n $ for $ \{ x_1 : \sigma _1 , \cdots , x_n : \sigma _n \} $
+\item $ \Gamma , x : \sigma $ for $ \Gamma \cup \{ x : \sigma \} $
+\item $ \Gamma - x : \sigma $ for $ \Gamma - \{ x : \sigma \} $
+\end{myitemize}
+
+Given a type-context $ \Gamma $, a $ \lambda $-term $ M $ and a type $ \sigma $, the expression $ \Gamma \triangleright M: \sigma $ is called a \emph{typing judgement}, meaning term $ M $ has type $ \sigma $ in context $ \Gamma $. However, not all the terms of this pattern are valid. To define well-typed lambda terms of a given type, some typing rules are needed.
+
+\begin{definition}[\textbf{Typing Rules of $ \lambda ^\to $}]
+Assume that a set of term variables is provided. The well-typed terms in $ \lambda ^\to $ are defined simultaneously using the following axioms and inference rules:
+\begin{myitemize}
+\item[(1)] \emph{Axioms for variable} ($ var $)\\
+For each term-variable $ x $ and each type $ \sigma $,
+\begin{prooftree}
+\AxiomC{}
+\RightLabel{($ var $)}
+\UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
+\end{prooftree}
+It simply says that if $ x $ has type $ \sigma $ in the context, intuitively, then $ x $ has type $ \sigma $. In other words, a variable $ x $ has any type which it is declared to have.
+\item[(2)] \emph{Adding variables to type context} ($ add $ $ var $)\\
+Suppose $ x $ is not free in $ M $,
+\begin{prooftree}
+\AxiomC{$ \Gamma \triangleright M: \tau $}
+\RightLabel{($ add $ $ var $)}
+\UnaryInfC{$ \Gamma , x: \sigma \triangleright M: \tau $}
+\end{prooftree}
+In words, if $ M $ has type $ \tau $ in context $ \Gamma $, then it has type $ \tau $ in context $ \Gamma , x: \sigma $, which allows one to add an additional hypothesis to the type context.
+\item[(3)] \emph{$ \to $-introduction} ($ \to $I)
+\begin{prooftree}
+\AxiomC{$ \Gamma \triangleright M: \tau $}
+\RightLabel{($ \to $I)}
+\UnaryInfC{$ \Gamma - x: \sigma \triangleright \lambda x: \sigma . M: \sigma \to \tau $}
+\end{prooftree}
+If a term $ M $ specifies a result of type $ \tau $ for all $ x: \sigma $, then the expression $ \lambda x: \sigma . M $ defines a function of type $ \sigma \to \tau $.
+\item[(4)] \emph{$ \to $-elimination} ($ \to $E)
+\begin{prooftree}
+\AxiomC{$ \Gamma \triangleright M: \sigma \to \tau $}
+\AxiomC{$ \Gamma \triangleright N: \sigma $}
+\RightLabel{($ \to $E)}
+\BinaryInfC{$ \Gamma \triangleright MN: \tau $}
+\end{prooftree}
+It says that by applying any function of type $ \sigma \to \tau $ to an argument of type $ \sigma $, we obtain a result of type $ \tau $. Therefore, it is also called \emph{function application}.
+\end{myitemize}
+\end{definition}
+
+
+%---------------------------------------------------------------------------%
+%Equational Proof System
+\subsubsection{Equational Proof System of $ \lambda ^\to $}
+\label{sec:bg_lc_eps}
+To derive equations of terms in $ \lambda ^\to $ that holds in all models, we need an equational proof system for $ \lambda ^\to $. A typed equation has the form $ \Gamma \vdash M=N:\sigma $ where both $ M $ and $ N $ are assumed to have type $ \sigma $ in context $ \Gamma $. Since type assignments are included in equations, we have an equational version of the typing rules that build well-typed equations in $ \lambda ^\to $.
+
+
+%---------------------------------------------------------------------------%
+%Other Types
+\subsubsection{Other Types}
+\label{sec:bg_lc_ot}
