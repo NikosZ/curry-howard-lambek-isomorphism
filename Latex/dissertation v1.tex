@@ -1,0 +1,87 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{amsthm}
+\usepackage{setspace}
+\usepackage{mdwlist}
+\usepackage{newclude}
+\usepackage{enumerate}
+\usepackage{bussproofs}
+
+\onehalfspace
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+
+\theoremstyle{plain}
+\newtheorem{lemma}[definition]{Lemma}
+
+
+\newenvironment{myitemize}
+{\begin{list}{$ \bullet $}{
+  \topsep=2pt
+  \itemsep=2pt
+  \parsep=0pt
+  \parskip=0pt
+  \labelsep=5pt
+  \labelwidth=20pt}}
+{\end{list}}
+
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+% Upper part of the page
+\includegraphics[width=0.2\textwidth]{./images/bham_logo}\\[1cm]
+\textsc{\LARGE University of Birmingham}\\[0.5cm]
+\textsc{\Large School of Computer Science}\\[1.5cm]
+\textsc{\large Final Year Project}\\[0.3cm]
+% Title
+\rule{\linewidth}{0.5mm} \\[0.6cm]
+{ \huge \bfseries The Curry-Howard Isomorphism}\\[0.1cm]
+\rule{\linewidth}{0.5mm} \\[1.5cm]
+% Author and supervisor
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+Chuangjie \textsc{Xu}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+Prof. Achim \textsc{Jung}
+\end{flushright}
+\end{minipage}
+\vfill
+% Bottom of the page
+{\large \today}
+\end{center}
+\end{titlepage}
+
+\begin{abstract}
+To be finished...
+\end{abstract}
+
+\newpage
+\tableofcontents
+
+\include{introduction}
+
+\newpage
+\section{Background}
+\include*{bg_il}
+\include*{bg_lc}
+\include*{bg_cat}
+
+\newpage
+\section{Correspondence}
+\include*{co_t2p}
+\include*{co_p2t}
+\include*{co_t2m}
+
+\end{document}
