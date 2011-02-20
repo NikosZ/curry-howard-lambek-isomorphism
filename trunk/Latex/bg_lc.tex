@@ -76,6 +76,96 @@ It says that by applying any function of type $ \sigma \to \tau $ to an argument
 \end{myitemize}
 \end{definition}
 
+Some literatures represent the rule ($ \to $E) as
+\begin{prooftree}
+\AxiomC{$ \Gamma _1 \triangleright M: \sigma \to \tau $}
+\AxiomC{$ \Gamma _2 \triangleright N: \sigma $}
+\RightLabel{($ \to $E)}
+\BinaryInfC{$ \Gamma _1 \cup \Gamma _2 \triangleright MN: \tau $}
+\end{prooftree}
+However, this representation may be dangerous. Suppose $ x: \sigma \in \Gamma _1 $ and $ x: \tau \in \Gamma _2 $ where $ \sigma \not\equiv \tau $, then $ \Gamma _1 \cup \Gamma _2 $ is inconsistent since $ x $ has type $ \sigma $ and type $ \tau $ at the same time. And that is why the contexts of $ M $ and $ N $ are same in definition 2.2.2.
+
+The combinators  \textbf{K} and \textbf{S} are used as examples to demonstrate how a well-typed term is obtained by using the typing rules:
+\begin{myitemize}
+\item[(1)] $ \emptyset \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $
+\begin{prooftree}
+\AxiomC{}
+\RightLabel{($ var $)}
+\UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
+\RightLabel{($ add $ $ var $)}
+\UnaryInfC{$ x: \sigma , y: \tau \triangleright x: \sigma $}
+\RightLabel{($ \to $I)}
+\UnaryInfC{$ x: \sigma \triangleright \lambda y: \tau . x: \tau \to \sigma $}
+\RightLabel{($ \to $I)}
+\UnaryInfC{$ \emptyset \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $}
+\end{prooftree}
+\item[(2)] $ \emptyset \triangleright \lambda x: \sigma \to \tau \to \rho . \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz) $
+\begin{flushright}
+$ : ( \sigma \to \tau \to \rho ) \to ( \sigma \to \tau ) \to \sigma \to \rho $
+\end{flushright}
+\begin{prooftree}
+(I)
+\AxiomC{}
+\RightLabel{($ var $)}
+\UnaryInfC{$ x: \sigma \to \tau \to \rho \triangleright x: \sigma \to \tau \to \rho $}
+\RightLabel{($ add $ $ var $)}
+\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau \triangleright x: \sigma \to \tau \to \rho $}
+\RightLabel{($ add $ $ var $)}
+\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright x: \sigma \to \tau \to \rho $}
+\end{prooftree}
+\begin{prooftree}
+(II)
+\AxiomC{}
+\RightLabel{($ var $)}
+\UnaryInfC{$ y: \sigma \to \tau \triangleright y: \sigma \to \tau $}
+\RightLabel{($ add $ $ var $)}
+\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau \triangleright y: \sigma \to \tau $}
+\RightLabel{($ add $ $ var $)}
+\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright y: \sigma \to \tau $}
+\end{prooftree}
+\begin{prooftree}
+(III)
+\AxiomC{}
+\RightLabel{($ var $)}
+\UnaryInfC{$ z: \sigma \triangleright z: \sigma $}
+\RightLabel{($ add $ $ var $)}
+\UnaryInfC{$ x: \sigma \to \tau \to \rho , z: \sigma \triangleright z: \sigma $}
+\RightLabel{($ add $ $ var $)}
+\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright z: \sigma $}
+\end{prooftree}
+\begin{prooftree}
+(IV)
+\AxiomC{(I)}
+\AxiomC{(III)}
+\RightLabel{($ \to $E)}
+\BinaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright x z: \tau \to \rho $}
+\end{prooftree}
+\begin{prooftree}
+(V)
+\AxiomC{(II)}
+\AxiomC{(III)}
+\RightLabel{($ \to $E)}
+\BinaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright y z: \tau $}
+\end{prooftree}
+\begin{prooftree}
+\AxiomC{(IV)}
+\AxiomC{(V)}
+\RightLabel{($ \to $E)}
+\BinaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright (xz)(yz): \rho $}
+\RightLabel{($ \to $I)}
+\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau \triangleright \lambda z: \sigma . (xz)(yz): \sigma \to \rho $}
+\RightLabel{($ \to $I)}
+\UnaryInfC{$ x: \sigma \to \tau \to \rho \triangleright \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz): ( \sigma \to \tau ) \to \sigma \to \rho $}
+\RightLabel{($ \to $I)}
+\UnaryInfC{$ \emptyset \triangleright \lambda x: \sigma \to \tau \to \rho . \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz) $}
+\end{prooftree}
+\begin{flushright}
+$ : ( \sigma \to \tau \to \rho ) \to ( \sigma \to \tau ) \to \sigma \to \rho $
+\end{flushright}
+\end{myitemize}
+
+As mentioned before, not every term can be typed. Take the term $ x x $ for example. As an application, its first component $ x $ should have a function type $ \sigma \to \tau $ and then its second $ x $ should have type $ \sigma $. In order to construct a derivation tree, we need two sub-trees, one with conclusion $ \Gamma \triangleright x: \sigma \to \tau $ and another with conclusion $ \Gamma \triangleright x : \sigma $, in accordance with the rule ($ \to $E). Since $ x $ is a term-variable, the axiom ($ var $) tells us both $ x : \sigma \to \tau $ and $ x: \sigma $ appear in context $ \Gamma $, which means $ \Gamma $ is inconsistent. Therefore, we are unable to find a consistent context for $ x x $ and it cannot be typed.
+
 
 %---------------------------------------------------------------------------%
 %Equational Proof System
