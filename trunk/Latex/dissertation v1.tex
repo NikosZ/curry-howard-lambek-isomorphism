@@ -7,6 +7,13 @@
 \usepackage{newclude}
 \usepackage{enumerate}
 \usepackage{bussproofs}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+%\fancyhf{}
+\cfoot{Page \thepage\ of \pageref{LastPage}}
 
 \onehalfspace
 
@@ -79,13 +86,15 @@ To be finished...
 \include*{bg_cat}
 
 \newpage
-\section{Correspondence}
+\section{Correspondences}
 \include*{co_t2p}
 \include*{co_p2t}
 \include*{co_t2m}
 
-%\newpage
-%\bibliographystyle{plain}
-%\bibliography{myref}
+\newpage
+\bibliographystyle{abbrv}
+\bibliography{myref}
+\nocite{*}
+\addcontentsline{toc}{section}{References}
 
 \end{document}
