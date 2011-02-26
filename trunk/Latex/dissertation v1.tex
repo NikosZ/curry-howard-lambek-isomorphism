@@ -1,7 +1,7 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt,a4paper,fleqn]{article}
 
 \usepackage[pdftex]{graphicx}
-\usepackage{amsthm}
+\usepackage{amsmath, amsthm, amssymb}
 \usepackage{setspace}
 \usepackage{mdwlist}
 \usepackage{newclude}
@@ -10,6 +10,8 @@
 \usepackage{lastpage}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
+\usepackage[normalem]{ulem}
+
 
 \pagestyle{fancy}
 %\fancyhf{}
@@ -26,6 +28,10 @@
 \theoremstyle{plain}
 \newtheorem{lemma}[definition]{Lemma}
 
+\theoremstyle{plain}
+\newtheorem{proposition}[definition]{Proposition}
+
+\setlength{\mathindent}{0pt}
 
 \newenvironment{myitemize}
 {\begin{list}{$ \bullet $}{

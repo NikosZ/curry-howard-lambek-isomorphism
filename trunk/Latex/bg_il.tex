@@ -10,7 +10,8 @@ One vertex in the correspondence-triangle is intuitionistic propositional logic.
 \label{sec:bg_il_s}
 The language of intuitionistic propositional logic is similar to the one of classical propositional logic. Customarily, people use $ \bot , \to , \land , \lor $ as basic connectives and treat $ \neg \varphi $ as an abbreviation for $ \varphi \to \bot $.
 
-\begin{definition}
+\begin{definition}[\textbf{Formulas}]
+\label{definition:formulas}
 Given an infinite set of propositional variables, the \emph{set} $ \Phi $ \emph{of formulas} in intuitionistic propositional logic is defined by induction, represented in the following grammar:
 \[
 \Phi ::= P | \bot | \neg \Phi | ( \Phi \to \Phi ) | ( \Phi \land \Phi ) | ( \Phi \lor \Phi )
@@ -28,7 +29,8 @@ For notational convenience, we use the following abbreviations:
 
 The natural deduction system allows one to derive conclusions from premises. The axiom and inference rules in this deduction system show how the relation $ \vdash $ is built.
 
-\begin{definition}
+\begin{definition}[\textbf{Natural Deduction System}]
+\label{definition:nat_ded_sys}
 Given a set of propositional variable, the relation $ \Gamma \vdash \varphi $ is obtained by using the following axiom and inference rules
 \begin{myitemize}
 \item \emph{Axiom}
@@ -78,7 +80,7 @@ If both $ \varphi $ and $ \psi $ are derivable from $ \Gamma $, $ \varphi \land 
 \AxiomC{$ \Gamma \vdash \varphi \land \psi $}
 \RightLabel{($ \land $E$ _1 $)}
 \UnaryInfC{$ \Gamma \vdash \varphi $}
-\DisplayProof \mbox{}
+\DisplayProof \hspace{10pt}
 \AxiomC{$ \Gamma \vdash \varphi \land \psi $}
 \RightLabel{($ \land $E$ _2 $)}
 \UnaryInfC{$ \Gamma \vdash \psi $}
@@ -91,7 +93,7 @@ Provided that conjunction $ \varphi \land \psi $ is derivable from $ \Gamma $, b
 \AxiomC{$ \Gamma \vdash \varphi $}
 \RightLabel{($ \lor $I$ _1 $)}
 \UnaryInfC{$ \Gamma \vdash \varphi \lor \psi $}
-\DisplayProof \mbox{}
+\DisplayProof \hspace{10pt}
 \AxiomC{$ \Gamma \vdash \psi $}
 \RightLabel{($ \lor $I$ _2 $)}
 \UnaryInfC{$ \Gamma \vdash \varphi \lor \psi $}
@@ -120,9 +122,41 @@ From contradiction $ \bot $, we can derive any propositions. This rule is also c
 \end{myitemize}
 \end{definition}
 
+What syntactically makes it different from classical propositional logic is that 
+
+%---------------------------------------------------------------------------%
+%Proof
+\subsubsection{Proofs}
+\label{sec:bg_il_p}
+
 Some examples are given here to show how the rules above are used to build a theorem:
 \begin{myitemize}
-\item[(1)] $ \vdash \varphi \to ( \psi \to \varphi ) $
+\item[(1)] $ \varphi , \neg \varphi \vdash \bot $
+\begin{prooftree}
+\AxiomC{}
+\UnaryInfC{$ \varphi \vdash \varphi $}
+\RightLabel{($ add $)}
+\UnaryInfC{$ \varphi , \neg \varphi \vdash \varphi $}
+  \AxiomC{}
+  \UnaryInfC{$ \neg \varphi \vdash \neg \varphi $}
+  \RightLabel{($ add $)}
+  \UnaryInfC{$ \varphi , \neg \varphi \vdash \neg \varphi $}
+  \RightLabel{($ \neg \varphi $ stands for $ \varphi \to \bot $)}
+  \UnaryInfC{$ \varphi , \neg \varphi \vdash \varphi \to \bot $}
+\RightLabel{($ \to $E)}
+\BinaryInfC{$ \varphi , \neg \varphi \vdash \bot $}
+\end{prooftree}
+\item[(2)] $ \vdash \varphi \to \neg \neg \varphi $
+\begin{prooftree}
+\AxiomC{}
+\RightLabel{(1)}
+\UnaryInfC{$ \varphi , \neg \varphi \vdash \bot $}
+\RightLabel{($ \to $I)}
+\UnaryInfC{$ \varphi \vdash \neg \varphi \to \bot $}
+\RightLabel{($ \neg \neg \varphi $ stands for $ \neg \varphi \to \bot $)}
+\UnaryInfC{$ \varphi \vdash \neg \neg \varphi $}
+\end{prooftree}
+\item[(3)] $ \vdash \varphi \to ( \psi \to \varphi ) $
 \begin{prooftree}
 \AxiomC{}
 \UnaryInfC{$ \varphi \vdash \varphi $}
@@ -133,9 +167,10 @@ Some examples are given here to show how the rules above are used to build a the
 \RightLabel{($ \to $I)}
 \UnaryInfC{$\vdash \varphi \to ( \psi \to \varphi ) $}
 \end{prooftree}
-\item[(2)] $ \vdash ( \neg \varphi \lor \psi ) \to ( \varphi \to \psi ) $
+\item[(4)] $ \vdash ( \neg \varphi \lor \psi ) \to ( \varphi \to \psi ) $
 \begin{prooftree}
 \AxiomC{}
+\RightLabel{(1)}
 \UnaryInfC{$ \neg \varphi , \varphi \vdash \bot $}
 \RightLabel{($ \bot $E)}
 \UnaryInfC{$ \neg \varphi , \varphi \vdash \psi $}
@@ -159,55 +194,3 @@ Some examples are given here to show how the rules above are used to build a the
 \UnaryInfC{$ \vdash ( \neg \varphi \lor \psi ) \to ( \varphi \to \psi ) $}
 \end{prooftree}
 \end{myitemize}
-
-
-%---------------------------------------------------------------------------%
-%Constructive Semantics
-\subsubsection{Constructive Semantics}
-\label{sec:bg_il_cs}
-In intuitionistic logic, each proposition is given an intuitive meaning that establishes this proposition, called a \emph{proof} or \emph{construction}. Then all the connectives in intuitionistic propositional logic are also given an intuitive meaning, sometimes called the \emph{BHK-interpretation}.
-
-\begin{definition}
-The expression $ p : \varphi $ denotes that $ p $ is a construction that establishes proposition $ \varphi $. We call this $ p $ a \emph{proof} of $ \varphi $. The following rules explain the constructive semantics of propositional connectives:
-\begin{myitemize}
-\item $ \bot $\\
-There is no proof of $ \bot $
-\item $ p: \varphi \to \psi $\\
-The proof $ p $ of implication $ \varphi \to \psi $ is a method converting every proof $ a : \varphi $ into a proof $ p(a): \psi $.
-\item $ p: \varphi \land \psi $\\
-The proof $ p $ of conjunction $ \varphi \land \psi $ is a pair of proofs $ \langle p_1 , p_2 \rangle $ such that $ p_1:\varphi $ and $ p_2:\psi $, with projections $ \pi _1 $ and $ \pi _2 $ that return the first and second proofs in a pair.
-\item $ p: \varphi \lor \psi $\\
-The proof $ p $ of disjunction $ \varphi \lor \psi $ is a pair $ \langle i , a \rangle $ where $ i \in \{ 0,1 \} $ such that $ i = 0 $ and $ a : \varphi $ or $ i = 1 $ and $ a : \psi $. In words, the $ i $ indicates which disjunct is correct and $ a $ is the proof of that disjunct.
-\item $ p: \neg \varphi $\\
-Since $ \neg \varphi $ stands for $ \varphi \to \bot $, the proof $ p $ of $ \neg \varphi $ is a method that transforms every proof $ a: \varphi $ into $ p(a): \bot$, i.e. $ p $ tells us that $ \varphi $ has no proofs.
-\end{myitemize}
-\end{definition}
-
-According the definition above, $ \bot \to \varphi $ should have a proof which can be any method. That is because the argument does not exist ($ \bot $ has no proofs) and this method is never applied to its argument, which means any method can be considered as the proof of $ \bot \to \varphi $.
-
-The following examples demonstrate the proof interpretation for some propositions:
-\begin{myitemize}
-\item[(1)] $ \varphi \to ( \psi \to \varphi ) $\\
-Suppose we already have $ p: \varphi $ and $ q: \psi $. Since the proof of $ \psi \to \varphi $ is a transformation $ q \mapsto p $, it can be represented as $ \lambda q . p $ (using $ \lambda $-calculus notation). Similarly, the proof of $ \varphi \to ( \psi \to \varphi ) $ is $ p \mapsto ( q \mapsto p ) $, represented as $ \lambda p . \lambda q . p $.
-\item[(2)] $ \varphi \to \neg \neg \varphi $\\
-Assume that $ p_1 : \varphi $ and $ p_2 : \neg \varphi $. According to definition 2.1.3, we have $ p_2 ( p_1 ) : \bot $. Since $ \neg \neg \varphi $ stands for $ \neg \varphi \to \bot $, its proof is $ \lambda p_2 . p_2 ( p_1 ) $. Therefore, the proof of $ \varphi \to \neg \neg \varphi $ is $ \lambda p_1 . \lambda p_2 . p_2 ( p_1 ) $.
-\item[(3)] $ ( \varphi \land \psi ) \to ( \psi \land \varphi ) $\\
-Assume $ q: \varphi \land \psi $. Then we have $ \pi _1 (q): \varphi $ and $\pi _2 (q): \psi $. By using them to construct a new pair $ \langle \pi _2 (q), \pi _1 (q) \rangle $, we obtain a proof of $( \psi \land \varphi ) $. Therefore, the proof of $ ( \varphi \land \psi ) \to ( \psi \land \varphi ) $ is $ \lambda q. \langle \pi _2 (q), \pi _1 (q) \rangle $.
-\item[(4)] $ ( \neg \varphi \lor \psi ) \to ( \varphi \to \psi ) $\\
-Assume $ q: \neg \varphi \lor \psi $ and $ p: \varphi $. Then $ \pi _2 (q)$ can be a proof of either $ \neg \varphi $ or $ \psi $:
-  \begin{myitemize}
-  \item[(i)] If $ \pi _1 (q) = 1 $, we have $ \pi _2 (q) : \psi $ and then construct a proof of $ \varphi \to \psi $ as $ \lambda p. \pi _2 (q) $.
-  \item[(ii)] If $ \pi _1 (q) = 0 $, $ \pi _2 (q): \neg \varphi $ which tells us there is no proof of $ \varphi $. According the definition, the proof of $ \varphi \to \psi $ can be any method since its argument does not exist. So we can choose the method $ \lambda p. \pi _2 (q) $ as its proof.
-  \end{myitemize}
-From the above discussion, $ \lambda p. \pi _2 (q): \varphi \to \psi $ no matter what the value of $ \pi _1 (q) $ is. Therefore, the proof of $ ( \neg \varphi \lor \psi ) \to ( \varphi \to \psi ) $ is $ \lambda q. \lambda p. \pi _2 (q) $.
-\end{myitemize}
-
-Both the law of excluded middle and double negation elimination are axioms in the system of classical logic. However, in intuitionistic one neither of them is provable, i.e. there is no constructive proof for them:
-\begin{myitemize}
-\item[(1)] $ \varphi \lor \neg \phi $\\
-If $ \varphi \lor \neg \varphi $ has a proof $ p $, then $ p $ should be a pair $ \langle i, a \rangle $ such that $ a: \varphi $ if $ i = 0 $ or $ a: \neg \varphi $ if $ i = 1 $. However, for an arbitrary proposition $ \varphi $, we do not know whether $ \varphi $ or $ \neg \varphi $ has a proof, which means that the value of $ i $ cannot be known. Therefore, there is no proof of $ \varphi \lor \neg \phi $ for arbitrary proposition $ \varphi $.
-\item[(2)] $ \neg \neg \varphi \to \varphi $\\
-Assume that we have a proof $ p: \neg \neg \varphi $. Then $ p $ just tells us that $ \neg \varphi $ has no proofs. We end here since no rule in difinition 2.1.3 allows us to continue to obtain a proof of $ \varphi $. Hence, there is no proof of $ \neg \neg \varphi \to \varphi $.
-\end{myitemize}
-
-From the above examples, we can see that for every theorem in intuitionistic logic there is always a closed proof, i.e. a term without free variables. But if a proposition is not a theorem, it is impossible to find such a corresponding closed proof.

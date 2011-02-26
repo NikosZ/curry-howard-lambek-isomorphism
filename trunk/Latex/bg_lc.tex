@@ -13,10 +13,11 @@ There are three kinds of equivalences playing an important role in $ \lambda $-c
 \label{sec:bg_lc_stlc}
 Church introduced a typed interpretation of lambda calculus, now called the \emph{simply typed lambda calculus}, by giving each $ \lambda $-term a unique type as its structure. The types in simply typed lambda calculus do not contain type variables. The standard type forms include functions, products, sums, initial and terminal types.
 
-The one with only function type constructor $ \to $ is called the \emph{simply typed lambda calculus with function types}, indicated by $ \lambda ^\to $. With products, sums and functions, we have $ \lambda ^\to{}^,{}^\times{}^,{}^+ $ and so on. However, $ \lambda ^\to $ is as expressive as other versions of simply typed lambda calculus. We will have a look at $ \lambda ^\to $ first and then introduce the other types into it.
+The one with only function type constructor $ \to $ is called the \emph{simply typed lambda calculus with function types}, indicated by $ \lambda ^\to $. With products, sums and functions, we have $ \lambda ^\to{}^,{}^\times{}^,{}^+ $ and so on. However, $ \lambda ^\to $ is as expressive as other versions of simply typed lambda calculus. We will have a look at $ \lambda ^\to $ first and the introduce to the other types can be found in \ref{sec:bg_lc_ot}.
 
 To begin with, we give the definition of types in $ \lambda ^\to $.
-\begin{definition}
+\begin{definition}[\textbf{Types}]
+\label{definition:types}
 Assume that a set of type-constants is given. Then the types in $ \lambda ^\to $ are defined as follows:
 \begin{myitemize}
 \item[(i)] each type-constant b is a type, called an \emph{atom} (or \emph{atomic type});
@@ -40,6 +41,7 @@ Since a type-context is a set, it does not change when its members are permuted 
 Given a type-context $ \Gamma $, a $ \lambda $-term $ M $ and a type $ \sigma $, the expression $ \Gamma \triangleright M: \sigma $ is called a \emph{typing judgement}, meaning term $ M $ has type $ \sigma $ in context $ \Gamma $. However, not all the terms of this pattern are valid. To define well-typed lambda terms of a given type, some typing rules are needed.
 
 \begin{definition}[\textbf{Typing Rules of $ \lambda ^\to $}]
+\label{definition:typ_rules}
 Assume that a set of term variables is provided. The well-typed terms in $ \lambda ^\to $ are defined simultaneously using the following axioms and inference rules:
 \begin{myitemize}
 \item[(1)] \emph{Axioms for variable} ($ var $)\\
@@ -83,7 +85,7 @@ Some literatures represent the rule ($ \to $E) as
 \RightLabel{($ \to $E)}
 \BinaryInfC{$ \Gamma _1 \cup \Gamma _2 \triangleright MN: \tau $}
 \end{prooftree}
-However, this representation may be dangerous. Suppose $ x: \sigma \in \Gamma _1 $ and $ x: \tau \in \Gamma _2 $ where $ \sigma \not\equiv \tau $, then $ \Gamma _1 \cup \Gamma _2 $ is inconsistent since $ x $ has type $ \sigma $ and type $ \tau $ at the same time. And that is why the contexts of $ M $ and $ N $ are same in definition 2.2.2.
+However, this representation may be dangerous. Suppose $ x: \sigma \in \Gamma _1 $ and $ x: \tau \in \Gamma _2 $ where $ \sigma \not\equiv \tau $, then $ \Gamma _1 \cup \Gamma _2 $ is inconsistent since $ x $ has type $ \sigma $ and type $ \tau $ at the same time. And that is why the contexts of $ M $ and $ N $ are same in definition \ref{definition:typ_rules}.
 
 The combinators  \textbf{K} and \textbf{S} are used as examples to demonstrate how a well-typed term is obtained by using the typing rules:
 \begin{myitemize}
@@ -178,3 +180,8 @@ To derive equations of terms in $ \lambda ^\to $ that holds in all models, we ne
 %Other Types
 \subsubsection{Other Types}
 \label{sec:bg_lc_ot}
+Except function type, the simply typed lambda calculus may have products, sums, initial and terminal types. Their definitions and the typing rules for them are listed below.
+
+\begin{definition}[\textbf{}]
+\label{definition:}
+\end{definition}
