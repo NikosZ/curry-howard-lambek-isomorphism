@@ -1,2 +1,6 @@
 \subsection{Every well-typed lambda term can be interpreted as a morphism in a CCC}
 \label{sec:co_t2m}
+As mentioned in the previous section, cartesian closed categories can work as a more general but also more abstract framework for describing the denotational semantics of typed lambda calculus.
+
+The lambda calculus $ \lambda ^{unit, \times , \to } $ has terminal type, product types and function types. Correspondently, a CCC has terminal object, products and exponentials. A closed relation
+between them seems to be obvious. However, the lambda calculus $ \lambda ^ \to $ with only function type constructor is as expressive as $ \lambda ^{unit, \times , \to } $. Therefore, both the type expressions and well-typed lambda terms in $ \lambda ^ \to $ can be interpreted in any CCC, and this interpretation should be sound and complete.

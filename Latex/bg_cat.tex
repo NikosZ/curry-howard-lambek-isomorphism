@@ -1,4 +1,165 @@
 \subsection{Categories}
+\label{sec:bg_cat}
+As a relatively young branch of mathematics, category theory studies in an abstract way the properties of particular mathematical structures. It seeks to express all mathematical concepts in terms of ``object'' and ``morphisms'' independently of what they are representing. Nowadays, categories appear in most branches of mathematics and many parts of computer science. For instance, topoi, a kind of category, can even serve as a foundation for mathematics. Cartesian closed categories, as another example, can work as a framework for describing the denotational semantics of typed lambda calculus, and more generally, programming languages.
+
+
+%---------------------------------------------------------------------------%
+%Categories
 \subsubsection{Categories}
+\label{sec:bg_cat_c}
+The formal definition of categories is given first.
+\begin{definition}[\textbf{Categories}]
+\label{definition:category}
+A category $ \mathcal{C} $ consists of
+\begin{myitemize}
+\item a collection $ C^o $ of objects;
+\item a collection $ C^m $ of morphisms (also called arrows or maps) between objects, with two maps $ dom, cod : C^m \to C^o $ which give the domain and codomain of a morphism (we write $ f : A \to B $ to denote a morphism $ f $ with $ dom(f) = A $ and $ cod(f) = B $);
+\item a binary map ``$ \circ $'', called composition, mapping each pair $ f, g $ of morphisms with $ cod(f) = dom(g) $ to a morphism $ g \circ f $ such that $ dom(g \circ f) = dom(f) $ and $ cod(g \circ f) = cod(g) $;
+\end{myitemize}
+such that the following axioms hold:
+\begin{myitemize}
+\item identity: for every object $ A $, there exists a morphism $ id_A : A \to A $, called the identity morphism for $ A $, such that $ f = f \circ id_A $ and $ g = id_A \circ g $ for any morphisms $ f $ and $ g $ with $ dom(f) = cod(g) = A $;
+\item associativity: $ h \circ (g \circ f) = (h \circ g) \circ f $ for every $ f: A \to B $, $ g: B \to C$, and $ h: C \to D $.
+\end{myitemize}
+\end{definition}
+
+For any objects $ A $ and $ B $ of a category $ \mathcal{C} $, the collection of all morphisms $ f: A \to B $ is called a \emph{hom-set} and denoted as $ Hom_\mathcal{C}(A,B) $. A category is determined by its hom-sets.
+
+Categorists use \emph{diagrams} to express equations. In a diagram, a morphism $ f: A \to B $ is represented as an arrow form point $ A $ to $ B $, labeled $ f $. A diagram \emph{commutes} if the composition of the morphism along any path between two fixed objects is equal. The identity and associative laws in the definition of category can be represented by the following commutative diagrams:
+(diagram)
+
+A common example of a category is \textsc{Set} which is the category whose objects are sets and whose morphisms are functions. The identity of object $ S $ in \textsc{Set} is the identity function $ id_S : S \to S $ such that $ id_S(s) = s $ for all $ s \in S $. The composition of morphisms is the composition of functions, i.e. $ (g \circ f)(x) = g(f(x)) $. As a category, it satisfies the two category axioms:
+\begin{myitemize}
+\item[i)] $ f = f \circ id_A = id_B \circ f $ for every $ f: A \to B $\\
+The identity follows by using the definitions of composite functions and identity functions:\\
+$ (f \circ id_A)(a) = f(id_A(a)) = f(a) $ and $ (id_B \circ f)(a) = id_B(f(a)) = f(a) $.
+\item[ii)] $ h \circ (g \circ f) = (h \circ g) \circ f $ for every $ f: A \to B $, $ g: B \to C$, and $ h: C \to D $\\
+The associativity follows from the fact that composition of functions is associative:\\
+$ (h \circ (g \circ f))(a) = h((g \circ f)(a)) = h(g(f(a))) $ and\\
+$ ((h \circ g) \circ f)(a) = (h \circ g)(f(a)) = h(g(f(a))) $.
+\end{myitemize}
+
+One typical use of categories is to consider categories whose objects are sets with mathematical structure and whose morphisms are functions that preserve that structure. One of the common examples is the category \textsc{Pos} whose objects are posets and whose morphisms are monotone functions. It will be discussed later as an example of a CCC in \ref{sec:bg_cat_ccc}.
+
+
+%---------------------------------------------------------------------------%
+%Categorical Constructions
 \subsubsection{Categorical Constructions}
+\label{sec:bg_cat_cc}
+There are many categorical constructions, i.e. particular objects and morphisms that satisfy a given set of axioms, which enrich the language of Category Theory. When studying constructions, one observes that all concepts are defined by their relations with other objects, and these relations are established by the existence and the equality of particular morphisms. In this dissertation, the following fundamental categorical constructions will be considered.
+\\
+\\
+The simplest among these is the notion of initial object and its dual, terminal object.
+
+\begin{definition}[\textbf{Initial and terminal objects}]
+\label{definition:ini_ter_obj}
+Let $ \mathcal{C} $ be a category. An object $ A $ in $ \mathcal{C} $ is \emph{initial} if, for any object $ B $ in $ \mathcal{C} $, there is a unique morphism from $ A $ to $ B $. An object $ A $ in $ \mathcal{C} $ is \emph{terminal} if, for any object $ B $ in $ \mathcal{C} $, there is a unique morphism from $ B $ to $ A $.
+\end{definition}
+
+In this dissertation, terminal objects are denoted as $ unit $ and, for object $ A $, the unique
+morphism is denoted as $ One^A : A \to unit $.
+
+In \textsc{Set}, the initial object is the empty set $ \emptyset $, and the unique morphism with $ \emptyset $ for its source is the empty function whose graph is empty. Any singleton set is terminal in \textsc{Set} since for any set $ S $, there is exactly one function from $ S $ to this singleton set.
+\\
+\\
+In set theory, we can form a cartesian product of two sets and define coordinate functions for it. Then we can even form a product function of two given functions which have the same domain. This motivates a general definition of categorical products (within a category).
+
+\begin{definition}[\textbf{Products}]
+\label{definition:products}
+Let $ A $ and $ B $ be objects in category $ \mathcal{C} $. The product of $ A $ and $ B $ is an object $ A \times B $ together with two morphisms $ Proj_1^{A,B}: A \times B \to A $ and $ Proj_2^{A,B}: A \times B \to B $, and for every object $ C $ in $ \mathcal{C} $, an operation $ \langle \cdot , \cdot \rangle : Hom(C,A) \times Hom(C,B) \to Hom(C, A \times B) $ such that for every $ f_1 : C \to A $, $ f_2 : C \to B $, and $ g : C \to A \times B $, the following equations hold:
+\begin{myitemize}
+\item $ Proj_i \circ \langle f_1 , f_2 \rangle = f_i $
+\item $ \langle Proj_1 \circ g , Proj_2 \circ g \rangle = g $
+\end{myitemize}
+\end{definition}
+
+Since equations in category theory can be represented by commutative diagrams, we can give another definition of categorical products based on diagrams: Let $ A $ and $ B $ be objects in category $ \mathcal{C} $. The product of $ A $ and $ B $ is an object $ A \times B $ together with two morphisms $ Proj_1^{A,B}: A \times B \to A $ and $ Proj_2^{A,B}: A \times B \to B $, and for every object $ C $ in $ \mathcal{C} $, an operation $ \langle \cdot , \cdot \rangle : Hom(C,A) \times Hom(C,B) \to Hom(C, A \times B) $ such that for every $ f_1 : C \to A $ and $ f_2 : C \to B $, the morphism $ \langle f_1 , f_2 \rangle ∶ C \to A \times B $ is the unique $ g $ satisfying
+
+(diagram)
+
+The cartesian product construction for morphisms can also be given a categorical definition. Given morphisms $ f : A \to C $ and $ g : B \to D $ the product $ f \times g : A \times B \to C \times D $ is defined by $ f \times g = \langle f \circ Proj_1^{A,B} , g \circ Proj_2^{A,B} \rangle $ whose correspondent commutative diagram is the following:
+
+(diagram)
+
+\begin{proposition}
+Let $ \mathcal{C} $ be a category with products. Given $ f_1 : A \to B $, $ g_1 : B \to C $, $ f_2 : A' \to B' $ and $ g_2 : B' \to C' $, the equation $ ( g_1 \times g_2 ) \circ ( f_1 \times f_2 ) = ( g_1 \circ f_1 ) \times ( g_2 \circ f_2 ) $ holds.
+\end{proposition}
+\begin{proof}
+\begin{equation*}
+\begin{array}{ll}
+  & Proj_1 \circ ( ( g_1 \times g_2 ) \circ ( f_1 \times f_2 ) )\\
+= & ( Proj_1 \circ ( g_1 \times g_2 ) ) \circ ( f_1 \times f_2 )\\
+= & ( g_1 \circ Proj_1 ) \circ ( f_1 \times f_2 )\\
+= & g_1 \circ ( Proj_1 \circ ( f_1 \times f_2 ) )\\
+= & g_1 \circ ( f_1 \circ Proj_1)\\
+= & ( g_1 \circ f_1 ) \circ Proj_1
+\end{array}
+\end{equation*}
+
+Similarly, we have $ Proj_2 \circ ( ( g_1 \times g_2 ) \circ ( f_1 \times f_2 ) ) = ( g_2 \circ f_2 ) \circ Proj_2 $.
+
+By the equation $ \langle Proj_1 \circ g , Proj_2 \circ g \rangle = g $ in definition \ref{definition:products},
+\begin{equation*}
+\begin{array}{ll}
+  & ( g_1 \times g_2 ) \circ ( f_1 \times f_2 )\\
+= & \langle Proj_1 \circ ( ( g_1 \times g_2 ) \circ ( f_1 \times f_2 ) ) , Proj_2 \circ ( ( g_1 \times g_2 ) \circ ( f_1 \times f_2 ) ) \rangle \\
+= & \langle ( g_1 \circ f_1 ) \circ Proj_1 , ( g_2 \circ f_2 ) \circ Proj_2 \rangle
+\end{array}
+\end{equation*}
+
+According to the definition of products of morphisms,
+\begin{equation*}
+\begin{array}{ll}
+  & ( g_1 \circ f_1 ) \times ( g_2 \circ f_2 )\\
+= & \langle ( g_1 \circ f_1 ) \circ Proj_1 , ( g_2 \circ f_2 ) \circ Proj_2 \rangle
+\end{array}
+\end{equation*}
+
+Therefore, the equation $ ( g_1 \times g_2 ) \circ ( f_1 \times f_2 ) = ( g_1 \circ f_1 ) \times ( g_2 \circ f_2 ) $ holds.
+\end{proof}
+
+The products in \textsc{Set} are the cartesian product of sets. Let $ A $ and $ B $ be two sets. The cartesian product $ A \times B $ is the set of pair $ \langle a, b \rangle $ with $ a \in A $ and $ b \in B $, together with the coordinate functions $ Proj_1 : A \times B \to A $ and $ Proj_2 : A \times B \to B $ such that $ Proj_1 ( \langle a, b \rangle ) = a $ and $ Proj_2 ( \langle a, b \rangle ) = b $. Given two functions $ f_1 : C \to A $ and $ f_2 : C \to B $, the function $ \langle f_1 , f_2 \rangle : C \to A \times B $ is defined by $ \langle f_1 , f_2 \rangle (c) = \langle f_1 (c) , f_2 (c) \rangle $ for all $ c \in C $. Then, given every $ f_1 : C \to A $, $ f_2 : C \to B $ and $ g : C \to A \times B $, the equations in definition \ref{definition:products} are satisfied:
+\begin{myitemize}
+\item[i)] $ Proj_i \circ \langle f_1 , f_2 \rangle = f_i $
+\begin{equation*}
+\begin{array}{ll}
+  & ( Proj_i \circ \langle f_1 , f_2 \rangle )(c)\\
+= & Proj_i ( \langle f_1 , f_2 \rangle (c) )\\
+= & Proj_i ( \langle f_1 (c) , f_2 (c) \rangle )\\
+= & f_i (c)
+\end{array}
+\end{equation*}
+\item[ii)] $ \langle Proj_1 \circ g , Proj_2 \circ g \rangle = g $
+\begin{equation*}
+\begin{array}{ll}
+  & ( \langle Proj_1 \circ g , Proj_2 \circ g \rangle )(c)\\
+= & \langle ( Proj_1 \circ g )(c) , ( Proj_2 \circ g )(c) \rangle \\
+= & \langle Proj_1 ( g(c) ) , Proj_2 ( g(c) ) \rangle \\
+= & g(c)
+\end{array}
+\end{equation*}
+\end{myitemize}
+
+\begin{definition}[\textbf{Coproducts}]
+\label{definition:coproducts}
+Let $ A $ and $ B $ be objects in category $ \mathcal{C} $. The coproduct of $ A $ and $ B $ is an object $ A+B $ together with morphisms $ I_1^{A,B} : A \to A + B $ and $ I_2^{A,B} : B \to A + B $, and for every object $ C $ in $ \mathcal{C} $ an operation $ \langle \cdot | \cdot \rangle : Hom(A,C) \times Hom(B,C) \to Hom(A+B,C) $ such that for every $ f_1 : A \to C $, $ f_2 : B \to C $ and $ g : A+B \to C $, the following equations hold:
+\begin{myitemize}
+\item $ \langle f_1 | f_2 \rangle \circ I_i = f_i $
+\item $ \langle g \circ I_1 | g \circ I_2 \rangle = g $
+\end{myitemize}
+\end{definition}
+
+The corresponding commutative diagram to the equations above is shown as follows:
+
+(diagram)
+where $ \langle f_1 | f_2 \rangle $ is the unique $ g $.
+
+The coproducts in \textsc{Set} are the disjoint unions of sets. Let $ A $ and $ B $ be two sets. The disjoint union of them is defined by $ A+B = \{ (0,a) | a \in A \} \cup \{ (1,b) | b \in B \} $ with two injection functions $ I_1 : A \to A+B $ that takes all $ a $ in $ A $ to $ (0,a) $ in $ A+B $ and $ I_2 : B \to A+B $ that takes all $ b $ in $ B $ to $ (1,b) $ in $ A+B $. Given two functions $ f_1 : A \to C $ and $ f_2 : B \to C $, the function $ \langle f_1 , f_2 \rangle : A+B \to C $ is defined by $ \langle f_1 , f_2 \rangle (( 0,x )) $
+
+
+
+%---------------------------------------------------------------------------%
+%Cartesian Closed Categories
 \subsubsection{Cartesian Closed Categories}
+\label{sec:bg_cat_ccc}
+Both products and exponentials have special importance for theories of computation. A two-argument function can be reduced to a one-argument function yielding a function from the second argument to the result. This passage is called \emph{currying}. And exponentials give a categorical interpretation to the notion of currying. Therefore, categories with products and exponentials for every pair of objects are important enough to deserve a special name.
