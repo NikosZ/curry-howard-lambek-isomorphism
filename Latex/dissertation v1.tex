@@ -12,7 +12,6 @@
 \usepackage{fancyhdr}
 \usepackage[normalem]{ulem}
 
-
 \pagestyle{fancy}
 %\fancyhf{}
 \cfoot{Page \thepage\ of \pageref{LastPage}}
@@ -28,10 +27,12 @@
 \theoremstyle{plain}
 \newtheorem{lemma}[definition]{Lemma}
 
-\theoremstyle{plain}
+\theoremstyle{definition}
 \newtheorem{proposition}[definition]{Proposition}
 
 \setlength{\mathindent}{0pt}
+
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
 
 \newenvironment{myitemize}
 {\begin{list}{$ \bullet $}{

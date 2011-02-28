@@ -1,8 +1,9 @@
+\clearpage
 \subsection{Lambda Calculus}
 \label{sec:bg_lc}
-The $ \lambda $-calculus is a family of prototype programming languages. The simplest of these languages is the pure lambda calculus which studies only functions and their applicative behavior but does not contain any constants or types.
+The $ \lambda $-calculus is a family of prototype programming languages. The simplest of these languages is the pure lambda calculus which studies only functions and their applicative behavior but does not contain any constants or types. The syntax of $ \lambda $-\emph{terms} in pure lambda calculus is simple. A $ \lambda $-term can be a \emph{term-variable}, an \emph{application}, or an \emph{abstraction}.
 
-The syntax of $ \lambda $-terms in pure lambda calculus is simple. A $ \lambda $-term can be a term-variable, an application, or an abstraction. Application is one of the primitive operations. A lambda application $ F A $ denotes that the function $ F $ is applied to the argument $ A $. Another basic operation is abstraction. Let $ M \equiv M[x] $ be an expression possibly containing or depending on variable $ x $. Then the lambda abstraction $ \lambda x.M $ denotes the function $ x \mapsto M[x] $.
+Application is one of the primitive operations. A lambda application $ F A $ denotes that the function $ F $ is applied to the argument $ A $. Another basic operation is abstraction. Let $ P \equiv P[x] $ be an expression possibly containing or depending on variable $ x $. Then the lambda abstraction $ \lambda x.P $ denotes the function $ x \mapsto P[x] $. Here, $ P $ is called the \emph{scope} of the \emph{abstractor} $ \lambda x $. In a term $ M $, if variable $ x $ occurs not in the scope of $ \lambda x $, we say $ x $ is \emph{free} in $ M $ and write the set of free variables in $ M $ as $ FV(M) $.
 
 There are three kinds of equivalences playing an important role in $ \lambda $-calculus. The first one, $ \alpha $-equivalence, states that a change of bound variables in a $ \lambda $-term does not change its meaning. $ \beta $-equivalence shows how to evaluate an application by using substitution. And $ \eta $-equivalence refers to the idea of extensionality. All of them will be discussed in more detail in \ref{sec:bg_lc_eps} which is about the proof system of the simply typed lambda calculus.
 
@@ -20,8 +21,8 @@ To begin with, we give the definition of types in $ \lambda ^\to $.
 \label{definition:types}
 Assume that a set of type-constants is given. Then the types in $ \lambda ^\to $ are defined as follows:
 \begin{myitemize}
-\item[(i)] each type-constant b is a type, called an \emph{atom} (or \emph{atomic type});
-\item[(ii)] if $ \sigma $ and $ \tau $ are types then $ \sigma \to \tau $ is a type, called a \emph{function type}.
+\item each type-constant b is a type, called an \emph{atom} (or \emph{atomic type});
+\item if $ \sigma $ and $ \tau $ are types then $ \sigma \to \tau $ is a type, called a \emph{function type}.
 \end{myitemize}
 \end{definition}
 
@@ -31,20 +32,23 @@ The syntax of $ \lambda ^\to $ is essentially that of the pure lambda calculus i
 
 However, not every pure $ \lambda $-term can be given a type. The typing constraints are context sensitive. A \emph{type-context} is any finite set of type-assignments $ \Gamma = \{ x_1 : \sigma _1 , \cdots , x_n : \sigma _n \} $ whose subjects are term-variables. We say a type-context is consistent if no term-variable in it is the subject of more than one assignment. If not specified, the type-contexts used in this dissertation are consistent.
 
-Since a type-context is a set, it does not change when its members are permuted or repeated. For notational convenience, the following abbreviations are often used:
-\begin{myitemize}
-\item $x_1 : \sigma _1 , \cdots , x_n : \sigma _n $ for $ \{ x_1 : \sigma _1 , \cdots , x_n : \sigma _n \} $
-\item $ \Gamma , x : \sigma $ for $ \Gamma \cup \{ x : \sigma \} $
-\item $ \Gamma - x : \sigma $ for $ \Gamma - \{ x : \sigma \} $
-\end{myitemize}
-
+Since a type-context is a set, it does not change when its members are permuted or repeated. For notational convenience, the following abbreviations are often used:\\
+$
+\begin{array}{rlll}
+\hspace*{12pt} \bullet & x_1 : \sigma _1 , \cdots , x_n : \sigma _n & \text{for} & \{ x_1 : \sigma _1 , \cdots , x_n : \sigma _n \} ; \\
+\bullet & \Gamma , x : \sigma & \text{for} & \Gamma \cup \{ x : \sigma \} ; \\
+\bullet & \Gamma - x : \sigma & \text{for} & \Gamma - \{ x : \sigma \} .
+\end{array}
+$
+\\
+\\
 Given a type-context $ \Gamma $, a $ \lambda $-term $ M $ and a type $ \sigma $, the expression $ \Gamma \triangleright M: \sigma $ is called a \emph{typing judgement}, meaning term $ M $ has type $ \sigma $ in context $ \Gamma $. However, not all the terms of this pattern are valid. To define well-typed lambda terms of a given type, some typing rules are needed.
 
 \begin{definition}[\textbf{Typing Rules of $ \lambda ^\to $}]
 \label{definition:typ_rules}
 Assume that a set of term variables is provided. The well-typed terms in $ \lambda ^\to $ are defined simultaneously using the following axioms and inference rules:
 \begin{myitemize}
-\item[(1)] \emph{Axioms for variable} ($ var $)\\
+\item \emph{Axioms for variable} ($ var $)\\
 For each term-variable $ x $ and each type $ \sigma $,
 \begin{prooftree}
 \AxiomC{}
@@ -52,7 +56,7 @@ For each term-variable $ x $ and each type $ \sigma $,
 \UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
 \end{prooftree}
 It simply says that if $ x $ has type $ \sigma $ in the context, intuitively, then $ x $ has type $ \sigma $. In other words, a variable $ x $ has any type which it is declared to have.
-\item[(2)] \emph{Adding variables to type context} ($ add $ $ var $)\\
+\item \emph{Adding variables to type context} ($ add $ $ var $)\\
 Suppose $ x $ is not free in $ M $,
 \begin{prooftree}
 \AxiomC{$ \Gamma \triangleright M: \tau $}
@@ -60,14 +64,14 @@ Suppose $ x $ is not free in $ M $,
 \UnaryInfC{$ \Gamma , x: \sigma \triangleright M: \tau $}
 \end{prooftree}
 In words, if $ M $ has type $ \tau $ in context $ \Gamma $, then it has type $ \tau $ in context $ \Gamma , x: \sigma $, which allows one to add an additional hypothesis to the type context.
-\item[(3)] \emph{$ \to $-introduction} ($ \to $I)
+\item \emph{$ \to $-introduction} ($ \to $I)
 \begin{prooftree}
 \AxiomC{$ \Gamma \triangleright M: \tau $}
 \RightLabel{($ \to $I)}
 \UnaryInfC{$ \Gamma - x: \sigma \triangleright \lambda x: \sigma . M: \sigma \to \tau $}
 \end{prooftree}
 If a term $ M $ specifies a result of type $ \tau $ for all $ x: \sigma $, then the expression $ \lambda x: \sigma . M $ defines a function of type $ \sigma \to \tau $.
-\item[(4)] \emph{$ \to $-elimination} ($ \to $E)
+\item \emph{$ \to $-elimination} ($ \to $E)
 \begin{prooftree}
 \AxiomC{$ \Gamma \triangleright M: \sigma \to \tau $}
 \AxiomC{$ \Gamma \triangleright N: \sigma $}
@@ -173,15 +177,238 @@ As mentioned before, not every term can be typed. Take the term $ x x $ for exam
 %Equational Proof System
 \subsubsection{Equational Proof System of $ \lambda ^\to $}
 \label{sec:bg_lc_eps}
-To derive equations of terms in $ \lambda ^\to $ that holds in all models, we need an equational proof system for $ \lambda ^\to $. A typed equation has the form $ \Gamma \vdash M=N:\sigma $ where both $ M $ and $ N $ are assumed to have type $ \sigma $ in context $ \Gamma $. Since type assignments are included in equations, we have an equational version of the typing rules that build well-typed equations in $ \lambda ^\to $.
+To derive equations of terms in $ \lambda ^\to $ that hold in all models, we need an equational proof system for $ \lambda ^\to $. A typed equation has the form $ \Gamma \vdash M=N:\sigma $ where both $ M $ and $ N $ are assumed to have type $ \sigma $ in context $ \Gamma $. Since type assignments are included in equations, we have an equational version of the typing rules that build well-typed equations in $ \lambda ^\to $.
+
+The simply typed lambda calculus has the same theory of $ \alpha $-, $ \beta $- and $ \eta $-equivalence as the pure lambda calculus. Since $ \alpha $- and $ \beta $-equivalence are defined by substitution, the definition of substitution is given first.
+
+\begin{definition}[\textbf{Substitution}]
+\label{definition:substitution}
+We define $ [N/x]M $ to be the result of substituting $ N $ for each free occurrence $ x $ in $ M $ and making any changes of bound variables needed to prevent variables free in $ N $ from becoming bound in $ [N/x]M $. More precisely, we define for all $ x $, $ N $, $ P $, $ Q $ and all $ y \not\equiv x $\\
+$
+\begin{array}{rllll}
+\hspace*{12pt} \bullet & [N/x]x & \equiv & N; & \\
+\bullet & [N/x]y & \equiv & y; & \\
+\bullet & [N/x](PQ) & \equiv & ([N/x]P)([N/x]Q); & \\
+\bullet & [N/x](\lambda x.P) & \equiv & \lambda x.P; & \\
+\bullet & [N/x](\lambda y.P) & \equiv & \lambda y.[N/x]P & \text{if } x \in FV(P) \text{ and } y \not\in FV(N); \\
+\bullet & [N/x](\lambda y.P) & \equiv & \lambda z.[N/x][z/y]P & \text{if } x \in FV(P) \text{ and } y \in FV(N). \\
+\end{array}
+$
+In the last case, $ z $ can be any variable that $ z \not\in FV(P) $ and $ z \not\in FV(N) $.
+\end{definition}
+
+For any $ N_1, \cdots , N_n $ and any distinct $ x_1, \cdots , x_n $, the result of simultaneously substituting all $ N_i $ for $ x_i $ ($ i = 1, \cdots , n $) in term $ M $ is defined similarly to the definition above and denoted as $ [N_1/x_1, \cdots , N_n/x_n]M $.
+\mbox\\
+\begin{definition}[\textbf{$ \alpha $-equivalence}]
+\label{definition:alpha}
+Given a variable $ y $ which is not free in $ M $, we have
+\begin{center}
+$ \lambda x.M =_\alpha \lambda y.[y/x]M $
+\end{center}
+and the act of replacing an occurrence of $ \lambda x.M $ in a term by $ \lambda y.[y/x]M $ is called a \emph{change of bound variables}. $ M $ and $ N $ are $ \alpha $-\emph{equivalent}, notation $ M =_\alpha N $, if $ N $ results from $ M $ by a series of changes of bound variables.
+\end{definition}
+\mbox\\
+\begin{definition}[\textbf{$ \beta $-equivalence}]
+\label{definition:beta}
+\mbox\\
+\begin{myitemize}
+\item A $ \beta $-\emph{redex} is any sub-term of the form $ (\lambda x.M)N $. It can be reduced by the following rule
+\begin{center}
+$ (\lambda x.M)N  \to _\beta [N/x]M $
+\end{center}
+If $ P $ contains a $ \beta $-redex $ (\lambda x.M)N $ and $ Q $ is the result of replacing it by $ [N/x]M $, we say $ P $ $ \beta $-\emph{contracts} to $ Q $, denoted as $ P \to _\beta Q $.
+\item A $ \beta $-\emph{reduction} of a term $ P $ is a finite or infinite ordered sequence of $ \beta $-contractions, i.e. $ P \to _\beta P_1 \to _\beta P_2 \to _\beta \cdots $. A finite $ \beta $-reduction is \emph{from} $ P $ \emph{to} $ Q $ if it has $ n \geq 1 $ contractions and $ P_n = _\alpha Q $ or it is empty and $ P = _\alpha Q $. If there exists a reduction from $ P $ to $ Q $, we say $ P $ $ \beta $-\emph{reduces} to $ Q $, denoted as $ P \twoheadrightarrow _\beta Q $. We can see that $ \alpha $-conversions are allowed in a $ \beta $-reduction.
+\item $ P $ and $ Q $ are $ \beta $-\emph{equivalent}, notation $ P =_\beta Q $, if $ P $ can be changed to $ Q $ by a finite sequence of $ \beta $-reductions and reversed $ \beta $-reductions (also called $ \beta $-\emph{expansions}).
+\end{myitemize}
+\end{definition}
+
+A term may be able to $ \beta $-reduce to different terms at the same time. For example, the term $ (\lambda x.M)((\lambda y.N)P) $ can $ \beta $-reduce (in one step) to $ [((\lambda y.N)P)/x]M $ by substituting $ ((\lambda y.N)P) $ to $ x $ in $ M $ or $ (\lambda x.M)([P/y]N) $ by substituting $ P $ to $ y $ in $ N $. It is necessary for a calculus that the result of computation is independent from the order of reduction. This property holds for all $ \lambda $-terms and is described in \emph{Church-Rosser Theorem for $ \beta $}.
+\mbox\\
+\begin{definition}[\textbf{$ \eta $-equivalence}]
+\label{definition:eta}
+An $ \eta $-\emph{redex} is any term of form  $ \lambda x.Mx $ with $ x \not\in FV(M) $. It can be reduced in accordance with the following rule
+\begin{center}
+$ \lambda x.Mx \to _\eta M $
+\end{center}
+The definition of $ \eta $-\emph{contracts}, $ \eta $-\emph{reduces} ($ \twoheadrightarrow _\eta $), $ \eta $-\emph{equivalence} ($ =_\eta $), etc. are similar to those of the corresponding $ \beta $-concepts in definition \ref{definition:beta}. However, all $ \eta $-reductions are finite while $ \beta $-reductions may be infinite.
+\end{definition}
+
+Similarly, the result of computation is independent from the order of $ \eta $-reduction which is described in \emph{Church-Rosser Theorem for $ \eta $}.
+\\
+\\
+Now, we can define the typing rules for typed equations in $ \lambda ^\to $.
+\begin{definition}[\textbf{Typing Rules for Typed Equations in $ \lambda ^\to $}]
+\label{definition:type_rules_eqn}
+The typed equations in $ \lambda ^\to $ are generated by using the following typing rules:
+\begin{myitemize}
+\item \emph{Reflexivity} ($ ref $)
+\begin{prooftree}
+\AxiomC{}
+\RightLabel{($ ref $)}
+\UnaryInfC{$ \Gamma \triangleright M = M: \sigma $}
+\end{prooftree}
+
+\item \emph{Symmetry} ($ sym $)
+\begin{prooftree}
+\AxiomC{$ \Gamma \triangleright M = N: \sigma $}
+\RightLabel{($ sym $)}
+\UnaryInfC{$ \Gamma \triangleright N = M: \sigma $}
+\end{prooftree}
+
+\item \emph{Transitivity} ($ trans $)
+\begin{prooftree}
+\AxiomC{$ \Gamma \triangleright M = N: \sigma $}
+\AxiomC{$ \Gamma \triangleright N = P: \sigma $}
+\RightLabel{($ trans $)}
+\BinaryInfC{$ \Gamma \triangleright M = P: \sigma $}
+\end{prooftree}
+\end{myitemize}
+As an equivalence relation, the equality in $ \lambda ^\to $ should have the above three properties, reflexivity, symmetry and transitivity.
+
+\begin{myitemize}
+\item \emph{Adding variables to type context} ($ add $ $ var $)\\
+suppose $ x $ is not free in $ M $ or $ N $,
+\begin{prooftree}
+\AxiomC{$ \Gamma \triangleright M = N: \tau $}
+\RightLabel{($ add $ $ var $)}
+\UnaryInfC{$ \Gamma , x: \sigma \triangleright M = N: \tau $}
+\end{prooftree}
+
+\item \emph{$ \to $-introduction} ($ \to $-I)
+\begin{prooftree}
+\AxiomC{$ \Gamma \triangleright M = N: \tau $}
+\RightLabel{($ \to $-I)}
+\UnaryInfC{$ \Gamma - x: \sigma \triangleright \lambda x: \sigma .M = \lambda x: \sigma .N: \sigma \to \tau $}
+\end{prooftree}
+This rule says that if $ M $ and $ N $ are equal for all values of $ x $, then the two functions $ \lambda x: \sigma .M $ and $ \lambda x: \sigma .N $ are equal, i.e. lambda abstraction preserves equality.
+
+\item \emph{$ \to $-elimination} ($ \to $-E)
+\begin{prooftree}
+\AxiomC{$ \Gamma \triangleright M = M': \sigma \to \tau $}
+\AxiomC{$ \Gamma \triangleright N = N': \sigma $}
+\RightLabel{($ \to $-E)}
+\BinaryInfC{$ \Gamma \triangleright MN = M'N': \tau $}
+\end{prooftree}
+It says that equals applied to equals yield equals, i.e. application preserves equality.
+\end{myitemize}
+The three rules above can be seen as the equational versions of the typing rules corresponding to the ones for well-typed terms.
+
+\begin{myitemize}
+\item \emph{$ \alpha $-equivalence} ($ \alpha $)\\
+suppose $ y $ is not free in $ M $,
+\begin{prooftree}
+\AxiomC{}
+\RightLabel{($ \alpha $)}
+\UnaryInfC{$ \Gamma \triangleright \lambda x: \sigma .M = \lambda y: \sigma .[y/x]M: \sigma \to \tau $}
+\end{prooftree}
+It allows one to rename bound variables.
+
+\item \emph{$ \beta $-equivalence} ($ \beta $)
+\begin{prooftree}
+\AxiomC{}
+\RightLabel{($ \beta $)}
+\UnaryInfC{$ \Gamma \triangleright (\lambda x: \sigma .M)N = [N/x]M: \tau $}
+\end{prooftree}
+It shows how to evaluate a function application using substitution.
+
+\item \emph{$ \eta $-equivalence} ($ \eta $)\\
+suppose $ x $ is not free in $ M $,
+\begin{prooftree}
+\AxiomC{}
+\RightLabel{($ \eta $)}
+\UnaryInfC{$ \Gamma \triangleright \lambda x: \sigma .Mx = M: \sigma \to \tau $}
+\end{prooftree}
+It says that $ \lambda x: \sigma .Mx $ and $ M $ define the same function, since by ($ \beta $) we have $ (\lambda x: \sigma .Mx)y = My $ for any argument $ y: \sigma $.
+
+\end{myitemize}
+\end{definition}
 
 
 %---------------------------------------------------------------------------%
 %Other Types
 \subsubsection{Other Types}
 \label{sec:bg_lc_ot}
-Except function type, the simply typed lambda calculus may have products, sums, initial and terminal types. Their definitions and the typing rules for them are listed below.
+Except function type, different versions of the simply typed lambda calculus may have products, sums, initial and terminal types. Their definitions and the typing rules for them are listed below.
 
-\begin{definition}[\textbf{}]
-\label{definition:}
+\begin{definition}[\textbf{Initial and Terminal Types}]
+\label{definition:ini_ter_types}
+The \emph{initial type}, denoted as $ null $, is an empty type and, for each type $ \sigma $, there is a unique term constant
+\begin{center}
+$ \text{Zero}^\sigma : null \to \sigma $
+\end{center}
+The \emph{terminal type}, denoted as $ unit $, is a type such that there is only one term associated with it, $ \ast : unit $, and, for each type $ \sigma $, there is a unique term constant
+\begin{center}
+$ \text{One}^\sigma : \sigma \to unit $
+\end{center}
 \end{definition}
+\mbox\\
+\begin{definition}[\textbf{Products}]
+\label{definition:lc_products}
+If $ \sigma $ and $ \tau $ are types then $ \sigma \times \tau $ is a type, called the \emph{product} of $ \sigma $ and $ \tau $. Given $ M: \sigma $ and $ N: \tau $, the pair $ \langle M,N \rangle $ has type $ \sigma \times \tau $. The projection terms $ \text{Proj}^{ \sigma , \tau }_1 : \sigma \times \tau \to \sigma $ and $ \text{Proj}^{ \sigma , \tau }_2 : \sigma \times \tau \to \tau $ are the coordinate functions that return the first and second components in a pair. The typing rules for products are given as follows:
+\begin{myitemize}
+\item \emph{$ \times $-introduction} ($ \times $I)
+\begin{prooftree}
+\AxiomC{$ \Gamma \triangleright M: \sigma $}
+\AxiomC{$ \Gamma \triangleright N: \tau $}
+\RightLabel{($ \times $I)}
+\BinaryInfC{$ \Gamma \triangleright \langle M, N \rangle : \sigma \times \tau $}
+\end{prooftree}
+
+\item \emph{$ \times $-elimination} ($ \times $E)
+\begin{center}
+\AxiomC{$ \Gamma \triangleright M: \sigma \times \tau $}
+\RightLabel{$ {( \times \text{E} )}_1 $}
+\UnaryInfC{$ \Gamma \triangleright \text{Proj}^{ \sigma , \tau }_1 M: \sigma $}
+\DisplayProof \hspace*{10pt}
+\AxiomC{$ \Gamma \triangleright M: \sigma \times \tau $}
+\RightLabel{$ {( \times \text{E} )}_2 $}
+\UnaryInfC{$ \Gamma \triangleright \text{Proj}^{ \sigma , \tau }_2 M: \tau $}
+\DisplayProof
+\end{center}
+\end{myitemize}
+\end{definition}
+\mbox\\
+\begin{definition}[\textbf{Sums}]
+\label{definition:lc_sums}
+If $ \sigma $ and $ \tau $ are types then $ \sigma + \tau $ is a type, called the \emph{sum} of
+$ \sigma $ and $ \tau $. The term constants associated with sums are injections $ \text{Inleft}^{ \sigma , \tau } : \sigma \to \sigma + \tau $ and $ \text{Inright}^{ \sigma , \tau } : \tau \to \sigma + \tau $ that construct terms of type $ \sigma + \tau $ from a term of type either $ \sigma $ or $ \tau $, and $ \text{Case}^{ \sigma , \tau , \rho } : ( \sigma + \tau ) \to ( \sigma \to \rho ) \to ( \tau \to \rho ) \to \rho $. The typing rules for sums are given as follows:
+\begin{myitemize}
+\item \emph{$ + $-introduction} ($ + $I)
+\begin{center}
+\AxiomC{$ \Gamma \triangleright M: \sigma $}
+\RightLabel{$ {( + \text{I} )}_1 $}
+\UnaryInfC{$ \Gamma \triangleright \text{Inleft}^{ \sigma , \tau } M: \sigma + \tau $}
+\DisplayProof \hspace*{10pt}
+\AxiomC{$ \Gamma \triangleright M: \tau $}
+\RightLabel{$ {( + \text{I} )}_2 $}
+\UnaryInfC{$ \Gamma \triangleright \text{Inright}^{ \sigma , \tau } M: \sigma + \tau $}
+\DisplayProof
+\end{center}
+
+\item \emph{$ + $-elimination} ($ + $E)
+\begin{prooftree}
+\AxiomC{$ \Gamma \triangleright M: \sigma + \tau $}
+\AxiomC{$ \Gamma \triangleright N: \sigma \to \rho $}
+\AxiomC{$ \Gamma \triangleright P: \tau \to \rho $}
+\RightLabel{($ + $E)}
+\TrinaryInfC{$ \Gamma \triangleright \text{Case}^{ \sigma , \tau , \rho } MNP: \rho $}
+\end{prooftree}
+\end{myitemize}
+\end{definition}
+\mbox\\
+\\
+With initial type, terminal type, function types, products and sums, the type expressions in the \emph{full simply typed lambda calculus} $ \lambda ^{ null, unit, \to , \times , + } $ are given by the following grammar
+\begin{center}
+$ \sigma \hspace*{6pt} ::= \hspace*{6pt} b \hspace*{6pt} | \hspace*{6pt} null \hspace*{6pt} | \hspace*{6pt} unit \hspace*{6pt} | \hspace*{6pt} \sigma \to \sigma \hspace*{6pt} | \hspace*{6pt} \sigma \times \sigma \hspace*{6pt} | \hspace*{6pt} \sigma + \sigma $
+\end{center}
+where $ b $ is the type constant.
+
+The $ \lambda $-terms in $ \lambda ^{ null, unit, \to , \times , + } $ are given by
+\begin{center}
+$
+\begin{array}{rl}
+M \hspace*{6pt} ::= \hspace*{6pt} & \ast \hspace*{6pt} | \hspace*{6pt} M \text{ } M \hspace*{6pt} | \hspace*{6pt} \lambda x: \sigma .M \hspace*{6pt} | \hspace*{6pt} \langle M,M \rangle \hspace*{6pt} | \hspace*{6pt} \text{Proj}_1 \text{ } M \hspace*{6pt} | \hspace*{6pt} \text{Proj}_2 \text{ } M \hspace*{6pt} | \\
+  & \text{Inlef} \text{ } M \hspace*{6pt} | \hspace*{6pt} \text{Inright} \text{ } M \hspace*{6pt} | \hspace*{6pt} \text{Case} \text{ } M \text{ } M \text{ } M
+\end{array}
+$
+\end{center}
