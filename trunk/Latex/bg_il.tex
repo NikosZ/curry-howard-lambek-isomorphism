@@ -41,7 +41,7 @@ where $ P_1 , \cdots , P_n $ are premises and $ Q $ is the conclusion. A rule wi
 \label{definition:nat_ded_sys}
 Given a set of propositional variable, the relation $ \Gamma \vdash \varphi $ is obtained by using the following axiom and inference rules
 \begin{myitemize}
-\item \emph{Axiom}
+\item \emph{Axiom} ($ axiom $)
 \begin{prooftree}
 \AxiomC{}
 \RightLabel{($ axiom $)}
@@ -49,7 +49,7 @@ Given a set of propositional variable, the relation $ \Gamma \vdash \varphi $ is
 \end{prooftree}
 Intuitively, one can conclude proposition $ \varphi $ since it already appears in the context. Someone may give it a more general form ``$ \Gamma , \varphi \vdash \varphi $''. However, this form can be obtained by using $ \varphi \vdash \varphi $ and weakening which is given below as another inference rule.
 
-\item \emph{Adding hypotheses into context}
+\item \emph{Adding hypotheses into context} ($ add $)
 \begin{prooftree}
 \AxiomC{$ \Gamma \vdash \varphi $}
 \RightLabel{($ add $)}
@@ -57,7 +57,7 @@ Intuitively, one can conclude proposition $ \varphi $ since it already appears i
 \end{prooftree}
 The property captured in this rule states that hypotheses of any derived conclusions can be extended with additional assumptions. This rule is also called \emph{weakening}.
 
-\item \emph{$ \to $-introduction}
+\item \emph{$ \to $-introduction} ($ \to $I)
 \begin{prooftree}
 \AxiomC{$ \Gamma , \varphi \vdash \psi $}
 \RightLabel{($ \to $I)}
@@ -65,7 +65,7 @@ The property captured in this rule states that hypotheses of any derived conclus
 \end{prooftree}
 If one can derive $ \psi $ from the context with $ \phi $ as a hypothesis, then $ \varphi \to \psi $ is derivable from the same context without $ \varphi $.
 
-\item \emph{$ \to $-elimination}
+\item \emph{$ \to $-elimination} ($ \to $E)
 \begin{prooftree}
 \AxiomC{$ \Gamma \vdash \varphi \to \psi $}
 \AxiomC{$ \Gamma \vdash \varphi $}
@@ -74,7 +74,7 @@ If one can derive $ \psi $ from the context with $ \phi $ as a hypothesis, then 
 \end{prooftree}
 If both the conditional claim ``if $ \varphi $ then $ \psi $'' and $ \varphi $ are provided, one can conclude $ \psi $. As mentioned in the beginning, this is a very common inference rule which is also called \emph{modus ponens}.
 
-\item \emph{$ \land $-introduction}
+\item \emph{$ \land $-introduction} ($ \land $I)
 \begin{prooftree}
 \AxiomC{$ \Gamma \vdash \varphi $}
 \AxiomC{$ \Gamma \vdash \psi $}
@@ -83,7 +83,7 @@ If both the conditional claim ``if $ \varphi $ then $ \psi $'' and $ \varphi $ a
 \end{prooftree}
 If both $ \varphi $ and $ \psi $ are derivable from $ \Gamma $, $ \varphi \land \psi $ is also derivable.
 
-\item \emph{$ \land $-elimination}
+\item \emph{$ \land $-elimination} ($ \land $E)
 \begin{center}
 \AxiomC{$ \Gamma \vdash \varphi \land \psi $}
 \RightLabel{($ \land $E$ _1 $)}
@@ -96,7 +96,7 @@ If both $ \varphi $ and $ \psi $ are derivable from $ \Gamma $, $ \varphi \land 
 \end{center}
 Provided that conjunction $ \varphi \land \psi $ is derivable from $ \Gamma $, both of its components are also derivable.
 
-\item \emph{$ \lor $-introduction}
+\item \emph{$ \lor $-introduction} ($ \lor $I)
 \begin{center}
 \AxiomC{$ \Gamma \vdash \varphi $}
 \RightLabel{($ \lor $I$ _1 $)}
@@ -109,7 +109,7 @@ Provided that conjunction $ \varphi \land \psi $ is derivable from $ \Gamma $, b
 \end{center}
 One can conclude disjunction $ \varphi \lor \psi $ from either $ \varphi $ or $ \psi $.
 
-\item \emph{$ \lor $-elimination}
+\item \emph{$ \lor $-elimination} ($ \lor $E)
 \begin{prooftree}
 \AxiomC{$ \Gamma \vdash \varphi \to \rho $}
 \AxiomC{$ \Gamma \vdash \psi \to \rho $}
@@ -119,7 +119,7 @@ One can conclude disjunction $ \varphi \lor \psi $ from either $ \varphi $ or $ 
 \end{prooftree}
 If $ \rho $ follows $ \varphi $, $ \rho $ follows $ \psi $ and $ \varphi \lor \psi $, one can conclude $ \rho $.
 
-\item \emph{$ \bot $-elimination}
+\item \emph{$ \bot $-elimination} $ \bot $E
 \begin{prooftree}
 \AxiomC{$ \Gamma \vdash \bot $}
 \RightLabel{($ \bot $E)}

@@ -48,19 +48,19 @@ Given a type-context $ \Gamma $, a $ \lambda $-term $ M $ and a type $ \sigma $,
 \label{definition:typ_rules}
 Assume that a set of term variables is provided. The well-typed terms in $ \lambda ^\to $ are defined simultaneously using the following axioms and inference rules:
 \begin{myitemize}
-\item \emph{Axioms for variable} ($ var $)\\
+\item \emph{Axiom} ($ axiom $)\\
 For each term-variable $ x $ and each type $ \sigma $,
 \begin{prooftree}
 \AxiomC{}
-\RightLabel{($ var $)}
+\RightLabel{($ axiom $)}
 \UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
 \end{prooftree}
 It simply says that if $ x $ has type $ \sigma $ in the context, intuitively, then $ x $ has type $ \sigma $. In other words, a variable $ x $ has any type which it is declared to have.
-\item \emph{Adding variables to type context} ($ add $ $ var $)\\
+\item \emph{Adding variables to type context} ($ add $)\\
 Suppose $ x $ is not free in $ M $,
 \begin{prooftree}
 \AxiomC{$ \Gamma \triangleright M: \tau $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ \Gamma , x: \sigma \triangleright M: \tau $}
 \end{prooftree}
 In words, if $ M $ has type $ \tau $ in context $ \Gamma $, then it has type $ \tau $ in context $ \Gamma , x: \sigma $, which allows one to add an additional hypothesis to the type context.
@@ -96,9 +96,8 @@ The combinators  \textbf{K} and \textbf{S} are used as examples to demonstrate h
 \item[(1)] $ \emptyset \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $
 \begin{prooftree}
 \AxiomC{}
-\RightLabel{($ var $)}
 \UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ x: \sigma , y: \tau \triangleright x: \sigma $}
 \RightLabel{($ \to $I)}
 \UnaryInfC{$ x: \sigma \triangleright \lambda y: \tau . x: \tau \to \sigma $}
@@ -112,31 +111,28 @@ $ : ( \sigma \to \tau \to \rho ) \to ( \sigma \to \tau ) \to \sigma \to \rho $
 \begin{prooftree}
 (I)
 \AxiomC{}
-\RightLabel{($ var $)}
 \UnaryInfC{$ x: \sigma \to \tau \to \rho \triangleright x: \sigma \to \tau \to \rho $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau \triangleright x: \sigma \to \tau \to \rho $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright x: \sigma \to \tau \to \rho $}
 \end{prooftree}
 \begin{prooftree}
 (II)
 \AxiomC{}
-\RightLabel{($ var $)}
 \UnaryInfC{$ y: \sigma \to \tau \triangleright y: \sigma \to \tau $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau \triangleright y: \sigma \to \tau $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright y: \sigma \to \tau $}
 \end{prooftree}
 \begin{prooftree}
 (III)
 \AxiomC{}
-\RightLabel{($ var $)}
 \UnaryInfC{$ z: \sigma \triangleright z: \sigma $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ x: \sigma \to \tau \to \rho , z: \sigma \triangleright z: \sigma $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright z: \sigma $}
 \end{prooftree}
 \begin{prooftree}
@@ -170,7 +166,7 @@ $ : ( \sigma \to \tau \to \rho ) \to ( \sigma \to \tau ) \to \sigma \to \rho $
 \end{flushright}
 \end{myitemize}
 
-As mentioned before, not every term can be typed. Take the term $ x x $ for example. As an application, its first component $ x $ should have a function type $ \sigma \to \tau $ and then its second $ x $ should have type $ \sigma $. In order to construct a derivation tree, we need two sub-trees, one with conclusion $ \Gamma \triangleright x: \sigma \to \tau $ and another with conclusion $ \Gamma \triangleright x : \sigma $, in accordance with the rule ($ \to $E). Since $ x $ is a term-variable, the axiom ($ var $) tells us both $ x : \sigma \to \tau $ and $ x: \sigma $ appear in context $ \Gamma $, which means $ \Gamma $ is inconsistent. Therefore, we are unable to find a consistent context for $ x x $ and it cannot be typed.
+As mentioned before, not every term can be typed. Take the term $ x x $ for example. As an application, its first component $ x $ should have a function type $ \sigma \to \tau $ and then its second $ x $ should have type $ \sigma $. In order to construct a derivation tree, we need two sub-trees, one with conclusion $ \Gamma \triangleright x: \sigma \to \tau $ and another with conclusion $ \Gamma \triangleright x : \sigma $, in accordance with the rule ($ \to $E). Since $ x $ is a term-variable, the axiom ($ axiom $) tells us both $ x : \sigma \to \tau $ and $ x: \sigma $ appear in context $ \Gamma $, which means $ \Gamma $ is inconsistent. Therefore, we are unable to find a consistent context for $ x x $ and it cannot be typed.
 
 
 %---------------------------------------------------------------------------%
@@ -266,27 +262,27 @@ The typed equations in $ \lambda ^\to $ are generated by using the following typ
 As an equivalence relation, the equality in $ \lambda ^\to $ should have the above three properties, reflexivity, symmetry and transitivity.
 
 \begin{myitemize}
-\item \emph{Adding variables to type context} ($ add $ $ var $)\\
+\item \emph{Adding variables to type context} ($ add $)\\
 suppose $ x $ is not free in $ M $ or $ N $,
 \begin{prooftree}
 \AxiomC{$ \Gamma \triangleright M = N: \tau $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ \Gamma , x: \sigma \triangleright M = N: \tau $}
 \end{prooftree}
 
-\item \emph{$ \to $-introduction} ($ \to $-I)
+\item \emph{$ \to $-introduction} ($ \to $I)
 \begin{prooftree}
 \AxiomC{$ \Gamma \triangleright M = N: \tau $}
-\RightLabel{($ \to $-I)}
+\RightLabel{($ \to $I)}
 \UnaryInfC{$ \Gamma - x: \sigma \triangleright \lambda x: \sigma .M = \lambda x: \sigma .N: \sigma \to \tau $}
 \end{prooftree}
 This rule says that if $ M $ and $ N $ are equal for all values of $ x $, then the two functions $ \lambda x: \sigma .M $ and $ \lambda x: \sigma .N $ are equal, i.e. lambda abstraction preserves equality.
 
-\item \emph{$ \to $-elimination} ($ \to $-E)
+\item \emph{$ \to $-elimination} ($ \to $E)
 \begin{prooftree}
 \AxiomC{$ \Gamma \triangleright M = M': \sigma \to \tau $}
 \AxiomC{$ \Gamma \triangleright N = N': \sigma $}
-\RightLabel{($ \to $-E)}
+\RightLabel{($ \to $E)}
 \BinaryInfC{$ \Gamma \triangleright MN = M'N': \tau $}
 \end{prooftree}
 It says that equals applied to equals yield equals, i.e. application preserves equality.
@@ -357,11 +353,11 @@ If $ \sigma $ and $ \tau $ are types then $ \sigma \times \tau $ is a type, call
 \item \emph{$ \times $-elimination} ($ \times $E)
 \begin{center}
 \AxiomC{$ \Gamma \triangleright M: \sigma \times \tau $}
-\RightLabel{$ {( \times \text{E} )}_1 $}
+\RightLabel{($ \times $E$ _1 $)}
 \UnaryInfC{$ \Gamma \triangleright \text{Proj}^{ \sigma , \tau }_1 M: \sigma $}
 \DisplayProof \hspace*{10pt}
 \AxiomC{$ \Gamma \triangleright M: \sigma \times \tau $}
-\RightLabel{$ {( \times \text{E} )}_2 $}
+\RightLabel{($ \times $E$ _2 $)}
 \UnaryInfC{$ \Gamma \triangleright \text{Proj}^{ \sigma , \tau }_2 M: \tau $}
 \DisplayProof
 \end{center}
@@ -376,11 +372,11 @@ $ \sigma $ and $ \tau $. The term constants associated with sums are injections 
 \item \emph{$ + $-introduction} ($ + $I)
 \begin{center}
 \AxiomC{$ \Gamma \triangleright M: \sigma $}
-\RightLabel{$ {( + \text{I} )}_1 $}
+\RightLabel{($ + $I$ _1 $)}
 \UnaryInfC{$ \Gamma \triangleright \text{Inleft}^{ \sigma , \tau } M: \sigma + \tau $}
 \DisplayProof \hspace*{10pt}
 \AxiomC{$ \Gamma \triangleright M: \tau $}
-\RightLabel{$ {( + \text{I} )}_2 $}
+\RightLabel{($ + $I$ _2 $)}
 \UnaryInfC{$ \Gamma \triangleright \text{Inright}^{ \sigma , \tau } M: \sigma + \tau $}
 \DisplayProof
 \end{center}
@@ -407,8 +403,8 @@ The $ \lambda $-terms in $ \lambda ^{ null, unit, \to , \times , + } $ are given
 \begin{center}
 $
 \begin{array}{rl}
-M \hspace*{6pt} ::= \hspace*{6pt} & \ast \hspace*{6pt} | \hspace*{6pt} M \text{ } M \hspace*{6pt} | \hspace*{6pt} \lambda x: \sigma .M \hspace*{6pt} | \hspace*{6pt} \langle M,M \rangle \hspace*{6pt} | \hspace*{6pt} \text{Proj}_1 \text{ } M \hspace*{6pt} | \hspace*{6pt} \text{Proj}_2 \text{ } M \hspace*{6pt} | \\
-  & \text{Inlef} \text{ } M \hspace*{6pt} | \hspace*{6pt} \text{Inright} \text{ } M \hspace*{6pt} | \hspace*{6pt} \text{Case} \text{ } M \text{ } M \text{ } M
+M \hspace*{6pt} ::= & \text{Zero} \hspace*{6pt} | \hspace*{6pt} \ast \hspace*{6pt} | \hspace*{6pt} \text{One} \hspace*{6pt} | \hspace*{6pt} M \text{ } M \hspace*{6pt} | \hspace*{6pt} \lambda x: \sigma .M \hspace*{6pt} | \hspace*{6pt} \langle M,M \rangle \hspace*{6pt} | \hspace*{6pt} \text{Proj}_1 \text{ } M \hspace*{6pt} | \\
+  & \text{Proj}_2 \text{ } M \hspace*{6pt} | \hspace*{6pt}\text{Inleft} \text{ } M \hspace*{6pt} | \hspace*{6pt} \text{Inright} \text{ } M \hspace*{6pt} | \hspace*{6pt} \text{Case} \text{ } M \text{ } M \text{ } M
 \end{array}
 $
 \end{center}

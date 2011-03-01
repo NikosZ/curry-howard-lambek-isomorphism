@@ -4,52 +4,50 @@ The proof trees in \ref{sec:bg_il_s} have a similar shape to the type-derivation
 
 \begin{prooftree}
 \AxiomC{}
-\RightLabel{($ var $)}
 \UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ x: \sigma , y: \tau \triangleright x: \sigma $}
 \RightLabel{($ \to $I)}
 \UnaryInfC{$ x: \sigma \triangleright \lambda y: \tau . x: \tau \to \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \emptyset \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $}
+\UnaryInfC{$ \emptyset \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to ( \tau \to \sigma ) $}
 \end{prooftree}
 
-The tree above is a type-derivation of $ \lambda $-term $ \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $. Let us erase the terms in the tree. If we consider every type-symbol as a propositional variable and the relation ``$ \triangleright $'' as ``$ \vdash $'', then the tree in the right side is exactly a proof tree, which means we obtain a proof of the conclusion represented by the type of the term in the bottom of the tree. Here, the proven proposition is $ \sigma \to \tau \to \sigma $.
+The tree above is a type-derivation of $ \lambda $-term $ \lambda x: \sigma . \lambda y: \tau . x: \sigma \to ( \tau \to \sigma ) $. Let us erase the terms in the tree. If we consider every type-symbol as a propositional variable and the relation ``$ \triangleright $'' as ``$ \vdash $'', then the tree in the right side is exactly a proof tree, which means we obtain a proof of the conclusion represented by the type of the term in the bottom of the tree. Here, the proven proposition is $ \sigma \to ( \tau \to \sigma ) $.
 \begin{center}
 \AxiomC{}
-\RightLabel{($ var $)}
 \UnaryInfC{\sout{$ x: $} $\sigma \triangleright$ \sout{$ x: $} $ \sigma $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{\sout{$ x: $} $ \sigma $, \sout{$ y: $} $\tau \triangleright $ \sout{$ x: $} $ \sigma $}
 \RightLabel{($ \to $I)}
 \UnaryInfC{\sout{$ x: $} $ \sigma \triangleright $ \sout{$ \lambda y: \tau . x: $} $ \tau \to \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \emptyset \triangleright $ \sout{$ \lambda x: \sigma . \lambda y: \tau . x: $} $ \sigma \to \tau \to \sigma $}
+\UnaryInfC{$ \emptyset \triangleright $ \sout{$ \lambda x: \sigma . \lambda y: \tau . x: $} $ \sigma \to ( \tau \to \sigma ) $}
 \DisplayProof $ \Longrightarrow $
 \AxiomC{}
-\RightLabel{($ var $)}
 \UnaryInfC{$ \sigma \triangleright \sigma $}
-\RightLabel{($ add $ $ var $)}
+\RightLabel{($ add $)}
 \UnaryInfC{$ \sigma , \tau \triangleright \sigma $}
 \RightLabel{($ \to $I)}
 \UnaryInfC{$ \sigma \triangleright \tau \to \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \emptyset \triangleright \sigma \to \tau \to \sigma $}
+\UnaryInfC{$ \emptyset \triangleright \sigma \to ( \tau \to \sigma ) $}
 \DisplayProof
 \end{center}
 \mbox{}
 
 \begin{proposition}
+\label{proposition:t2p}
 Every type-derivation in $ \lambda ^\to $ leads to a proof in intuitionistic implicational logic.
 \end{proposition}
 
 \begin{proof}
-This proposition can be proven by induction on the height of tree. In order to make the proof more readable, the types are denoted by using the propositional variable symbols ($ \varphi , \psi ... $).
+This proposition can be proven by induction on the height of type-derivation trees. In order to make the proof more readable, the types are denoted by using the propositional variable symbols ($ \varphi , \psi ... $).
 
-The base case is the one when the height of the tree is 1, i.e. a type-derivation without hypotheses (the left tree). By erasing the term and replacing the relation symbol ``$ \triangleright $'' by ``$ \vdash $'', we obtain the axiom in the natural deduction system (the right tree).
+The base case is the one when the height of the tree is 1, i.e. a type-derivation without hypotheses which is the typing rule ($ axiom $). By erasing the term and replacing the relation symbol ``$ \triangleright $'' by ``$ \vdash $'', we obtain the axiom in the natural deduction system (the right tree).
 \begin{center}
 \AxiomC{}
-\RightLabel{($ var $)}
+\RightLabel{($ axiom $)}
 \UnaryInfC{$ x: \varphi \triangleright x: \varphi $}
 \DisplayProof \hspace{10pt} $ \Longrightarrow $ \hspace{10pt}
 \AxiomC{}
