@@ -26,13 +26,13 @@ Assume that a set of type-constants is given. Then the types in $ \lambda ^\to $
 \end{myitemize}
 \end{definition}
 
-There are two general frameworks for describing the denotational semantics of typed lambda calculus, \emph{Henkin models} and \emph{cartesian closed categories}. In a Henkin model, each type expression is interpreted as a set, the set of values of that type. But we will not go into Henkin models too much. The interpretation in CCCs will be discussed in \ref{sec:co_t2m}.
+There are two general frameworks for describing the denotational semantics of typed lambda calculus, \emph{Henkin models} and \emph{cartesian closed categories}. In a Henkin model, each type expression is interpreted as a set, the set of values of that type. The interpretation in CCCs will be discussed in \ref{sec:co_t2m}.
 
 The syntax of $ \lambda ^\to $ is essentially that of the pure lambda calculus itself. By assigning type $ \sigma $ to a lambda term $ M $, we have an expression $ M:\sigma $ called a \emph{type-assignment}, saying that term $ M $ has type $ \sigma $. Here, $ M $ is called its \emph{subject} and $ \sigma $ its \emph{predicate}.
 
 However, not every pure $ \lambda $-term can be given a type. The typing constraints are context sensitive. A \emph{type-context} is any finite set of type-assignments $ \Gamma = \{ x_1 : \sigma _1 , \cdots , x_n : \sigma _n \} $ whose subjects are term-variables. We say a type-context is consistent if no term-variable in it is the subject of more than one assignment. If not specified, the type-contexts used in this dissertation are consistent.
 
-Since a type-context is a set, it does not change when its members are permuted or repeated. For notational convenience, the following abbreviations are often used:\\
+As a set, a type-context does not change when its members are permuted or repeated. For notational convenience, the following abbreviations are often used:\\
 $
 \begin{array}{rlll}
 \hspace*{12pt} \bullet & x_1 : \sigma _1 , \cdots , x_n : \sigma _n & \text{for} & \{ x_1 : \sigma _1 , \cdots , x_n : \sigma _n \} ; \\
@@ -78,7 +78,7 @@ If a term $ M $ specifies a result of type $ \tau $ for all $ x: \sigma $, then 
 \RightLabel{($ \to $E)}
 \BinaryInfC{$ \Gamma \triangleright MN: \tau $}
 \end{prooftree}
-It says that by applying any function of type $ \sigma \to \tau $ to an argument of type $ \sigma $, we obtain a result of type $ \tau $. Therefore, it is also called \emph{function application}.
+By applying any function of type $ \sigma \to \tau $ to an argument of type $ \sigma $, we obtain a result of type $ \tau $. Therefore, this rule is also called \emph{function application}.
 \end{myitemize}
 \end{definition}
 
@@ -89,11 +89,11 @@ Some literatures represent the rule ($ \to $E) as
 \RightLabel{($ \to $E)}
 \BinaryInfC{$ \Gamma _1 \cup \Gamma _2 \triangleright MN: \tau $}
 \end{prooftree}
-However, this representation may be dangerous. Suppose $ x: \sigma \in \Gamma _1 $ and $ x: \tau \in \Gamma _2 $ where $ \sigma \not\equiv \tau $, then $ \Gamma _1 \cup \Gamma _2 $ is inconsistent since $ x $ has type $ \sigma $ and type $ \tau $ at the same time. And that is why the contexts of $ M $ and $ N $ are same in definition \ref{definition:typ_rules}.
+However, this representation may be dangerous. Suppose $ x: \sigma \in \Gamma _1 $ and $ x: \tau \in \Gamma _2 $ where $ \sigma \not\equiv \tau $, then $ \Gamma _1 \cup \Gamma _2 $ is inconsistent since $ x $ has type $ \sigma $ and $ \tau $. And that is why the contexts of $ M $ and $ N $ in ($ \to $E) are same in definition \ref{definition:typ_rules}.
 
 The combinators  \textbf{K} and \textbf{S} are used as examples to demonstrate how a well-typed term is obtained by using the typing rules:
 \begin{myitemize}
-\item[(1)] $ \emptyset \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $
+\item[(1)] $ \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $
 \begin{prooftree}
 \AxiomC{}
 \UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
@@ -102,9 +102,9 @@ The combinators  \textbf{K} and \textbf{S} are used as examples to demonstrate h
 \RightLabel{($ \to $I)}
 \UnaryInfC{$ x: \sigma \triangleright \lambda y: \tau . x: \tau \to \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \emptyset \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $}
+\UnaryInfC{$ \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $}
 \end{prooftree}
-\item[(2)] $ \emptyset \triangleright \lambda x: \sigma \to \tau \to \rho . \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz) $
+\item[(2)] $ \triangleright \lambda x: \sigma \to \tau \to \rho . \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz) $
 \begin{flushright}
 $ : ( \sigma \to \tau \to \rho ) \to ( \sigma \to \tau ) \to \sigma \to \rho $
 \end{flushright}
@@ -159,7 +159,7 @@ $ : ( \sigma \to \tau \to \rho ) \to ( \sigma \to \tau ) \to \sigma \to \rho $
 \RightLabel{($ \to $I)}
 \UnaryInfC{$ x: \sigma \to \tau \to \rho \triangleright \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz): ( \sigma \to \tau ) \to \sigma \to \rho $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \emptyset \triangleright \lambda x: \sigma \to \tau \to \rho . \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz) $}
+\UnaryInfC{$ \triangleright \lambda x: \sigma \to \tau \to \rho . \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz) $}
 \end{prooftree}
 \begin{flushright}
 $ : ( \sigma \to \tau \to \rho ) \to ( \sigma \to \tau ) \to \sigma \to \rho $
@@ -189,7 +189,7 @@ $
 \bullet & [N/x](\lambda y.P) & \equiv & \lambda y.[N/x]P & \text{if } x \in FV(P) \text{ and } y \not\in FV(N); \\
 \bullet & [N/x](\lambda y.P) & \equiv & \lambda z.[N/x][z/y]P & \text{if } x \in FV(P) \text{ and } y \in FV(N). \\
 \end{array}
-$
+$\\
 In the last case, $ z $ can be any variable that $ z \not\in FV(P) $ and $ z \not\in FV(N) $.
 \end{definition}
 
@@ -203,12 +203,12 @@ $ \lambda x.M =_\alpha \lambda y.[y/x]M $
 \end{center}
 and the act of replacing an occurrence of $ \lambda x.M $ in a term by $ \lambda y.[y/x]M $ is called a \emph{change of bound variables}. $ M $ and $ N $ are $ \alpha $-\emph{equivalent}, notation $ M =_\alpha N $, if $ N $ results from $ M $ by a series of changes of bound variables.
 \end{definition}
-\mbox\\
+
 \begin{definition}[\textbf{$ \beta $-equivalence}]
 \label{definition:beta}
 \mbox\\
 \begin{myitemize}
-\item A $ \beta $-\emph{redex} is any sub-term of the form $ (\lambda x.M)N $. It can be reduced by the following rule
+\item A $ \beta $-\emph{redex} is any sub-term of the form $ (\lambda x.M)N $. It can be reduced by
 \begin{center}
 $ (\lambda x.M)N  \to _\beta [N/x]M $
 \end{center}
@@ -222,7 +222,7 @@ A term may be able to $ \beta $-reduce to different terms at the same time. For 
 \mbox\\
 \begin{definition}[\textbf{$ \eta $-equivalence}]
 \label{definition:eta}
-An $ \eta $-\emph{redex} is any term of form  $ \lambda x.Mx $ with $ x \not\in FV(M) $. It can be reduced in accordance with the following rule
+An $ \eta $-\emph{redex} is any term of form  $ \lambda x.Mx $ with $ x \not\in FV(M) $. It can be reduced by 
 \begin{center}
 $ \lambda x.Mx \to _\eta M $
 \end{center}
