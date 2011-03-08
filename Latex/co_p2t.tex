@@ -39,7 +39,7 @@ Given the above proof of proposition $ \varphi \to ( \tau \to \varphi ) $, we co
 \RightLabel{$ \to $I}
 \UnaryInfC{$ \vdash ?: \varphi \to ( \tau \to \varphi ) $}
 \end{prooftree}
-In the third typing judgement (counted from the top of the tree), the proposition $ \tau \to \varphi $ does not appear in the context. So the term of type $ \tau \to \varphi $ is not a term variable but a lambda abstraction where the bound variable in the abstractor has type $ \tau $ and the scope has type $ \varphi $. But $ \tau $ does not appear in the context, either. We need to go up to look for the variable which is assigned to $ \tau $ in the context and the term which has type $ \varphi $. From the second typing judgement, we know $ y $ is assigned to $ \tau $ and term $ x $ has type $ \varphi $. Therefore, we construct the term in the third typing judgement as $ \lambda y: \tau .x: \tau \to \varphi $. The last typing judgement is obtained in the same way.
+In the third typing judgement (counted from the top of the tree), the proposition $ \tau \to \varphi $ does not appear in the context. So the term of type $ \tau \to \varphi $ is not a term variable. Besides, there is only one sub-tree above the judgement. So the term must be a lambda abstraction where the bound variable in the abstractor has type $ \tau $ and the scope has type $ \varphi $. Then we need to go up to look for the variable which is assigned to $ \tau $ in the context and the term which has type $ \varphi $. From the second typing judgement, we know $ y $ is assigned to $ \tau $ and term $ x $ has type $ \varphi $. Therefore, we construct the term in the third typing judgement as $ \lambda y: \tau .x: \tau \to \varphi $. The last typing judgement is obtained in the same way.
 \begin{prooftree}
 \AxiomC{}
 \UnaryInfC{$ x: \varphi \vdash x: \varphi $}
@@ -71,10 +71,12 @@ Since every lambda term determines a type-derivation, rather than saying that ev
 \label{proposition:p2t}
 Every proof in intuitionistic propositional logic can be encoded by a lambda term in full simply typed lambda calculus.
 \end{proposition}
-\begin{proof}
+
+\begin{proof}\mbox\\
+
 Its proof is also carried out by induction on the height of proof tree. In this proof, the type symbols ($ \sigma , \tau , \rho \cdots $) are adopted as proposition symbols in order to make the proof easier to read.
 
-The base case is the a proof of height 1 which is the axiom in the natural deduction system. In ($ axiom $), the proposition in the right side of $ \vdash $ also appears in the context. Both of them are assigned to a same term variable. By replacing $ \vdash $ by $ \triangleright $, we obtain the typing rule ($ axiom $).
+The base case is the proof tree of height 1 which is the axiom in the natural deduction system. In ($ axiom $), the concluded proposition on the right side of $ \vdash $ also appears in the context. Both of them are assigned to a same term variable. By replacing $ \vdash $ by $ \triangleright $, we obtain the typing rule ($ axiom $).
 \begin{center}
 \AxiomC{}
 \RightLabel{($ axiom $)}
@@ -87,8 +89,9 @@ The base case is the a proof of height 1 which is the axiom in the natural deduc
 \end{center}
 
 In the inductive step, let us assume that all the proofs of height at most $ n $ can be encoded in a corresponding lambda term. Then what we want to prove is that the proof of height $ n + 1 $ can be encoded in a lambda term as well. Except the axiom, the natural deduction system of intuitionisitic propositional logic has several other inference rules for all the propositional connectives, $ \to $, $ \land $, $ \lor $, and $ \bot $. Each them is an inductive case.
-\begin{myitemize}
-\item[(1)] ($ \to $I)\\
+
+(1) ($ \to $I)
+
 The induction hypothesis here is that the proof of height $ n $ with conclusion $ \Gamma , \sigma \vdash \tau $ can be encoded in $ \Gamma ', x: \sigma \triangleright M: \tau $ where $ \Gamma ' $ is a consistent type context whose types are propositions in $ \Gamma $.
 \begin{center}
 \AxiomC{$ \vdots $}
@@ -106,7 +109,7 @@ By using the introduction rule of implication ($ \to $I), we get the following p
 \UnaryInfC{$ \Gamma \vdash \sigma \to \tau $}
 \DisplayProof
 \end{center}
-According to the typing rule of introducing function type ($ \to $I), we get another typing judgement as follows.
+According to the typing rule for introducing function type ($ \to $I), we get another typing judgement as follows.
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma ', x: \sigma \triangleright M: \tau $}
@@ -116,8 +119,9 @@ According to the typing rule of introducing function type ($ \to $I), we get ano
 \end{center}
 Since all the types in type context $ \Gamma ' $ are the propositions in $ \Gamma $ and the term $ \lambda x: \sigma .M $ has type $ \sigma \to \tau $, the proof of $ \Gamma \vdash \sigma \to \tau $ is encoded in $ \Gamma ' \triangleright \lambda x: \sigma .M: \sigma \to \tau $.
 
-\item[(2)] ($ \to $E)\\
-In this case, we assume the two proofs below, one of which has height $ n $ and another has height at most $ n $, can be encoded in the terms next to them.
+(2) ($ \to $E)
+
+In this case, we assume the two proofs below, one of which has height $ n $ and another one has height at most $ n $, can be encoded in the terms next to them.
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma \vdash \sigma \to \tau $}
@@ -154,10 +158,11 @@ We use function application ($ \to $E) and then have a type derivation with conc
 \BinaryInfC{$ \Gamma ' \triangleright MN: \tau $}
 \DisplayProof
 \end{center}
-$ \Gamma ' $ encoded all the propositions in $ \Gamma $ and $ MN $ has type $ \tau $; therefore, the proof of $ \Gamma \vdash \tau $ is encoded in $ \Gamma ' \triangleright MN: \tau $.
+We can see that $ \Gamma ' $ encodes all the propositions in $ \Gamma $ and $ MN $ has type $ \tau $; therefore, the proof of $ \Gamma \vdash \tau $ is encoded in $ \Gamma ' \triangleright MN: \tau $.
 
-\item[(3)] ($ \land $I)\\
-Assume the two following proofs, one of which has height $ n $ and another has height at most $ n $, can be encoded in the terms next to them.
+(3) ($ \land $I)
+
+Assume the two following proofs, one of which has height $ n $ and another one has height at most $ n $, can be encoded in the terms on their right.
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma \vdash \sigma $}
@@ -190,13 +195,14 @@ By introduction rule of product type ($ \times $I), we get a type derivation of 
 \UnaryInfC{$ \Gamma ' \triangleright M: \sigma $}
   \AxiomC{$ \vdots $}
   \UnaryInfC{$ \Gamma ' \triangleright N: \tau $}
-\RightLabel{($ \land $I)}
+\RightLabel{($ \times $I)}
 \BinaryInfC{$ \Gamma ' \triangleright \langle M,N \rangle : \sigma \times \tau $}
 \DisplayProof
 \end{center}
-Then, we can see that the proof of $ \Gamma \vdash \sigma \land \tau $ can be encoded in $ \Gamma ' \triangleright \langle M,N \rangle : \sigma \times \tau $.
+Then, the proof of $ \Gamma \vdash \sigma \land \tau $ is encoded in $ \Gamma ' \triangleright \langle M,N \rangle : \sigma \times \tau $.
 
-\item[(4)] ($ \land $E)\\
+(4) ($ \land $E)
+
 Assume the following proof of height $ n $ can be encoded in the term next to it.
 \begin{center}
 \AxiomC{$ \vdots $}
@@ -232,18 +238,110 @@ By the elimination rule of product type ($ \times $E), we get a type derivation 
 \UnaryInfC{$ \Gamma ' \triangleright \text{Proj} _2 M : \tau $}
 \DisplayProof
 \end{center}
-Hence, the proof of $ \Gamma \vdash \sigma $ can be encoded in $ \Gamma ' \triangleright \text{Proj} _1 M : \sigma $ and the proof of $ \Gamma \vdash \tau $ in $ \Gamma ' \triangleright \text{Proj} _2 M : \tau $.
+Hence, both proofs of $ \Gamma \vdash \sigma $ and $ \Gamma \vdash \tau $ are encoded in $ \Gamma ' \triangleright \text{Proj} _1 M : \sigma $ and  $ \Gamma ' \triangleright \text{Proj} _2 M : \tau $ respectively.
 
-\item[(5)] ($ \lor $I)\\
+(5) ($ \lor $I)
+
+Assume the following proof of height $ n $ can be encoded in the term on its right.
+\begin{center}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma \vdash \sigma $}
+\DisplayProof \hspace*{10pt} $ \Longrightarrow $ \hspace*{10pt}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma ' \triangleright M: \sigma $}
+\DisplayProof
+\end{center}
+By the introduction rule of disjunction ($ \lor $I), we have a proof of $ \Gamma \vdash \sigma \lor \tau $ and another one of $ \Gamma \vdash \tau \lor \sigma $.
+\begin{center}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma \vdash \sigma $}
+\RightLabel{($ \lor $I$ _1$)}
+\UnaryInfC{$ \Gamma \vdash \sigma \lor \tau $}
+\DisplayProof \hspace*{10pt}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma \vdash \sigma $}
+\RightLabel{($ \lor $I$ _2$)}
+\UnaryInfC{$ \Gamma \vdash \tau \lor \sigma $}
+\DisplayProof
+\end{center}
+By the introduction rule of sum type ($ + $I), we have a type derivation of $ \Gamma ' \triangleright \text{Inleft}M: \sigma + \tau $ and another one of $ \Gamma ' \triangleright \text{Inright}M: \tau + \sigma $.
+\begin{center}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma ' \triangleright M: \sigma $}
+\RightLabel{($ + $I$ _1$)}
+\UnaryInfC{$ \Gamma ' \triangleright \text{Inleft}M: \sigma + \tau $}
+\DisplayProof \hspace*{10pt}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma ' \triangleright M: \sigma $}
+\RightLabel{($ + $I$ _2$)}
+\UnaryInfC{$ \Gamma ' \triangleright \text{Inright}M: \tau + \sigma $}
+\DisplayProof
+\end{center}
+Hence, both proofs of $ \Gamma \vdash \sigma \lor \tau $ and $ \Gamma \vdash \tau \lor \sigma $ are encoded in $ \Gamma ' \triangleright \text{Inleft}M: \sigma + \tau $ and  $ \Gamma ' \triangleright \text{Inright}M: \tau + \sigma $ respectively.
+
+(6) ($ \lor $E)
+
+Assume the three following proofs, one of which has height $ n $ and the other two have height at most $ n $, can be encoded in the terms next to them.
+\begin{center}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma \vdash \sigma \lor \tau $}
+\DisplayProof \hspace*{10pt} $ \Longrightarrow $ \hspace*{10pt}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma ' \triangleright M: \sigma + \tau $}
+\DisplayProof
+\end{center}
+\begin{center}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma \vdash \sigma \to \rho $}
+\DisplayProof \hspace*{10pt} $ \Longrightarrow $ \hspace*{10pt}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma ' \triangleright N: \sigma \to \rho $}
+\DisplayProof
+\end{center}
+\begin{center}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma \vdash \tau \to \rho $}
+\DisplayProof \hspace*{10pt} $ \Longrightarrow $ \hspace*{10pt}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma ' \triangleright P: \tau \to \rho $}
+\DisplayProof
+\end{center}
+By the elimination rule of disjunction ($ \lor $E), we get a proof of $ \Gamma \vdash \rho $.
+\begin{center}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma \vdash \sigma \lor \tau $}
+ \AxiomC{$ \vdots $}
+ \UnaryInfC{$ \Gamma \vdash \sigma \to \rho $}
+  \AxiomC{$ \vdots $}
+  \UnaryInfC{$ \Gamma \vdash \tau \to \rho $}
+\RightLabel{($ \lor $E)}
+\TrinaryInfC{$ \Gamma \vdash \rho $}
+\DisplayProof
+\end{center}
+By the elimination rule of sum type ($ + $E), we get a type derivation of $ \Gamma ' \vdash \text{Case }MNP: \rho $.
+\begin{center}
+\AxiomC{$ \vdots $}
+\UnaryInfC{$ \Gamma ' \triangleright M: \sigma + \tau $}
+ \AxiomC{$ \vdots $}
+ \UnaryInfC{$ \Gamma ' \triangleright N: \sigma \to \rho $}
+  \AxiomC{$ \vdots $}
+  \UnaryInfC{$ \Gamma ' \triangleright P: \tau \to \rho $}
+\RightLabel{($ + $E)}
+\TrinaryInfC{$ \Gamma ' \triangleright \text{Case }MNP: \rho $}
+\DisplayProof
+\end{center}
+Hence, the proof of $ \Gamma \vdash \rho $ is encoded in $ \Gamma ' \triangleright \text{Case }MNP: \rho $.
+
+(7) ($ \bot $E)
+
 ...
 
-\item[(6)] ($ \lor $E)\\
-...
+Therefore, every proof in intuitionistic propositional logic can be encoded by a lambda term in full simply typed lambda calculus.
 
-\item[(7)] ($ \bot $E)\\
-...
-
-\end{myitemize}
-
-Every proof in intuitionistic propositional logic can be encoded by a lambda term in full simply typed lambda calculus.
 \end{proof}
+
+This and the last sections demonstrate a closed connection between proofs in intuitionistic propositional logic and terms in simply typed lambda calculus. Specifically, we can have a look at this correspondence from the following points of view.
+
+For one thing, \emph{propositions correspond to types}. If we take the set of propositional variables equal to the set of type variables, then the set of propositional formulas is identical to the set of simple types. The reason for this is that each propositional connective corresponds to a simple type constructor. Implication $ \to $ corresponds to function constructor $ \to $, conjunction $ \land $ to product constructor $ \times $, and disjunction $ \lor $ to sum constructor $ + $.
+
+For another, \emph{proofs correspond to terms}. Since propositional connectives correspond to simple type constructors, the inference rule for these connectives should have the same behaviour with the typing rules for the simple type constructors. From \ref{sec:co_t2p} and \ref{sec:co_p2t}, it is obvious that the inference rules in natural deduction system build proof trees in the same way as the typing rules build type derivations.

@@ -112,9 +112,9 @@ One can conclude disjunction $ \varphi \lor \psi $ from either $ \varphi $ or $ 
 
 \item \emph{$ \lor $-elimination} ($ \lor $E)
 \begin{prooftree}
+\AxiomC{$ \Gamma \vdash \varphi \lor \psi $}
 \AxiomC{$ \Gamma \vdash \varphi \to \rho $}
 \AxiomC{$ \Gamma \vdash \psi \to \rho $}
-\AxiomC{$ \Gamma \vdash \varphi \lor \psi $}
 \RightLabel{($ \lor $E)}
 \TrinaryInfC{$ \Gamma \vdash \rho $}
 \end{prooftree}
@@ -191,10 +191,10 @@ Some examples are given here to demonstrate how a proof of a proposition is buil
 \end{prooftree}
 \item[(5)] $ \vdash ( \neg \varphi \lor \psi ) \to ( \varphi \to \psi ) $
 \begin{prooftree}
-\AxiomC{(3)}
+\AxiomC{}
+\UnaryInfC{$ \neg \varphi \lor \psi \vdash \neg \varphi \lor \psi $}
+ \AxiomC{(3)}
   \AxiomC{(4)}
-    \AxiomC{}
-    \UnaryInfC{$ \neg \varphi \lor \psi \vdash \neg \varphi \lor \psi $}
 \RightLabel{($ \lor $E)}
 \TrinaryInfC{$ \neg \varphi \lor \psi \vdash \varphi \to \psi $}
 \RightLabel{($ \to $I)}

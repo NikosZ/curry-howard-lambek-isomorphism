@@ -41,10 +41,11 @@ The tree above is a type-derivation of $ \lambda $-term $ \lambda x: \sigma . \l
 Every type-derivation in $ \lambda ^\to $ leads to a proof in intuitionistic implicational logic.
 \end{proposition}
 
-\begin{proof}
+\begin{proof}\mbox\\
+
 This proposition can be proven by induction on the height of type-derivation trees. In order to make the proof more readable, the types are denoted by using the propositional variable symbols ($ \varphi , \psi ... $).
 
-The base case is the one when the height of the tree is 1, i.e. a type-derivation without hypotheses which is the typing rule ($ axiom $). By erasing the term and replacing the relation symbol ``$ \triangleright $'' by ``$ \vdash $'', we obtain the axiom in the natural deduction system (the right tree).
+The base case is the one when the height of the tree is 1, i.e. a type-derivation without hypotheses which is the typing rule ($ axiom $). By erasing the term and replacing the relation symbol ``$ \triangleright $'' by ``$ \vdash $'', we obtain the axiom in the natural deduction system.
 \begin{center}
 \AxiomC{}
 \RightLabel{($ axiom $)}
@@ -56,10 +57,11 @@ The base case is the one when the height of the tree is 1, i.e. a type-derivatio
 \DisplayProof
 \end{center}
 
-Suppose for very type-derivation tree of height at most $ n $, we get a corresponding proof by erasing the terms in the tree. Then, we want to show that the tree of height $ n+1 $ also leads to a corresponding proof. According to the typing rules of $ \lambda ^\to $, there are two inductive cases, one with lambda abstraction and another with application:
-\begin{myitemize}
-\item[(1)] Lambda abstraction\\
-Assume that the following type-derivation of height $ n $ leads to a proof on its right side,
+Assume that from very type-derivation tree of height at most $ n $, we get a corresponding proof by erasing the terms in the tree. Then, what we need to prove is that the tree of height $ n+1 $ also leads to a corresponding proof. According to the typing rules of $ \lambda ^\to $, there are two inductive cases, one with lambda abstraction and another with application:
+
+(1) Lambda abstraction
+
+The induction hypothesis in this case is that the following type-derivation has height $ n $ and leads to a proof on its right side,
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma , x: \varphi \triangleright M: \psi $}
@@ -68,7 +70,7 @@ Assume that the following type-derivation of height $ n $ leads to a proof on it
 \UnaryInfC{$ \Gamma ' , \varphi \vdash \psi $}
 \DisplayProof
 \end{center}
-Since the proof tree is obtained by erasing the terms in the derivation tree, the context $ \Gamma ' $ should contain all the types in $ \Gamma $ but nothing else. By using introduction rule for function type on $ \Gamma , x: \varphi \triangleright M: \psi $, we have a type-derivation of term $ \lambda x: \varphi .M$
+Since the proof tree is obtained by erasing the terms in the derivation tree, the context $ \Gamma ' $ should contain all the types in $ \Gamma $ and nothing else. By using introduction rule for function type on $ \Gamma , x: \varphi \triangleright M: \psi $, we have a type-derivation of term $ \lambda x: \varphi .M$
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma , x: \varphi \triangleright M: \psi $}
@@ -84,9 +86,11 @@ By using introduction rule for implication on $ \Gamma ' , \varphi \vdash \psi $
 \UnaryInfC{$ \Gamma ' \vdash \varphi \to \psi $}
 \DisplayProof
 \end{center}
-It is obvious that $ \Gamma ' \vdash \varphi \to \psi $ can also be obtained by deleting the terms in $ \Gamma $ which is $ \Gamma ' $ and the term $ \lambda x: \varphi .M $. Hence, the derivation of $ \Gamma \triangleright \lambda x: \varphi .M: \varphi \to \psi $ leads to a proof of $ \Gamma ' \vdash \varphi \to \psi $.
-\item[(2)] Application\\
-Assume the following two derivation-trees, one of which has height $ n $ and another has height at most $ n $, lead to two proofs
+The conclusion of the proof, $ \varphi \to \psi $, is the type of term $ \lambda x: \varphi .M$. Besides, $ \Gamma ' $ contains all the types in $ \Gamma $. So we can say that the proof of $ \Gamma ' \vdash \varphi \to \psi $ is obtained by deleting the terms in the type derivation of  $ \Gamma \triangleright \lambda x: \varphi .M: \varphi \to \psi $. In other words, the derivation of $ \Gamma \triangleright \lambda x: \varphi .M: \varphi \to \psi $ leads to a proof of $ \Gamma ' \vdash \varphi \to \psi $.\\
+
+(2) Application
+
+Assume that each of the following two derivation-trees, one of which has height $ n $ and another has height at most $ n $, leads to a corresponding proof
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma \triangleright M: \varphi \to \psi $}
@@ -103,7 +107,7 @@ Assume the following two derivation-trees, one of which has height $ n $ and ano
 \UnaryInfC{$ \Gamma ' \vdash \varphi $}
 \DisplayProof
 \end{center}
-Similarly, $ \Gamma ' $ contains all the types in $ \Gamma $. Then, according to function application, we obtain a derivation of $ MN$
+Similarly to (1), $ \Gamma ' $ contains all the types in $ \Gamma $. Then, according to function application, we obtain a derivation of $ MN$
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma \triangleright M: \varphi \to \psi $}
@@ -123,7 +127,8 @@ We also get a proof of $ \psi $ by applying \emph{modus ponens} on $ \varphi \to
 \BinaryInfC{$ \Gamma ' \vdash \psi $}
 \DisplayProof
 \end{center}
-Then we can see that if we erase the terms in $ \Gamma $ and term $ MN $, we also have $ \Gamma ' \vdash \psi $. Hence, the derivation of $ \Gamma \triangleright MN: \psi $ leads to a proof of $ \Gamma ' \vdash \psi $.
-\end{myitemize}
+Then we can see that if we erase the terms in $ \Gamma $ and term $ MN $, we also have $ \Gamma ' \vdash \psi $. Hence, the derivation of $ \Gamma \triangleright MN: \psi $ leads to a proof of $ \Gamma ' \vdash \psi $.\\
+
 Therefore, every type-derivation in $ \lambda ^\to $ leads to a proof in intuitionistic implicational logic.
+
 \end{proof}
