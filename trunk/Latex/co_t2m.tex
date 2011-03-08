@@ -31,32 +31,32 @@ Given a typed lambda calculus $ \lambda ^ \to $ and a cartesian closed category 
 \end{myitemize}
 \end{definition}
 
-In this definition, $ f: \{ 1, \cdots , m \} \to \{ 1, \cdots , n \} $ is called an \emph{m,n-function}. If $ \Gamma \equiv x_1:\sigma_1, \cdots , x_n:\sigma_n $ is an ordered type context of length $ n $, then the ordered type context $ \Gamma_f $ of length $ m $ is defined by $ \Gamma_f = x_{f(1)}:\sigma_{f(1)}, \cdots , x_{f(m)}:\sigma_{f(m)} $. If $ \Gamma \triangleright M: \sigma $ is a well-typed term and $ \Gamma_f $ contains all the free variables of $ M $, then the interpretation of $ \Gamma_f \triangleright M: \sigma $ can be related to the one of $ \Gamma \triangleright M: \sigma $ by using a combination $ \chi_f^{\litp \Gamma \ritp} : \litp \Gamma \ritp \to \litp \Gamma_f \ritp $ of pairing and projection functions.
+In this definition, $ f: \{ 1, \ldots , m \} \to \{ 1, \ldots , n \} $ is called an \emph{m,n-function}. If $ \Gamma \equiv x_1:\sigma_1, \ldots , x_n:\sigma_n $ is an ordered type context of length $ n $, then the ordered type context $ \Gamma_f $ of length $ m $ is defined by $ \Gamma_f = x_{f(1)}:\sigma_{f(1)}, \ldots , x_{f(m)}:\sigma_{f(m)} $. If $ \Gamma \triangleright M: \sigma $ is a well-typed term and $ \Gamma_f $ contains all the free variables of $ M $, then the interpretation of $ \Gamma_f \triangleright M: \sigma $ can be related to the one of $ \Gamma \triangleright M: \sigma $ by using a combination $ \chi_f^{\litp \Gamma \ritp} : \litp \Gamma \ritp \to \litp \Gamma_f \ritp $ of pairing and projection functions.
 
-Before giving the definition of the combination, we need a few notational conventions. If $ h_i:A \to A_i $ is a morphism from object $ A $ to $ A_i $, $ 1 \leq i \leq n $, then we write $ \langle h_1, \cdots , h_n \rangle $ for $ \langle \langle \cdots \langle h_1,h_2 \rangle, \cdots \rangle , h_n \rangle : A \to (( \cdots (A_1 \times A_2) \times \cdots ) \times A_n ) $. Then we define the projections $ \text{Proj}_i^{A_1 \times A_2 \times \cdots \times A_n} : A_1 \times A_2 \times \cdots \times A_n \to A_i $ by a composition of projection morphisms $ \text{Proj}_1 $ and $ \text{Proj}_2 $. The following gives a inductive definition of projection $ \text{Proj}_i^{A_1 \times A_2 \times \cdots \times A_n} $:\\[5pt]
+Before giving the definition of the combination, we need a few notational conventions. If $ h_i:A \to A_i $ is a morphism from object $ A $ to $ A_i $, $ 1 \leq i \leq n $, then we write $ \langle h_1, \ldots , h_n \rangle $ for $ \langle \langle \ldots \langle h_1,h_2 \rangle, \ldots \rangle , h_n \rangle : A \to (( \ldots (A_1 \times A_2) \times \ldots ) \times A_n ) $. Then we define the projections $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} : A_1 \times A_2 \times \ldots \times A_n \to A_i $ by a composition of projection morphisms $ \text{Proj}_1 $ and $ \text{Proj}_2 $. The following gives a inductive definition of projection $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} $:\\[5pt]
 $
 \begin{array}{rlcll}
 \bullet & \text{Proj}_1^{A} & = & \text{id}_A & \\[5pt]
-\bullet & \text{Proj}_n^{A_1 \times \cdots \times A_n} & = & \text{Proj}_2^{(A_1 \times \cdots \times A_{n-1}), A_n} & n > 1 \\[5pt]
-\bullet & \text{Proj}_i^{A_1 \times \cdots \times A_n} & = & \text{Proj}_i^{A_1 \times \cdots \times A_{n-1}} \circ \text{Proj}_1^{(A_1 \times \cdots \times A_{n-1}), A_n} & 1 \leq i < n \\[10pt]
+\bullet & \text{Proj}_n^{A_1 \times \ldots \times A_n} & = & \text{Proj}_2^{(A_1 \times \ldots \times A_{n-1}), A_n} & n > 1 \\[5pt]
+\bullet & \text{Proj}_i^{A_1 \times \ldots \times A_n} & = & \text{Proj}_i^{A_1 \times \ldots \times A_{n-1}} \circ \text{Proj}_1^{(A_1 \times \ldots \times A_{n-1}), A_n} & 1 \leq i < n \\[10pt]
 \end{array}
 $
 
 The tupling and projections defined above behave similarly to the pairs and $ \text{Proj}_1 $ and $ \text{Proj}_2 $. The following equations hold in any category with products:\\[5pt]
 $
 \begin{array}{rlcl}
-\bullet & \text{Proj}_i \circ \langle f_1, \cdots , f_n \rangle & = & f_i \\[5pt]
-\bullet & \langle f_1, \cdots , f_n \rangle \circ h & = & \langle f_1 \circ h, \cdots , f_n \circ h \rangle \\[5pt]
-\bullet & \langle \text{Proj}_1^{A_1 \times \cdots \times A_n}, \cdots , \text{Proj}_n^{A_1 \times \cdots \times A_n} \rangle & = & \text{id}_{A_1 \times \cdots \times A_n} \\[10pt]
+\bullet & \text{Proj}_i \circ \langle f_1, \ldots , f_n \rangle & = & f_i \\[5pt]
+\bullet & \langle f_1, \ldots , f_n \rangle \circ h & = & \langle f_1 \circ h, \ldots , f_n \circ h \rangle \\[5pt]
+\bullet & \langle \text{Proj}_1^{A_1 \times \ldots \times A_n}, \ldots , \text{Proj}_n^{A_1 \times \ldots \times A_n} \rangle & = & \text{id}_{A_1 \times \ldots \times A_n} \\[10pt]
 \end{array}
 $
 
-Given an $m,n$-function $ f $, we define $ \chi_f^{unit \times A_1 \times \cdots \times A_n} $ by \\[3pt]
+Given an $m,n$-function $ f $, we define $ \chi_f^{unit \times A_1 \times \ldots \times A_n} $ by \\[3pt]
 \begin{tabular}{m{0.95\textwidth}}
 $
-\chi_f^{unit \times A_1 \times \cdots \times A_n} = \langle \text{One}^{unit \times A_1 \times \cdots \times A_n}, \text{Proj}_{f(1)+1}^{unit \times A_1 \times \cdots \times A_n}, \cdots , \text{Proj}_{f(m)+1}^{unit \times A_1 \times \cdots \times A_n} \rangle
+\chi_f^{unit \times A_1 \times \ldots \times A_n} = \langle \text{One}^{unit \times A_1 \times \ldots \times A_n}, \text{Proj}_{f(1)+1}^{unit \times A_1 \times \ldots \times A_n}, \ldots , \text{Proj}_{f(m)+1}^{unit \times A_1 \times \ldots \times A_n} \rangle
 $ \\[3pt]
-\multicolumn{1}{r}{$ : unit \times A_1 \times \cdots \times A_n \to unit \times A_{f(1)} \times \cdots \times A_{f(m)} $.}
+\multicolumn{1}{r}{$ : unit \times A_1 \times \ldots \times A_n \to unit \times A_{f(1)} \times \ldots \times A_{f(m)} $.}
 \end{tabular} \\[3pt]
 The terminal object $ unit $ is included in the type of $ \chi_f $ since the interpretation of any type context contains $ unit $.
 \\
@@ -70,7 +70,8 @@ The first one is the substitution lemma, which will be used in the proof of soun
 If $ \Gamma , x: \sigma \triangleright M: \tau $ and $ \Gamma \triangleright N: \sigma $ are well-typed terms, then $ \litp \Gamma \triangleright [N/x]M: \tau \ritp = \litp \Gamma , x: \sigma \triangleright M: \tau \ritp \circ \langle \textnormal{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $ holds.
 \end{lemma}
 
-\begin{proof}
+\begin{proof}\mbox\\
+
 The proof is carried out by induction on typing derivation. The base case is the one whose term is a term variable. The inductive steps have two cases, application and abstraction.
 
 Base case $ M: \tau \equiv x: \sigma $ \\[5pt]
@@ -133,9 +134,9 @@ $
    & \chi_f^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle \\[5pt]
    & (\text{denote } h \text{ as } \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle ) \\[5pt]
  = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \rangle \circ h \\[5pt]
-   & (\text{by } \langle f_1, \cdots , f_n \rangle \circ h = \langle f_1 \circ h, \cdots , f_n \circ h \rangle ) \\[5pt]
+   & (\text{by } \langle f_1, \ldots , f_n \rangle \circ h = \langle f_1 \circ h, \ldots , f_n \circ h \rangle ) \\[5pt]
  = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ h , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
-   & (\text{by } \text{Proj}_n^{A_1 \times \cdots \times A_n} = \text{Proj}_2^{(A_1 \times \cdots \times A_{n-1}), A_n} ) \\[5pt]
+   & (\text{by } \text{Proj}_n^{A_1 \times \ldots \times A_n} = \text{Proj}_2^{(A_1 \times \ldots \times A_{n-1}), A_n} ) \\[5pt]
  = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ h , \text{Proj}_2^{(\litp \Gamma \ritp \times \litp \rho \ritp), \litp \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
    & (\text{by } \text{Proj}_2 \circ \langle f_1,f_2 \rangle = f_2 ) \\[5pt]
  = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ h , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
@@ -179,24 +180,25 @@ Therefore, for all well-typed $ \Gamma , x: \sigma \triangleright M: \tau $ and 
 Given any well-typed $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $ with $ M =_{\alpha \beta \eta} N $, then they have the same interpretation, i.e. $ \litp \Gamma \triangleright M: \sigma \ritp = \litp \Gamma \triangleright N: \sigma \ritp $, in every CCC.
 \end{theorem}
 
-\begin{proof}
+\begin{proof}\mbox\\
+
 The proof is divided into three sub-proofs, one for $ \alpha $-equivalence, one for $ \beta $-equivalence, and the last one for $ \eta $-equivalence.
 
 (1) $ \alpha $-equivalence
 
 During the interpretation, we can see that the names of term variables never appear in the interpretation; therefore, $ \alpha $-equivalence should be preserved in the interpretation. Here, an equational proof of a stronger form of $ \alpha $-equivalence is given.
 
-\emph{Stronger form of $ \alpha $-equivalence}: if terms $ x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright M: \sigma $ and $ y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright N: \sigma $ are well-typed, with $ N =_{\alpha} [y_1, \cdots , y_n /x_1, \cdots x_n]M $, then $ \litp x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright M: \sigma \ritp = \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright N: \sigma \ritp $.
+\emph{Stronger form of $ \alpha $-equivalence}: if terms $ x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M: \sigma $ and $ y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N: \sigma $ are well-typed, with $ N =_{\alpha} [y_1, \ldots , y_n /x_1, \ldots x_n]M $, then $ \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M: \sigma \ritp = \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N: \sigma \ritp $.
 
 This stronger form of $ \alpha $-equivalence can be proven by induction on the term $ M: \sigma $. The base case is the one when $ M $ is a variable while the inductive steps contains two cases, application and abstraction.
 
 Base case $ M: \sigma \equiv x_i: \sigma_i $ \eqnline
 $
 \begin{array}{rl}
-   & \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright [y_1, \cdots , y_n /x_1, \cdots x_n]x_i: \sigma_i \ritp \eqnline
- = & \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright y_i: \sigma_i \ritp \eqnline
- = & \text{Proj}_{i+1}^{unit \times \litp \sigma_1 \ritp \times \cdots \times \litp \sigma_n \ritp } \eqnline
- = & \litp x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright x_i: \sigma_i \ritp \\[10pt]
+   & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright [y_1, \ldots , y_n /x_1, \ldots x_n]x_i: \sigma_i \ritp \eqnline
+ = & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright y_i: \sigma_i \ritp \eqnline
+ = & \text{Proj}_{i+1}^{unit \times \litp \sigma_1 \ritp \times \ldots \times \litp \sigma_n \ritp } \eqnline
+ = & \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright x_i: \sigma_i \ritp \\[10pt]
 \end{array}
 $
 
@@ -204,37 +206,37 @@ Inductive steps
 
 Application $ M: \sigma \equiv M_1M_2: \tau_2 $ 
 
-In this case, $ N \equiv N_1N_2 $ where $ N_1 =_\alpha [y_1, \cdots , y_n /x_1, \cdots x_n]M_1 $ and $ N_2 =_\alpha [y_1, \cdots , y_n /x_1, \cdots x_n]M_2 $. The induction hypotheses contains two equations: \eqnline
+In this case, $ N \equiv N_1N_2 $ where $ N_1 =_\alpha [y_1, \ldots , y_n /x_1, \ldots x_n]M_1 $ and $ N_2 =_\alpha [y_1, \ldots , y_n /x_1, \ldots x_n]M_2 $. The induction hypotheses contains two equations: \eqnline
 \begin{tabular}{rlcl}
-$ \bullet $ & $ \litp x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright M_1: \tau_1 \to \tau_2 \ritp $ & = & $ \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright N_1: \tau_1 \to \tau_2 \ritp $ \eqnline
-$ \bullet $ & $ \litp x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright M_2: \tau_1 \ritp $ & = & $ \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright N_2: \tau_1 \ritp $
+$ \bullet $ & $ \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M_1: \tau_1 \to \tau_2 \ritp $ & = & $ \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N_1: \tau_1 \to \tau_2 \ritp $ \eqnline
+$ \bullet $ & $ \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M_2: \tau_1 \ritp $ & = & $ \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N_2: \tau_1 \ritp $
 \end{tabular} \\[10pt]
 
 With the two equations above, we can show that \eqnline
 $
 \begin{array}{rl}
-   & \litp x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright M_1M_2: \tau_2 \ritp \eqnline
- = & \text{App} \circ \langle \litp x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright M_1: \tau_1 \to \tau_2 \ritp , \litp x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright M_2: \tau_1 \ritp \rangle \eqnline
- = & \text{App} \circ \langle \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright N_1: \tau_1 \to \tau_2 \ritp , \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright N_2: \tau_1 \ritp \rangle \eqnline
- = & \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright N_1N_2: \tau_2 \ritp \eqnline
- = & \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright [y_1, \cdots , y_n /x_1, \cdots x_n](M_1M_2): \tau_2 \ritp
+   & \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M_1M_2: \tau_2 \ritp \eqnline
+ = & \text{App} \circ \langle \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M_1: \tau_1 \to \tau_2 \ritp , \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M_2: \tau_1 \ritp \rangle \eqnline
+ = & \text{App} \circ \langle \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N_1: \tau_1 \to \tau_2 \ritp , \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N_2: \tau_1 \ritp \rangle \eqnline
+ = & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N_1N_2: \tau_2 \ritp \eqnline
+ = & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright [y_1, \ldots , y_n /x_1, \ldots x_n](M_1M_2): \tau_2 \ritp
 \end{array}
 $ \\[10pt]
 
 Abstraction $ M: \sigma \equiv \lambda x_{n+1}:\sigma_{n+1} .M':\sigma_{n+1} \to \tau $ 
 
-In this case, $ N \equiv \lambda y_{n+1}:\sigma_{n+1} .N' $ where $ N' =_\alpha [y_1, \cdots , y_{n+1} /x_1, \cdots x_{n+1}]M' $. We assume that $ \litp x_1:\sigma_1, \cdots , x_{n+1}:\sigma_{n+1} \triangleright M': \tau \ritp = \litp y_1:\sigma_1, \cdots , y_{n+1}:\sigma_{n+1} \triangleright N': \tau \ritp $ holds. Then we prove that \eqnline
+In this case, $ N \equiv \lambda y_{n+1}:\sigma_{n+1} .N' $ where $ N' =_\alpha [y_1, \ldots , y_{n+1} /x_1, \ldots x_{n+1}]M' $. We assume that $ \litp x_1:\sigma_1, \ldots , x_{n+1}:\sigma_{n+1} \triangleright M': \tau \ritp = \litp y_1:\sigma_1, \ldots , y_{n+1}:\sigma_{n+1} \triangleright N': \tau \ritp $ holds. Then we prove that \eqnline
 $
 \begin{array}{rl}
-   & \litp x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright \lambda x_{n+1}:\sigma_{n+1} .M':\sigma_{n+1} \to \tau \ritp \eqnline
- = & \text{Curry}( \litp x_1:\sigma_1, \cdots , x_{n+1}:\sigma_{n+1} \triangleright M': \tau \ritp ) \eqnline
- = & \text{Curry}( \litp y_1:\sigma_1, \cdots , y_{n+1}:\sigma_{n+1} \triangleright N': \tau \ritp ) \eqnline
- = & \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright \lambda y_{n+1}:\sigma_{n+1} .N':\sigma_{n+1} \to \tau \ritp \eqnline
- = & \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright [y_1, \cdots , y_n /x_1, \cdots x_n](\lambda y_{n+1}:\sigma_{n+1} .M'):\sigma_{n+1} \to \tau \ritp \\[10pt]
+   & \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright \lambda x_{n+1}:\sigma_{n+1} .M':\sigma_{n+1} \to \tau \ritp \eqnline
+ = & \text{Curry}( \litp x_1:\sigma_1, \ldots , x_{n+1}:\sigma_{n+1} \triangleright M': \tau \ritp ) \eqnline
+ = & \text{Curry}( \litp y_1:\sigma_1, \ldots , y_{n+1}:\sigma_{n+1} \triangleright N': \tau \ritp ) \eqnline
+ = & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright \lambda y_{n+1}:\sigma_{n+1} .N':\sigma_{n+1} \to \tau \ritp \eqnline
+ = & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright [y_1, \ldots , y_n /x_1, \ldots x_n](\lambda y_{n+1}:\sigma_{n+1} .M'):\sigma_{n+1} \to \tau \ritp \\[10pt]
 \end{array}
 $
 
-Hence, it holds that $ \litp x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright M: \sigma \ritp = \litp y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright N: \sigma \ritp $ for all well typed $ x_1:\sigma_1, \cdots , x_n:\sigma_n \triangleright M: \sigma $ and $ y_1:\sigma_1, \cdots , y_n:\sigma_n \triangleright N: \sigma $ with $ N =_{\alpha} [y_1, \cdots , y_n /x_1, \cdots x_n]M $. 
+Hence, it holds that $ \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M: \sigma \ritp = \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N: \sigma \ritp $ for all well typed $ x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M: \sigma $ and $ y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N: \sigma $ with $ N =_{\alpha} [y_1, \ldots , y_n /x_1, \ldots x_n]M $. 
 \\
 
 (2) $ \beta $-equivalence
@@ -288,5 +290,30 @@ Given any well-typed terms $ \Gamma \triangleright M: \sigma $ and $ \Gamma \tri
 
 The category $ \mathcal{C} $ is generated by $ \lambda^\to $ in the following way:
 
-The objects of $ \mathcal{C} $ are sequences of type expressions. To be specific, the empty sequence is the terminal object $ unit $ and a sequence $ \langle \sigma_1, \sigma_2, \cdots \sigma_n \rangle $ represents the products of the $ \langle \sigma_i \rangle $.
+The objects of $ \mathcal{C} $ are sequences of type expressions. To be specific, the empty sequence is the terminal object $ unit $ and a sequence $ [ \sigma_1, \ldots \sigma_n ] $ represents the products of the $ [ \sigma_i ] $. For notational convenience, we write $ \vec{x}_k $ for a sequence $ [ x_1, \ldots , x_k ] $ of $ k $ variables, similarly $ \vec{\sigma}_k $ for a sequence of $ k $ type expressions, and $ \vec{x}_k : \vec{\sigma}_k $ for type context $ x_1:\sigma_1, \ldots , x_k:\sigma_k $.
+
+The morphisms from $ \vec{\sigma}_m $ to $ \vec{\tau}_n $ are given by $ n $-tuples of terms over $ m $ free variables. To put it more specifically, a morphism from $ \vec{\sigma}_m $ to $ \vec{\tau}_n $ is a $ n $-tuple of equivalence class of terms, i.e. \eqnline
+\begin{tabular}{r m{0.92\textwidth}}
+   & $[ \vec{x}_m : \vec{\sigma}_m \triangleright M_i : \tau_i | i = 1, \ldots , n ]$ \eqnline
+$=$& $[ \vec{x}_m : \vec{\sigma}_m \triangleright M_1 : \tau_1 , \ldots , \vec{x}_m : \vec{\sigma}_m \triangleright M_n : \tau_n ]$ \eqnline
+$=$& $\langle \{\vec{x}_m : \vec{\sigma}_m \triangleright N_1: \tau_1|\vec{x}_m : \vec{\sigma}_m \triangleright M_1=N_1: \tau_1\} , \ldots , $ \eqnline
+\multicolumn{2}{r}{$ \{\vec{x}_m : \vec{\sigma}_m \triangleright N_n: \tau_n|\vec{x}_m : \vec{\sigma}_m \triangleright M_n=N_n: \tau_n\} \rangle $} \\[10pt]
+\end{tabular}
+
+Compositions in $ \mathcal{C} $ is defined by substitution. Given a morphism from $ \vec{\sigma}_l $ to $ \vec{\tau}_m $ and another one from $ \vec{\tau}_m $ to $ \vec{\rho}_n $, their composition is \eqnline
+$
+\begin{array}{rl}
+   & [ \vec{y}_m : \vec{\tau}_m \triangleright N_i : \rho_i | i = 1, \ldots , n ] \circ [ \vec{x}_l : \vec{\sigma}_l \triangleright M_i : \tau_i | i = 1, \ldots , m ] \eqnline
+ = & [ \vec{x}_l : \vec{\sigma}_l \triangleright [\vec{y}_m/\vec{M}_m]N_i: \rho_i | i=1, \ldots , n ] : \vec{\sigma}_l \to \vec{\rho}_n \\[10pt]
+\end{array}
+$
+
+The identity for $ \vec{\sigma}_n $ is the morphism $ [ \vec{x}_n : \vec{\sigma}_n \triangleright x_i : \sigma_i | i = 1, \ldots , n ] : \vec{\sigma}_n \to \vec{\sigma}_n $.
+
+After defining the category $ \mathcal{C} $, we need to show that it is cartesian closed and then two terms have the same interpretation in $ \mathcal{C} $ implies that they are $ \alpha \beta \eta $-equivalent.
+
+(1) $ \mathcal{C} $ is cartesian closed
+
+(2) $ \mathcal{C} \litp \Gamma \triangleright M: \sigma \ritp = \mathcal{C} \litp \Gamma \triangleright N: \sigma \ritp \implies \Gamma \triangleright M =_{\alpha \beta \eta} N: \sigma $
+
 \end{proof}
