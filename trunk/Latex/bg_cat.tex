@@ -286,13 +286,19 @@ where $ f: A \times B \to C $ and $ h: D \to A $.
 \end{proposition}
 
 \begin{proof}
-These three equations have been proved by the diagrams in figures \ref{figure:cat_eqn1}, fig2 , and \ref{figure:cat_eqn3}. But they can also be proved by using the equations given in definition \ref{definition:products} and \ref{definition:exponentials} .
+These three equations have been proved by the diagrams in figures \ref{figure:cat_eqn1}, \ref{figure:cat_eqn2} , and \ref{figure:cat_eqn3}. But they can also be proved by using the equations given in definition \ref{definition:products} and \ref{definition:exponentials} .
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.48]{./images/cat_eqn1}
 \caption{Diagram of $ \langle f,g \rangle \circ h = \langle f \circ h , g \circ h \rangle $}
 \label{figure:cat_eqn1}
+\end{figure}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.48]{./images/cat_eqn2}
+\caption{Diagram of $ \langle f,g \rangle = ( f \times \text{id}_B ) \circ \langle \text{id}_C , g \rangle $}
+\label{figure:cat_eqn2}
 \end{figure}
 \begin{figure}[h!]
 \centering
@@ -306,7 +312,19 @@ These three equations have been proved by the diagrams in figures \ref{figure:ca
 $ \text{Proj}_2 \circ ( \langle f,g \rangle \circ h ) = ( \text{Proj}_2 \circ \langle f,g \rangle ) \circ h = g \circ h $\\
 $ \langle \text{Proj}_1 \circ ( \langle f,g \rangle \circ h ) , \text{Proj}_2 \circ ( \langle f,g \rangle \circ h ) \rangle = \langle f \circ h , g \circ h \rangle $\\
 Since we have $ \langle \text{Proj}_1 \circ g , \text{Proj}_2 \circ g \rangle = g $ (in definition \ref{definition:products}), then $ \langle f,g \rangle \circ h = \langle f \circ h , g \circ h \rangle $ holds.
-\item[(2)] $ \langle f,g \rangle = ( f \times \text{id}_B ) \circ \langle \text{id}_C , g \rangle $
+\item[(2)] $ f \times \text{id}_B = \langle f \circ \text{Proj}_1 , \text{id}_B \circ \text{Proj}_2 \rangle $ (by the definition of products of morphisms) \\
+$
+\begin{array}{ll}
+  & ( f \times \text{id}_B ) \circ \langle \text{id}_C , g \rangle \\
+= & \langle f \circ \text{Proj}_1 , \text{id}_B \circ \text{Proj}_2 \rangle \circ \langle \text{id}_C , g \rangle \\
+= & \langle f \circ \text{Proj}_1 , \text{Proj}_2 \rangle \circ \langle \text{id}_C , g \rangle \\
+  & (\text{by } \langle f,g \rangle \circ h = \langle f \circ h , g \circ h \rangle \text{ in (1) } ) \\ 
+= & \langle f \circ \text{Proj}_1 \circ \langle \text{id}_C , g \rangle , \text{Proj}_2 \circ \langle \text{id}_C , g \rangle \rangle \\
+  & (\text{by } \text{Proj}_i \circ \langle f_1,f_2 \rangle = f_i ) \\
+= & \langle f \circ \text{id}_C , g \rangle \\
+= & \langle f, g \rangle \\
+\end{array}
+$
 \item[(3)] $ f = \text{App} \circ ( \text{Curry}(f) \times \text{id})) $ (by $ \text{App} \circ ( \text{Cutty}(h) \times \text{id} ) = h $ in definition \ref{definition:exponentials})\\
 $
 \begin{array}{ll}
