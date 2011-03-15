@@ -5,7 +5,7 @@ The $ \lambda $-calculus is a family of prototype programming languages. The sim
 
 Application is one of the primitive operations. A lambda application $ F A $ denotes that the function $ F $ is applied to the argument $ A $. Another basic operation is abstraction. Let $ P \equiv P[x] $ be an expression possibly containing or depending on variable $ x $. Then the lambda abstraction $ \lambda x.P $ denotes the function $ x \mapsto P[x] $. Here, $ P $ is called the \emph{scope} of the \emph{abstractor} $ \lambda x $. In a term $ M $, if variable $ x $ occurs not in the scope of $ \lambda x $, we say $ x $ is \emph{free} in $ M $ and write the set of free variables in $ M $ as $ FV(M) $.
 
-There are three kinds of equivalences playing an important role in $ \lambda $-calculus. The first one, $ \alpha $-equivalence, states that a change of bound variables in a $ \lambda $-term does not change its meaning. $ \beta $-equivalence shows how to evaluate an application by using substitution. And $ \eta $-equivalence refers to the idea of extensionality. All of them will be discussed in more detail in \ref{sec:bg_lc_eps} which is about the proof system of the simply typed lambda calculus.
+There are three kinds of equivalences playing an important role in $ \lambda $-calculus. The first one, $ \alpha $-equivalence, states that a change of bound variables in a $ \lambda $-term does not change its meaning. $ \beta $-equivalence shows how to evaluate an application by using substitution. And $ \eta $-equivalence refers to the idea of extensionality. All of them will be discussed in more detail in section \ref{sec:bg_lc_eps} which is about the proof system of the simply typed lambda calculus.
 
 
 %---------------------------------------------------------------------------%
@@ -14,7 +14,7 @@ There are three kinds of equivalences playing an important role in $ \lambda $-c
 \label{sec:bg_lc_stlc}
 Church introduced a typed interpretation of lambda calculus, now called the \emph{simply typed lambda calculus}, by giving each $ \lambda $-term a unique type as its structure. The types in simply typed lambda calculus do not contain type variables. The standard type forms include functions, products, sums, initial and terminal types.
 
-The one with only function type constructor $ \to $ is called the \emph{simply typed lambda calculus with function types}, indicated by $ \lambda ^\to $. With products, sums and functions, we have $ \lambda ^\to{}^,{}^\times{}^,{}^+ $ and so on. However, $ \lambda ^\to $ is as expressive as other versions of simply typed lambda calculus. We will have a look at $ \lambda ^\to $ first and the introduce to the other types can be found in \ref{sec:bg_lc_ot}.
+The one with only function type constructor $ \to $ is called the \emph{simply typed lambda calculus with function types}, indicated by $ \lambda ^\to $. With products, sums and functions, we have $ \lambda ^\to{}^,{}^\times{}^,{}^+ $ and so on. However, $ \lambda ^\to $ is as expressive as other versions of simply typed lambda calculus. We will have a look at $ \lambda ^\to $ first and the introduce to the other types can be found in section \ref{sec:bg_lc_ot}.
 
 To begin with, we give the definition of types in $ \lambda ^\to $.
 \begin{definition}[\textbf{Types}]
@@ -42,7 +42,7 @@ $
 $
 \\
 \\
-Given a type-context $ \Gamma $, a $ \lambda $-term $ M $ and a type $ \sigma $, the expression $ \Gamma \triangleright M: \sigma $ is called a \emph{typing judgement}, meaning term $ M $ has type $ \sigma $ in context $ \Gamma $. However, not all the terms of this pattern are valid. To define well-typed lambda terms of a given type, some typing rules are needed.
+Given a type-context $ \Gamma $, a $ \lambda $-term $ M $ and a type $ \sigma $, the expression $ \Gamma \triangleright M: \sigma $ is called a \emph{typing judgement}, meaning term $ M $ has type $ \sigma $ in context $ \Gamma $. However, not all the terms of this pattern are valid. To define the set of well-typed lambda terms of a given type, some typing rules are needed.
 
 \begin{definition}[\textbf{Typing Rules of $ \lambda ^\to $}]
 \label{definition:typ_rules}
@@ -91,9 +91,7 @@ Some literatures represent the rule ($ \to $E) as
 \end{prooftree}
 However, this representation may be dangerous. Suppose $ x: \sigma \in \Gamma _1 $ and $ x: \tau \in \Gamma _2 $ where $ \sigma \not\equiv \tau $, then $ \Gamma _1 \cup \Gamma _2 $ is inconsistent since $ x $ has type $ \sigma $ and $ \tau $. And that is why the contexts of $ M $ and $ N $ in ($ \to $E) are same in definition \ref{definition:typ_rules}.
 
-The combinators  \textbf{K} and \textbf{S} are used as examples to demonstrate how a well-typed term is obtained by using the typing rules:
-\begin{myitemize}
-\item[(1)] $ \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $
+The combinator $ \textbf{K} \equiv \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $ is used as an example to demonstrate how a well-typed term is obtained by using the typing rules:
 \begin{prooftree}
 \AxiomC{}
 \UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
@@ -104,67 +102,27 @@ The combinators  \textbf{K} and \textbf{S} are used as examples to demonstrate h
 \RightLabel{($ \to $I)}
 \UnaryInfC{$ \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $}
 \end{prooftree}
-\item[(2)] $ \triangleright \lambda x: \sigma \to \tau \to \rho . \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz) $
-\begin{flushright}
-$ : ( \sigma \to \tau \to \rho ) \to ( \sigma \to \tau ) \to \sigma \to \rho $
-\end{flushright}
-\begin{prooftree}
-(I)
-\AxiomC{}
-\UnaryInfC{$ x: \sigma \to \tau \to \rho \triangleright x: \sigma \to \tau \to \rho $}
-\RightLabel{($ add $)}
-\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau \triangleright x: \sigma \to \tau \to \rho $}
-\RightLabel{($ add $)}
-\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright x: \sigma \to \tau \to \rho $}
-\end{prooftree}
-\begin{prooftree}
-(II)
-\AxiomC{}
-\UnaryInfC{$ y: \sigma \to \tau \triangleright y: \sigma \to \tau $}
-\RightLabel{($ add $)}
-\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau \triangleright y: \sigma \to \tau $}
-\RightLabel{($ add $)}
-\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright y: \sigma \to \tau $}
-\end{prooftree}
-\begin{prooftree}
-(III)
-\AxiomC{}
-\UnaryInfC{$ z: \sigma \triangleright z: \sigma $}
-\RightLabel{($ add $)}
-\UnaryInfC{$ x: \sigma \to \tau \to \rho , z: \sigma \triangleright z: \sigma $}
-\RightLabel{($ add $)}
-\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright z: \sigma $}
-\end{prooftree}
-\begin{prooftree}
-(IV)
-\AxiomC{(I)}
-\AxiomC{(III)}
-\RightLabel{($ \to $E)}
-\BinaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright x z: \tau \to \rho $}
-\end{prooftree}
-\begin{prooftree}
-(V)
-\AxiomC{(II)}
-\AxiomC{(III)}
-\RightLabel{($ \to $E)}
-\BinaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright y z: \tau $}
-\end{prooftree}
-\begin{prooftree}
-\AxiomC{(IV)}
-\AxiomC{(V)}
-\RightLabel{($ \to $E)}
-\BinaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau , z: \sigma \triangleright (xz)(yz): \rho $}
-\RightLabel{($ \to $I)}
-\UnaryInfC{$ x: \sigma \to \tau \to \rho , y: \sigma \to \tau \triangleright \lambda z: \sigma . (xz)(yz): \sigma \to \rho $}
-\RightLabel{($ \to $I)}
-\UnaryInfC{$ x: \sigma \to \tau \to \rho \triangleright \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz): ( \sigma \to \tau ) \to \sigma \to \rho $}
-\RightLabel{($ \to $I)}
-\UnaryInfC{$ \triangleright \lambda x: \sigma \to \tau \to \rho . \lambda y: \sigma \to \tau . \lambda z: \sigma . (xz)(yz) $}
-\end{prooftree}
-\begin{flushright}
-$ : ( \sigma \to \tau \to \rho ) \to ( \sigma \to \tau ) \to \sigma \to \rho $
-\end{flushright}
-\end{myitemize}
+
+The tree built by following the typing rules is called a \emph{type-derivation}. Since a lambda term must be a term variable, an application or a lambda abstraction, and for each of them there is only one typing rule to obtain it, a well-typed lambda term has exactly one type-derivation.
+
+\begin{proposition}
+\label{proposition:unique_derivation}
+Each well-typed lambda term uniquely determines a type-derivation.
+\end{proposition}
+\begin{proof}
+\mbox\\
+
+Since all the lambda terms are defined inductively, we can proof the proposition by induction on the terms.
+
+The base case is a term variable $ x $. As a term variable, it should have a type which it is declared to have in the type context. We give it type $ \sigma $, so $ x: \sigma \triangleright x: \sigma $. The only typing rule that it can be applied to is the rule ($axiom$).
+
+There are two inductive cases, applications and abstractions.
+
+Assume that both $ M: \sigma \to \tau $ and $ N: \sigma $ in context $ \Gamma $ have a unique type derivation. The only rule which they can be applied to is function application ($ \to $E). Hence, their application $ MN: \tau $ in context $ \Gamma $ has a unique type derivation as well.
+
+Similarly, let us assume that $ M: \tau $ in non-empty context $ \Gamma $ has a unique type derivation. To obtain a lambda abstraction $ \lambda x:\sigma . M: \sigma \to \tau $ where $ x: \sigma \in \Gamma $, the only typing rule can be used is ($ \to $I). Then $ \lambda x:\sigma . M: \sigma \to \tau $ in context $ \Gamma - x:\sigma $ determines uniquely a type derivation.
+
+\end{proof}
 
 As mentioned before, not every term can be typed. Take the term $ x x $ for example. As an application, its first component $ x $ should have a function type $ \sigma \to \tau $ and then its second $ x $ should have type $ \sigma $. In order to construct a derivation tree, we need two sub-trees, one with conclusion $ \Gamma \triangleright x: \sigma \to \tau $ and another with conclusion $ \Gamma \triangleright x : \sigma $, in accordance with the rule ($ \to $E). Since $ x $ is a term-variable, the axiom ($ axiom $) tells us both $ x : \sigma \to \tau $ and $ x: \sigma $ appear in context $ \Gamma $, which means $ \Gamma $ is inconsistent. Therefore, we are unable to find a consistent context for $ x x $ and it cannot be typed.
 
@@ -328,7 +286,7 @@ Except function type, different versions of the simply typed lambda calculus may
 
 \begin{definition}[\textbf{Initial and Terminal Types}]
 \label{definition:ini_ter_types}
-The \emph{initial type}, denoted as $ null $, is an empty type and, for each type $ \sigma $, there is a unique term constant
+The \emph{initial type}, denoted as $ null $, is an empty type (i.e. there is no instance of initial type) and, for each type $ \sigma $, there is a unique term constant
 \begin{center}
 $ \text{Zero}^\sigma : null \to \sigma $
 \end{center}
