@@ -373,11 +373,5 @@ According to proposition \ref{proposition:unique_derivation}, each well-typed la
 This and the last sections demonstrate a closed connection between proofs in intuitionistic propositional logic and terms in simply typed lambda calculus. To put it more specific, let us have a look at this correspondence from the following points of view.
 
 For one thing, \emph{propositions correspond to types}. If we take the set of propositional variables equal to the set of type variables, then the set of propositional formulas is identical to the set of simple types. The reason for this is that each propositional connective corresponds to a simple type constructor. Implication $ \to $ corresponds to function constructor $ \to $, conjunction $ \land $ to product constructor $ \times $, and disjunction $ \lor $ to sum constructor $ + $.
-\begin{center}
-\begin{tabular}{c}
-abc
-\end{tabular}
-\end{center}
-
 
 For another, \emph{proofs correspond to terms}. Since propositional connectives correspond to simple type constructors, the inference rule for these connectives should have the same behaviour with the typing rules for the simple type constructors. From \ref{sec:co_t2p} and \ref{sec:co_p2t}, it is obvious that the inference rules in natural deduction system build proof trees in the same way as the typing rules build type derivations.
