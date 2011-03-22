@@ -50,6 +50,8 @@
 \newcommand{\ritp}{]\!]}
 \newcommand{\eqnline}{\\[5pt]}
 
+\newcommand{\tc}{\mathord{:}}
+
 \begin{document}
 
 \begin{titlepage}
@@ -83,8 +85,15 @@ Prof. Achim \textsc{Jung}
 \end{titlepage}
 
 \begin{abstract}
-Systems of formal logic as encountered in \emph{proof theory} tightly correspond to computational calculi as found in \emph{type theory}, which is stated as the \emph{Curry-Howard Isomorphism}. This correspondence has been extended to cartesian closed categories, a special kind of categories in \emph{category theory}. This project focuses on the three-way-correspondence and the ways in which they connect to each other. This dissertation also gives proofs of the isomorphisms between them, most of which are carried out by induction on derivations or terms. The main conclusions drawn from this study are that one can obtain a lambda term in simply typed lambda calculus from a proof in intuitionistic propositional logic, and vice versa, and that cartesian closed categories work as a framework for describing the denotational semantics of simply typed lambda calculus and intuitionistic propositional logic.
+Systems of formal logic as encountered in \emph{proof theory} tightly correspond to computational calculi as found in \emph{type theory}, which is known as the \emph{Curry-Howard Isomorphism}. This correspondence has been extended to cartesian closed categories, a special kind of categories in \emph{category theory}. This project focuses on the three-way correspondence and the ways in which they connect to each other. While the correspondence looks superficially straightforward, a lot of care has to be applied to prove them in full generality. Most of the proofs given in this dissertation are carried out by induction on derivations or terms. The main conclusions drawn from this study are that one can obtain a lambda term in simply typed lambda calculus from a proof in intuitionistic propositional logic, and vice versa, and that cartesian closed categories can be used as a framework for describing the denotational semantics of both the simply typed lambda calculus and intuitionistic propositional logic.\\[50pt]
 \end{abstract}
+\addcontentsline{toc}{section}{Abstract}
+
+\renewcommand{\abstractname}{Acknowledgements}
+\begin{abstract}
+To be finished...
+\end{abstract}
+\addcontentsline{toc}{section}{Acknowledgements}
 
 \newpage
 \tableofcontents
@@ -102,6 +111,8 @@ Systems of formal logic as encountered in \emph{proof theory} tightly correspond
 \include*{co_t2p}
 \include*{co_p2t}
 \include*{co_t2m}
+
+\include{reflections}
 
 
 \newpage

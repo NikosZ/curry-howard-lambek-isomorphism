@@ -28,16 +28,16 @@ Assume that a set of type-constants is given. Then the types in $ \lambda ^\to $
 
 There are two general frameworks for describing the denotational semantics of typed lambda calculus, \emph{Henkin models} and \emph{cartesian closed categories}. In a Henkin model, each type expression is interpreted as a set, the set of values of that type. The interpretation in CCCs will be discussed in \ref{sec:co_t2m}.
 
-The syntax of $ \lambda ^\to $ is essentially that of the pure lambda calculus itself. By assigning type $ \sigma $ to a lambda term $ M $, we have an expression $ M:\sigma $ called a \emph{type-assignment}, saying that term $ M $ has type $ \sigma $. Here, $ M $ is called its \emph{subject} and $ \sigma $ its \emph{predicate}.
+The syntax of $ \lambda ^\to $ is essentially that of the pure lambda calculus itself. By assigning type $ \sigma $ to a lambda term $ M $, we have an expression $ M : \sigma $ called a \emph{type-assignment}, saying that term $ M $ has type $ \sigma $. Here, $ M $ is called its \emph{subject} and $ \sigma $ its \emph{predicate}.
 
-However, not every pure $ \lambda $-term can be given a type. The typing constraints are context sensitive. A \emph{type-context} is any finite set of type-assignments $ \Gamma = \{ x_1 : \sigma _1 , \cdots , x_n : \sigma _n \} $ whose subjects are term-variables. We say a type-context is consistent if no term-variable in it is the subject of more than one assignment. If not specified, the type-contexts used in this dissertation are consistent.
+However, not every pure $ \lambda $-term can be given a type. The typing constraints are context sensitive. A \emph{type-context} is any finite set of type-assignments $ \Gamma = \{ x_1 \tc \sigma _1 , \cdots , x_n \tc \sigma _n \} $ whose subjects are term-variables. We say a type-context is consistent if no term-variable in it is the subject of more than one assignment. If not specified, the type-contexts used in this dissertation are consistent.
 
 As a set, a type-context does not change when its members are permuted or repeated. For notational convenience, the following abbreviations are often used:\\
 $
 \begin{array}{rlll}
-\hspace*{12pt} \bullet & x_1 : \sigma _1 , \cdots , x_n : \sigma _n & \text{for} & \{ x_1 : \sigma _1 , \cdots , x_n : \sigma _n \} ; \\
-\bullet & \Gamma , x : \sigma & \text{for} & \Gamma \cup \{ x : \sigma \} ; \\
-\bullet & \Gamma - x : \sigma & \text{for} & \Gamma - \{ x : \sigma \} .
+\hspace*{12pt} \bullet & x_1 \tc \sigma _1 , \cdots , x_n \tc \sigma _n & \text{for} & \{ x_1 \tc \sigma _1 , \cdots , x_n \tc \sigma _n \} ; \\
+\bullet & \Gamma , x \tc \sigma & \text{for} & \Gamma \cup \{ x \tc \sigma \} ; \\
+\bullet & \Gamma - x \tc \sigma & \text{for} & \Gamma - \{ x \tc \sigma \} .
 \end{array}
 $
 \\
@@ -53,24 +53,24 @@ For each term-variable $ x $ and each type $ \sigma $,
 \begin{prooftree}
 \AxiomC{}
 \RightLabel{($ axiom $)}
-\UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
+\UnaryInfC{$ x \tc \sigma \triangleright x: \sigma $}
 \end{prooftree}
 It simply says that if $ x $ has type $ \sigma $ in the context, intuitively, then $ x $ has type $ \sigma $. In other words, a variable $ x $ has any type which it is declared to have.
 \item \emph{Adding variables to type context} ($ add $)\\
-Suppose $ x $ is not free in $ M $,
+Suppose $ x $ is not free in $ M $ and does not appear in $ \Gamma $,
 \begin{prooftree}
 \AxiomC{$ \Gamma \triangleright M: \tau $}
 \RightLabel{($ add $)}
-\UnaryInfC{$ \Gamma , x: \sigma \triangleright M: \tau $}
+\UnaryInfC{$ \Gamma , x \tc \sigma \triangleright M: \tau $}
 \end{prooftree}
-In words, if $ M $ has type $ \tau $ in context $ \Gamma $, then it has type $ \tau $ in context $ \Gamma , x: \sigma $, which allows one to add an additional hypothesis to the type context.
+In words, if $ M $ has type $ \tau $ in context $ \Gamma $, then it has type $ \tau $ in context $ \Gamma , x \tc \sigma $, which allows one to add an additional hypothesis to the type context.
 \item \emph{$ \to $-introduction} ($ \to $I)
 \begin{prooftree}
 \AxiomC{$ \Gamma \triangleright M: \tau $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \Gamma - x: \sigma \triangleright \lambda x: \sigma . M: \sigma \to \tau $}
+\UnaryInfC{$ \Gamma - x \tc \sigma \triangleright \lambda x \tc \sigma . M: \sigma \to \tau $}
 \end{prooftree}
-If a term $ M $ specifies a result of type $ \tau $ for all $ x: \sigma $, then the expression $ \lambda x: \sigma . M $ defines a function of type $ \sigma \to \tau $.
+If a term $ M $ specifies a result of type $ \tau $ for all $ x \tc \sigma $, then the expression $ \lambda x \tc \sigma . M $ defines a function of type $ \sigma \to \tau $.
 \item \emph{$ \to $-elimination} ($ \to $E)
 \begin{prooftree}
 \AxiomC{$ \Gamma \triangleright M: \sigma \to \tau $}
@@ -82,6 +82,22 @@ By applying any function of type $ \sigma \to \tau $ to an argument of type $ \s
 \end{myitemize}
 \end{definition}
 
+Different literatures may represent the typing rules in different forms. For instance, someone combines ($ axiom $) and ($ add $) as
+\begin{prooftree}
+\AxiomC{}
+\UnaryInfC{$ \Gamma, x \tc \sigma \triangleright x : \sigma $}
+\end{prooftree}
+and does not include weakening ($ add $) as a basic typing rule. But there are some terms that cannot be generated without this rule. To illustrate, $ \lambda x \tc \sigma. \lambda x \tc \tau . x : \sigma \to ( \tau \to \tau ) $ is a valid closed lambda term which cannot be obtained without weakening. That's because the type derivation of it cannot start with $ x \tc \sigma, x \tc \tau \triangleright x: \tau $ whose context has conflict. With weakening, its derivation is built as follows.
+\begin{prooftree}
+\AxiomC{$ x \tc \tau \triangleright x : \tau $}
+\RightLabel{($\to$I)}
+\UnaryInfC{$ \triangleright \lambda x \tc \tau . x : \tau \to \tau $}
+\RightLabel{($add$)}
+\UnaryInfC{$ x \tc \sigma \triangleright \lambda x \tc \tau . x : \tau \to \tau $}
+\RightLabel{($\to$I)}
+\UnaryInfC{$ \triangleright \lambda x \tc \sigma. \lambda x \tc \tau . x : \sigma \to ( \tau \to \tau ) $}
+\end{prooftree}
+
 Some literatures represent the rule ($ \to $E) as
 \begin{prooftree}
 \AxiomC{$ \Gamma _1 \triangleright M: \sigma \to \tau $}
@@ -89,18 +105,18 @@ Some literatures represent the rule ($ \to $E) as
 \RightLabel{($ \to $E)}
 \BinaryInfC{$ \Gamma _1 \cup \Gamma _2 \triangleright MN: \tau $}
 \end{prooftree}
-However, this representation may be dangerous. Suppose $ x: \sigma \in \Gamma _1 $ and $ x: \tau \in \Gamma _2 $ where $ \sigma \not\equiv \tau $, then $ \Gamma _1 \cup \Gamma _2 $ is inconsistent since $ x $ has type $ \sigma $ and $ \tau $. And that is why the contexts of $ M $ and $ N $ in ($ \to $E) are same in definition \ref{definition:typ_rules}.
+However, this representation may be dangerous. Suppose $ x \tc \sigma \in \Gamma _1 $ and $ x \tc \tau \in \Gamma _2 $ where $ \sigma \not\equiv \tau $, then $ \Gamma _1 \cup \Gamma _2 $ is inconsistent since $ x $ has type $ \sigma $ and $ \tau $. And that is why the contexts of $ M $ and $ N $ in ($ \to $E) are same in definition \ref{definition:typ_rules}.
 
-The combinator $ \textbf{K} \equiv \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $ is used as an example to demonstrate how a well-typed term is obtained by using the typing rules:
+The combinator $ \textbf{K} \equiv \lambda x \tc \sigma . \lambda y \tc \tau . x: \sigma \to \tau \to \sigma $ is used as an example to demonstrate how a well-typed term is obtained by using the typing rules:
 \begin{prooftree}
 \AxiomC{}
-\UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
+\UnaryInfC{$ x \tc \sigma \triangleright x: \sigma $}
 \RightLabel{($ add $)}
-\UnaryInfC{$ x: \sigma , y: \tau \triangleright x: \sigma $}
+\UnaryInfC{$ x \tc \sigma , y \tc \tau \triangleright x: \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ x: \sigma \triangleright \lambda y: \tau . x: \tau \to \sigma $}
+\UnaryInfC{$ x \tc \sigma \triangleright \lambda y \tc \tau . x: \tau \to \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \triangleright \lambda x: \sigma . \lambda y: \tau . x: \sigma \to \tau \to \sigma $}
+\UnaryInfC{$ \triangleright \lambda x \tc \sigma . \lambda y \tc \tau . x: \sigma \to \tau \to \sigma $}
 \end{prooftree}
 
 The tree built by following the typing rules is called a \emph{type-derivation}. Since a lambda term must be a term variable, an application or a lambda abstraction, and for each of them there is only one typing rule to obtain it, a well-typed lambda term has exactly one type-derivation.
