@@ -73,10 +73,10 @@ In words, if $ M $ has type $ \tau $ in context $ \Gamma $, then it has type $ \
 If a term $ M $ specifies a result of type $ \tau $ for all $ x \tc \sigma $, then the expression $ \lambda x \tc \sigma . M $ defines a function of type $ \sigma \to \tau $.
 \item \emph{$ \to $-elimination} ($ \to $E)
 \begin{prooftree}
-\AxiomC{$ \Gamma \triangleright M: \sigma \to \tau $}
-\AxiomC{$ \Gamma \triangleright N: \sigma $}
+\AxiomC{$ \Gamma _1 \triangleright M: \sigma \to \tau $}
+\AxiomC{$ \Gamma _2 \triangleright N: \sigma $}
 \RightLabel{($ \to $E)}
-\BinaryInfC{$ \Gamma \triangleright MN: \tau $}
+\BinaryInfC{$ \Gamma _1 \cup \Gamma _2 \triangleright MN: \tau $}
 \end{prooftree}
 By applying any function of type $ \sigma \to \tau $ to an argument of type $ \sigma $, we obtain a result of type $ \tau $. Therefore, this rule is also called \emph{function application}.
 \end{myitemize}
@@ -87,7 +87,7 @@ Different literatures may represent the typing rules in different forms. For ins
 \AxiomC{}
 \UnaryInfC{$ \Gamma, x \tc \sigma \triangleright x : \sigma $}
 \end{prooftree}
-and does not include weakening ($ add $) as a basic typing rule. But there are some terms that cannot be generated without this rule. To illustrate, $ \lambda x \tc \sigma. \lambda x \tc \tau . x : \sigma \to ( \tau \to \tau ) $ is a valid closed lambda term which cannot be obtained without weakening. That's because the type derivation of it cannot start with $ x \tc \sigma, x \tc \tau \triangleright x: \tau $ whose context has conflict. With weakening, its derivation is built as follows.
+and does not include weakening ($ add $) as a basic typing rule. But there are some valid terms that cannot be generated without this rule. To illustrate, $ \lambda x \tc \sigma. \lambda x \tc \tau . x : \sigma \to ( \tau \to \tau ) $ is a valid closed lambda term which cannot be obtained without weakening. That's because the type derivation of it cannot start with $ x \tc \sigma, x \tc \tau \triangleright x: \tau $ whose context has conflict. With weakening, its derivation is built as follows.
 \begin{prooftree}
 \AxiomC{$ x \tc \tau \triangleright x : \tau $}
 \RightLabel{($\to$I)}
@@ -98,49 +98,28 @@ and does not include weakening ($ add $) as a basic typing rule. But there are s
 \UnaryInfC{$ \triangleright \lambda x \tc \sigma. \lambda x \tc \tau . x : \sigma \to ( \tau \to \tau ) $}
 \end{prooftree}
 
-Some literatures represent the rule ($ \to $E) as
-\begin{prooftree}
-\AxiomC{$ \Gamma _1 \triangleright M: \sigma \to \tau $}
-\AxiomC{$ \Gamma _2 \triangleright N: \sigma $}
-\RightLabel{($ \to $E)}
-\BinaryInfC{$ \Gamma _1 \cup \Gamma _2 \triangleright MN: \tau $}
-\end{prooftree}
-However, this representation may be dangerous. Suppose $ x \tc \sigma \in \Gamma _1 $ and $ x \tc \tau \in \Gamma _2 $ where $ \sigma \not\equiv \tau $, then $ \Gamma _1 \cup \Gamma _2 $ is inconsistent since $ x $ has type $ \sigma $ and $ \tau $. And that is why the contexts of $ M $ and $ N $ in ($ \to $E) are same in definition \ref{definition:typ_rules}.
-
-The combinator $ \textbf{K} \equiv \lambda x \tc \sigma . \lambda y \tc \tau . x: \sigma \to \tau \to \sigma $ is used as an example to demonstrate how a well-typed term is obtained by using the typing rules:
-\begin{prooftree}
-\AxiomC{}
-\UnaryInfC{$ x \tc \sigma \triangleright x: \sigma $}
-\RightLabel{($ add $)}
-\UnaryInfC{$ x \tc \sigma , y \tc \tau \triangleright x: \sigma $}
-\RightLabel{($ \to $I)}
-\UnaryInfC{$ x \tc \sigma \triangleright \lambda y \tc \tau . x: \tau \to \sigma $}
-\RightLabel{($ \to $I)}
-\UnaryInfC{$ \triangleright \lambda x \tc \sigma . \lambda y \tc \tau . x: \sigma \to \tau \to \sigma $}
-\end{prooftree}
-
-The tree built by following the typing rules is called a \emph{type-derivation}. Since a lambda term must be a term variable, an application or a lambda abstraction, and for each of them there is only one typing rule to obtain it, a well-typed lambda term has exactly one type-derivation.
+The tree built by following the typing rules is called a \emph{type-derivation}. Since a lambda term must be a term variable, an application or a lambda abstraction, and for each of them there is only one typing rule to obtain it, a well-typed lambda term should have exactly one unique type-derivation.
 
 \begin{proposition}
 \label{proposition:unique_derivation}
-Each well-typed lambda term uniquely determines a type-derivation.
+Each well-typed lambda term $M$ uniquely determines a type-derivation that ends in $ \Gamma \triangleright M : \sigma $ where $ \Gamma $ contains type assignments for all the free variables of $M$ (and nothing else). \footnotemark
 \end{proposition}
-\begin{proof}
-\mbox\\
+\footnotetext{It is uniquely determined except for the occurrence of the weakening rule ($add$).}
+\begin{proof}\mbox\\
 
-Since all the lambda terms are defined inductively, we can proof the proposition by induction on the terms.
+Since all the lambda terms are defined inductively, we can prove the proposition by induction on the terms.
 
-The base case is a term variable $ x $. As a term variable, it should have a type which it is declared to have in the type context. We give it type $ \sigma $, so $ x: \sigma \triangleright x: \sigma $. The only typing rule that it can be applied to is the rule ($axiom$).
+The base case is a term variable $ x $. As a term variable, it should have a type which it is declared to have in the type context. We give it type $ \sigma $, so $ x \tc \sigma \triangleright x \tc \sigma $ according to the rule ($axiom$). Therefore, the type-derivation of $ x \tc \sigma $ is unique.
 
 There are two inductive cases, applications and abstractions.
 
-Assume that both $ M: \sigma \to \tau $ and $ N: \sigma $ in context $ \Gamma $ have a unique type derivation. The only rule which they can be applied to is function application ($ \to $E). Hence, their application $ MN: \tau $ in context $ \Gamma $ has a unique type derivation as well.
+Assume that $ M: \sigma \to \tau $ uniquely determines a type derivation that ends with context $ \Gamma_M $, $ N: \sigma $ uniquely determines a type derivation that ends with context $ \Gamma_N $, and that $ \Gamma_M \cup \Gamma_N $ is consistent. To obtain an application, the only rule which can be applied to them is ($ \to $E). Hence, their application $ MN: \tau $ uniquely determines a type derivation that ends in $ \Gamma_M \cup \Gamma_N \triangleright MN: \tau $.
 
-Similarly, let us assume that $ M: \tau $ in non-empty context $ \Gamma $ has a unique type derivation. To obtain a lambda abstraction $ \lambda x:\sigma . M: \sigma \to \tau $ where $ x: \sigma \in \Gamma $, the only typing rule can be used is ($ \to $I). Then $ \lambda x:\sigma . M: \sigma \to \tau $ in context $ \Gamma - x:\sigma $ determines uniquely a type derivation.
+Similarly, let us assume that $ M: \tau $ uniquely determines a type derivation that ends with context $ \Gamma, x \tc \sigma $. To obtain a lambda abstraction $ \lambda x \tc \sigma . M: \sigma \to \tau $, the only typing rule can be used is ($ \to $I). Then $ \lambda x \tc \sigma . M: \sigma \to \tau $ uniquely determines a type derivation which ends in $ \Gamma \triangleright \lambda x \tc \sigma . M: \sigma \to \tau $.
 
 \end{proof}
 
-As mentioned before, not every term can be typed. Take the term $ x x $ for example. As an application, its first component $ x $ should have a function type $ \sigma \to \tau $ and then its second $ x $ should have type $ \sigma $. In order to construct a derivation tree, we need two sub-trees, one with conclusion $ \Gamma \triangleright x: \sigma \to \tau $ and another with conclusion $ \Gamma \triangleright x : \sigma $, in accordance with the rule ($ \to $E). Since $ x $ is a term-variable, the axiom ($ axiom $) tells us both $ x : \sigma \to \tau $ and $ x: \sigma $ appear in context $ \Gamma $, which means $ \Gamma $ is inconsistent. Therefore, we are unable to find a consistent context for $ x x $ and it cannot be typed.
+As mentioned before, not every term can be typed. Take the term $ x x $ for example. As an application, its first component $ x $ should have a function type $ \sigma \to \tau $ and then its second $ x $ should have type $ \sigma $. In order to construct a derivation tree, we need two sub-trees, one of which ends in $ \Gamma_1 \triangleright x: \sigma \to \tau $ and another one ends in $ \Gamma_2 \triangleright x : \sigma $, in accordance with the rule ($ \to $E). Since $ x $ is a term-variable, the axiom ($ axiom $) tells us both $ x : \sigma \to \tau $ and $ x: \sigma $ should appear in context $ \Gamma_1 \cup \Gamma_2 $, which means $ \Gamma_1 \cup \Gamma_2 $ is inconsistent. Therefore, we are unable to find a consistent context for $ x x $ and it cannot be typed.
 
 
 %---------------------------------------------------------------------------%
