@@ -68,10 +68,10 @@ If one can derive $ \psi $ from the context with $ \phi $ as a hypothesis, then 
 
 \item \emph{$ \to $-elimination} ($ \to $E)
 \begin{prooftree}
-\AxiomC{$ \Gamma \vdash \varphi \to \psi $}
-\AxiomC{$ \Gamma \vdash \varphi $}
+\AxiomC{$ \Gamma_1 \vdash \varphi \to \psi $}
+\AxiomC{$ \Gamma_2 \vdash \varphi $}
 \RightLabel{($ \to $E)}
-\BinaryInfC{$ \Gamma \vdash \psi $}
+\BinaryInfC{$ \Gamma_1 \cup \Gamma_2 \vdash \psi $}
 \end{prooftree}
 If both the conditional claim ``if $ \varphi $ then $ \psi $'' and $ \varphi $ are provided, one can conclude $ \psi $. As mentioned in the beginning, this is a very common inference rule which is also called \emph{modus ponens}.
 
