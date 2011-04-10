@@ -1,8 +1,8 @@
 \subsection{Intuitionistic Logic}
 \label{sec:bg_il}
-Intuitionistic logic is also called constructive logic. As a formalization of intuitionism, it differs from classical logic not only in that some laws in classical logic are not axioms of the system but also in the meaning for statements to be true. The judgments about statements are based on the existence of a proof or a ``construction'' of that statement. This existence property makes it practically useful, e.g. provided that a constructive proof that an object exists, one can turn it into an algorithm for generating an example of the object.
+Intuitionistic logic is also called constructive logic. As a formalisation of intuitionism, it differs from classical logic not only in that some laws in classical logic are not axioms of the system, but also in the meaning for statements to be true. The judgements about statements are based on the existence of a proof or a ``construction'' of that statement. This existence property makes it practically useful, e.g. provided that a constructive proof that an object exists, one can turn it into an algorithm for generating an example of the object.
 
-One vertex in the correspondence-triangle is intuitionistic propositional logic. So the introduction to intuitionistic logic in this dissertation is up to the propositional one.
+One vertex in the correspondence-triangle is intuitionistic propositional logic. Consequently, the introduction to intuitionistic logic in this dissertation is up to the propositional one.
 
 %---------------------------------------------------------------------------%
 %Syntax
@@ -19,7 +19,7 @@ $ \Phi \hspace*{6pt} ::= \hspace*{6pt} P \hspace*{6pt} | \hspace*{6pt} \bot \hsp
 where $ P $ is a \emph{propositional variable}, $ \bot $ is \emph{contradiction}, $ \neg $ is \emph{negation}, $ \to $ is \emph{implication}, $ \land $ is \emph{conjunction}, and $ \lor $ is \emph{disjunction}.
 \end{definition}
 
-Given a set $ \Gamma $ of propositions and a proposition $ \varphi $, the relation $ \Gamma \vdash \varphi $ says that there is a derivation with conclusion $ \varphi $ from hypotheses in $ \Gamma $. Here, $ \Gamma $ is also called \emph{context}. If $ \Gamma $ is empty, we write $ \vdash \varphi $ and say that $ \varphi $ is a theorem.
+Given a set $ \Gamma $ of propositions and a proposition $ \varphi $, the relation $ \Gamma \vdash \varphi $ states that there is a derivation with conclusion $ \varphi $ from hypotheses in $ \Gamma $. Here, $ \Gamma $ is also called a \emph{context}. If $ \Gamma $ is empty, we write $ \vdash \varphi $ and say that $ \varphi $ is a theorem.
 
 For notational convenience, we use the following abbreviations:\\
 $
@@ -30,13 +30,13 @@ $
 $
 \\
 \\
-The \emph{natural deduction system}, one kind of proof calculi, allows one to derive conclusions from premises. The logical reasoning in this system is expressed by inference rules which are closely related to the ``natural'' way of reasoning. The general form of an inference rule is
+The \emph{natural deduction system}, one kind of proof calculi, allows one to derive conclusions from premises. The logical reasoning in this system is expressed by inference rules which are closely related to the ``natural'' way of reasoning. The general form of an \emph{inference rule} is
 \begin{prooftree}
 \AxiomC{$ P_1 , \cdots , P_n $}
 \RightLabel{name of the inference rule}
 \UnaryInfC{$ Q $}
 \end{prooftree}
-where $ P_1 , \cdots , P_n $ are premises and $ Q $ is the conclusion. A rule without premises is an axiom. Each inference rule is an atomic step in a derivation which shows how the relation $ \vdash $ is built.
+where $ P_1 , \cdots , P_n $ are premises and $ Q $ is the conclusion. A rule without premises is an \emph{axiom}. Each inference rule is an atomic step in a derivation which demonstrates how the relation $ \vdash $ is built.
 
 \begin{definition}[\textbf{Natural Deduction System}]
 \label{definition:nat_ded_sys}
@@ -73,7 +73,7 @@ If one can derive $ \psi $ from the context with $ \phi $ as a hypothesis, then 
 \RightLabel{($ \to $E)}
 \BinaryInfC{$ \Gamma_1 \cup \Gamma_2 \vdash \psi $}
 \end{prooftree}
-If both the conditional claim ``if $ \varphi $ then $ \psi $'' and $ \varphi $ are provided, one can conclude $ \psi $. As mentioned in the beginning, this is a very common inference rule which is also called \emph{modus ponens}.
+If both the conditional claim ``if $ \varphi $ then $ \psi $'' and $ \varphi $ are provided, one can conclude $ \psi $. As mentioned at the beginning, this is a very common inference rule which is also called \emph{modus ponens}.
 
 \item \emph{$ \land $-introduction} ($ \land $I)
 \begin{prooftree}
@@ -131,13 +131,13 @@ From contradiction $ \bot $, we can derive any propositions. This rule is also c
 \end{myitemize}
 \end{definition}
 
-What syntactically makes it different from classical propositional logic is that the \emph{reductio ad absurdum rule} ($ RAA $) is not a rule in the natural deduction system of intuitionistic logic, which makes some theorems in classical logic unprovable in intuitionistic logic.
+What syntactically makes it different from classical propositional logic is that \emph{reductio ad absurdum} ($ RAA $) is not a rule in the natural deduction system of intuitionistic logic, which results in some theorems in classical logic being unprovable in intuitionistic logic.
 
 %---------------------------------------------------------------------------%
 %Proof
 \subsubsection{Proofs}
 \label{sec:bg_il_p}
-In intuitionistic logic, the judgement about propositions is not based on truth value. We say a proposition in intuitionistic propositional logic holds if we can construct a \emph{proof tree}, also called a \emph{proof}, by using the inference rules in definition \ref{definition:nat_ded_sys}.
+In intuitionistic logic, the judgements about propositions are not based on truth values. We say a proposition in intuitionistic logic holds if we can construct a \emph{proof tree}, also called a \emph{proof}, by using the inference rules in the natural deduction system (definition \ref{definition:nat_ded_sys}).
 
 Some examples are given here to demonstrate how a proof of a proposition is built:
 \begin{myitemize}
@@ -145,14 +145,10 @@ Some examples are given here to demonstrate how a proof of a proposition is buil
 \begin{prooftree}
 \AxiomC{}
 \UnaryInfC{$ \varphi \vdash \varphi $}
-\RightLabel{($ add $)}
-\UnaryInfC{$ \varphi , \neg \varphi \vdash \varphi $}
   \AxiomC{}
   \UnaryInfC{$ \neg \varphi \vdash \neg \varphi $}
-  \RightLabel{($ add $)}
-  \UnaryInfC{$ \varphi , \neg \varphi \vdash \neg \varphi $}
   \RightLabel{($ \neg \varphi $ stands for $ \varphi \to \bot $)}
-  \UnaryInfC{$ \varphi , \neg \varphi \vdash \varphi \to \bot $}
+  \UnaryInfC{$ \neg \varphi \vdash \varphi \to \bot $}
 \RightLabel{($ \to $E)}
 \BinaryInfC{$ \varphi , \neg \varphi \vdash \bot $}
 \end{prooftree}
@@ -203,6 +199,6 @@ Some examples are given here to demonstrate how a proof of a proposition is buil
 \end{myitemize}
 \mbox\\
 
-Though double negation introduction ``$ \varphi \to \neg \neg \varphi $'' is a theorem in intuitionistic propositional logic, double negation elimination ``$ \neg \neg \varphi \to \varphi $'' is unprovable. In classical logic, double negation elimination can be proven by using the rule \emph{reductio ad absurdum}. However, the natural deduction system in intuitionistic propositional logic does not contain $RAA$. That's reason why double negation elimination cannot be proven in this system.
+Though double negation introduction ``$ \varphi \to \neg \neg \varphi $'' is a theorem in intuitionistic propositional logic, double negation elimination ``$ \neg \neg \varphi \to \varphi $'' is unprovable. In classical logic, double negation elimination can be proven by using the rule \emph{reductio ad absurdum}. However, the natural deduction system in intuitionistic propositional logic does not contain $RAA$. That's why double negation elimination cannot be proven in this system.
 
-By the same token, the law of excluded middle ``$ \varphi \lor \neg \varphi $'' is also unprovable. We can look at it from an intuitive view. A proof of disjunction $ \varphi \lor \psi $ is either a proof of $ \varphi $ or a proof of $ \psi $ and intuitionists want to know which one it exactly is. For an arbitrary proposition $ \varphi $, however, we do not know whether $ \varphi $ has a proof or $ \neg \varphi $ has a proof. Therefore, we cannot give $ \varphi \lor \neg \varphi $ a general proof and it cannot be proven in intuitionistic propositional logic.
+By the same token, the law of excluded middle ``$ \varphi \lor \neg \varphi $'' is unprovable, either. We can also look at it from an intuitive view. A proof of disjunction $ \varphi \lor \psi $ is either a proof of $ \varphi $ or a proof of $ \psi $. Intuitionists only accept the proof if they know it is exactly the proof of $ \varphi $ or the one of $ \psi $. For an arbitrary proposition $ \varphi $, however, we do not know whether $ \varphi $ has a proof or $ \neg \varphi $ has a proof. Therefore, we cannot give $ \varphi \lor \neg \varphi $ a general proof and it cannot be proven in intuitionistic propositional logic.
