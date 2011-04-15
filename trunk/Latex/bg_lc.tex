@@ -278,7 +278,7 @@ It says that $ \lambda x \tc \sigma .Mx $ and $ M $ define the same function, si
 %Other Types
 \subsubsection{Other Types}
 \label{sec:bg_lc_ot}
-Except function type, different versions of the simply typed lambda calculus may have products, sums, initial and terminal types. Their definitions and the typing rules for them are listed below.
+Except function type, different versions of the simply typed lambda calculus may have products, sums, initial and terminal types. The definitions and the typing rules for these types are listed below.
 
 \begin{definition}[\textbf{Initial and Terminal Types}]
 \label{definition:ini_ter_types}
@@ -349,15 +349,15 @@ $ \sigma $ and $ \tau $. The term constants associated with sums are injections 
 \\
 With initial type, terminal type, function types, products and sums, the type expressions in the \emph{full simply typed lambda calculus} $ \lambda ^{ null, unit, \to , \times , + } $ are given by the following grammar
 \begin{center}
-$ \sigma \hspace*{6pt} ::= \hspace*{6pt} b \hspace*{6pt} | \hspace*{6pt} null \hspace*{6pt} | \hspace*{6pt} unit \hspace*{6pt} | \hspace*{6pt} \sigma \to \sigma \hspace*{6pt} | \hspace*{6pt} \sigma \times \sigma \hspace*{6pt} | \hspace*{6pt} \sigma + \sigma $
+$ \sigma \hspace*{6pt} ::= \hspace*{6pt} \iota \hspace*{6pt} | \hspace*{6pt} null \hspace*{6pt} | \hspace*{6pt} unit \hspace*{6pt} | \hspace*{6pt} \sigma \to \sigma \hspace*{6pt} | \hspace*{6pt} \sigma \times \sigma \hspace*{6pt} | \hspace*{6pt} \sigma + \sigma $
 \end{center}
-where $ b $ is the type constant.
+where $ \iota $ is a type constant.
 
 The $ \lambda $-terms in $ \lambda ^{ null, unit, \to , \times , + } $ are given by
 \begin{center}
 $
 \begin{array}{rl}
-M \hspace*{6pt} ::= & \text{Zero} \hspace*{6pt} | \hspace*{6pt} \ast \hspace*{6pt} | \hspace*{6pt} \text{One} \hspace*{6pt} | \hspace*{6pt} M \text{ } M \hspace*{6pt} | \hspace*{6pt} \lambda x: \sigma .M \hspace*{6pt} | \hspace*{6pt} \langle M,M \rangle \hspace*{6pt} | \hspace*{6pt} \text{Proj}_1 \text{ } M \hspace*{6pt} | \\
+M \hspace*{6pt} ::= & \text{Zero} \hspace*{6pt} | \hspace*{6pt} \ast \hspace*{6pt} | \hspace*{6pt} \text{One} \hspace*{6pt} | \hspace*{6pt} M \text{ } M \hspace*{6pt} | \hspace*{6pt} \lambda x \tc \sigma .M \hspace*{6pt} | \hspace*{6pt} \langle M,M \rangle \hspace*{6pt} | \hspace*{6pt} \text{Proj}_1 \text{ } M \hspace*{6pt} | \\
   & \text{Proj}_2 \text{ } M \hspace*{6pt} | \hspace*{6pt}\text{Inleft} \text{ } M \hspace*{6pt} | \hspace*{6pt} \text{Inright} \text{ } M \hspace*{6pt} | \hspace*{6pt} \text{Case} \text{ } M \text{ } M \text{ } M
 \end{array}
 $
