@@ -15,7 +15,7 @@ A \emph{category} $ \mathcal{C} $ consists of
 \begin{myitemize}
 \item a collection $ C^o $ of objects;
 \item a collection $ C^m $ of morphisms (also called arrows or maps) between objects, with two maps $ dom, cod : C^m \to C^o $ which give the domain and codomain of a morphism (we write $ f : A \to B $ to denote a morphism $ f $ with $ dom(f) = A $ and $ cod(f) = B $);
-\item a binary map ``$ \circ $'', called composition, mapping each pair $ f, g $ of morphisms with $ cod(f) = dom(g) $ to a morphism $ g \circ f $ such that $ dom(g \circ f) = dom(f) $ and $ cod(g \circ f) = cod(g) $;
+\item a binary map ``$ \circ $'', called composition, mapping each pair of morphisms $ f $ and $ g $, with $ cod(f) = dom(g) $, to a morphism $ g \circ f $ such that $ dom(g \circ f) = dom(f) $ and $ cod(g \circ f) = cod(g) $;
 \end{myitemize}
 such that the following axioms hold:
 \begin{myitemize}
@@ -29,8 +29,8 @@ For any objects $ A $ and $ B $ in a category $ \mathcal{C} $, the collection of
 Categorists use \emph{diagrams} to express equations. In a diagram, a morphism $ f: A \to B $ is represented as an arrow form point $ A $ to $ B $, labeled $ f $. A diagram \emph{commutes} if the composition of the morphism along any path between two fixed objects is equal. The identity and associative laws in definition \ref{definition:category} can be represented by the commutative diagrams in figure \ref{figure:cat_id_asso}.
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.48]{./images/cat_id}
-\includegraphics[scale=0.48]{./images/cat_asso}
+\includegraphics[scale=0.42]{./images/cat_id}
+\includegraphics[scale=0.42]{./images/cat_asso}
 \caption{Diagrams of identity and associativity}
 \label{figure:cat_id_asso}
 \end{figure}
@@ -46,7 +46,7 @@ $ (h \circ (g \circ f))(a) = h((g \circ f)(a)) = h(g(f(a))) $ and\\
 $ ((h \circ g) \circ f)(a) = (h \circ g)(f(a)) = h(g(f(a))) $.
 \end{myitemize}
 
-One typical use of categories is to consider categories whose objects are sets with mathematical structure and whose morphisms are functions that preserve that structure. One of the common examples is the category \textsc{Pos} whose objects are posets and whose morphisms are monotone functions. It will be discussed later as an example of a CCC in \ref{sec:bg_cat_ccc}.
+One typical use of categories is to consider categories whose objects are sets with mathematical structure and whose morphisms are functions that preserve that structure. One of the common examples is the category \textsc{Pos} whose objects are posets and whose morphisms are monotone functions. It will be discussed later as an example of a cartesian closed category in section \ref{sec:bg_cat_ccc}.
 
 
 %---------------------------------------------------------------------------%
@@ -56,7 +56,7 @@ One typical use of categories is to consider categories whose objects are sets w
 There are many categorical constructions, i.e. particular objects and morphisms that satisfy a given set of axioms, which enrich the language of Category Theory. When studying constructions, one observes that all concepts are defined by their relations with other objects, and these relations are established by the existence and the equality of particular morphisms. In this dissertation, the following fundamental categorical constructions will be considered.
 \\
 \\
-The simplest among these is the notion of initial object and its dual, terminal object.
+The simplest among these are the notions of initial object and its dual, terminal object.
 
 \begin{definition}[\textbf{Initial and terminal objects}]
 \label{definition:ini_ter_obj}
@@ -66,7 +66,7 @@ Let $ \mathcal{C} $ be a category. An object $ A $ in $ \mathcal{C} $ is \emph{i
 In this dissertation, terminal objects are denoted as $ unit $ and, for object $ A $, the unique
 morphism is denoted as $ \text{One}^A : A \to unit $.
 
-In \textsc{Set}, the initial object is the empty set $ \emptyset $, and the unique morphism with $ \emptyset $ for its source is the empty function whose graph is empty. Any singleton set is terminal in \textsc{Set} since for any set $ S $, there is exactly one function from $ S $ to this singleton set.
+In \textsc{Set}, the initial object is the empty set $ \emptyset $, and the unique morphism from $ \emptyset $ to any set is the empty function whose graph is empty. Any singleton set is terminal in \textsc{Set}, since for any set $ S $, there is exactly one function from $ S $ to this singleton set.
 \\
 \\
 In set theory, we can form a cartesian product of two sets and define coordinate functions for it. Then we can even form a product function of two given functions which have the same domain. This motivates a general definition of categorical products (within a category).
@@ -83,15 +83,15 @@ Let $ A $ and $ B $ be objects in a category $ \mathcal{C} $. The \emph{product}
 Since equations in category theory can be represented by commutative diagrams, we can give another definition of categorical products based on diagrams: Let $ A $ and $ B $ be objects in a category $ \mathcal{C} $. The product of $ A $ and $ B $ is an object $ A \times B $ together with two morphisms $ \text{Proj}_1^{A,B}: A \times B \to A $ and $ \text{Proj}_2^{A,B}: A \times B \to B $, and for every object $ C $ in $ \mathcal{C} $, an operation $ \langle \cdot , \cdot \rangle : \text{Hom}(C,A) \times \text{Hom}(C,B) \to \text{Hom}(C, A \times B) $ such that for every $ f_1 : C \to A $ and $ f_2 : C \to B $, the morphism $ \langle f_1 , f_2 \rangle : C \to A \times B $ is the unique $ g $ that makes the diagram in figure \ref{figure:cat_prod} commute.
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.48]{./images/cat_prod}
+\includegraphics[scale=0.42]{./images/cat_prod}
 \caption{Diagram of product $ A \times B $}
 \label{figure:cat_prod}
 \end{figure}
 
-The cartesian product construction for morphisms can also be given a categorical definition. Given morphisms $ f : A \to C $ and $ g : B \to D $ the product $ f \times g : A \times B \to C \times D $ is defined by $ f \times g = \langle f \circ \text{Proj}_1^{A,B} , g \circ \text{Proj}_2^{A,B} \rangle $ whose correspondent commutative diagram is given in figure \ref{figure:cat_prod_mor}.
+The cartesian product construction for morphisms can also be given a categorical definition. Given morphisms $ f : A \to C $ and $ g : B \to D $ the product $ f \times g : A \times B \to C \times D $ is defined by $ f \times g = \langle f \circ \text{Proj}_1^{A,B} , g \circ \text{Proj}_2^{A,B} \rangle $ whose corresponding commutative diagram is given in figure \ref{figure:cat_prod_mor}.
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.48]{./images/cat_prod_mor}
+\includegraphics[scale=0.42]{./images/cat_prod_mor}
 \caption{Diagram of product of morphisms}
 \label{figure:cat_prod_mor}
 \end{figure}
@@ -136,29 +136,19 @@ $
 Therefore, the equation $ ( g_1 \times g_2 ) \circ ( f_1 \times f_2 ) = ( g_1 \circ f_1 ) \times ( g_2 \circ f_2 ) $ holds.
 \end{proof}
 
-The products in \textsc{Set} are the cartesian product of sets. Let $ A $ and $ B $ be two sets. The cartesian product $ A \times B $ is the set of pair $ \langle a, b \rangle $ with $ a \in A $ and $ b \in B $, together with the coordinate functions $ \text{Proj}_1 : A \times B \to A $ and $ \text{Proj}_2 : A \times B \to B $ such that $ \text{Proj}_1 ( \langle a, b \rangle ) = a $ and $ \text{Proj}_2 ( \langle a, b \rangle ) = b $. Given two functions $ f_1 : C \to A $ and $ f_2 : C \to B $, the function $ \langle f_1 , f_2 \rangle : C \to A \times B $ is defined by $ \langle f_1 , f_2 \rangle (c) = \langle f_1 (c) , f_2 (c) \rangle $ for all $ c \in C $. Then, given every $ f_1 : C \to A $, $ f_2 : C \to B $ and $ g : C \to A \times B $, the equations in definition \ref{definition:products} are satisfied:
-\begin{myitemize}
-\item[i)] $ \text{Proj}_i \circ \langle f_1 , f_2 \rangle = f_i $\\
+The products in \textsc{Set} are the cartesian products of sets. Let $ A $ and $ B $ be two sets. The cartesian product $ A \times B $ is the set of pair $ \langle a, b \rangle $ with $ a \in A $ and $ b \in B $, together with the coordinate functions $ \text{Proj}_1 : A \times B \to A $ and $ \text{Proj}_2 : A \times B \to B $ such that $ \text{Proj}_1 ( \langle a, b \rangle ) = a $ and $ \text{Proj}_2 ( \langle a, b \rangle ) = b $. Given two functions $ f_1 : C \to A $ and $ f_2 : C \to B $, the function $ \langle f_1 , f_2 \rangle : C \to A \times B $ is defined by $ \langle f_1 , f_2 \rangle (c) = \langle f_1 (c) , f_2 (c) \rangle $ for all $ c \in C $. Then, given every $ f_1 : C \to A $, $ f_2 : C \to B $ and $ g : C \to A \times B $, the equations in definition \ref{definition:products} are satisfied: for any $ c \in C $\\
 $
-\begin{array}{ll}
-  & ( \text{Proj}_i \circ \langle f_1 , f_2 \rangle )(c)\\
-= & \text{Proj}_i ( \langle f_1 , f_2 \rangle (c) )\\
-= & \text{Proj}_i ( \langle f_1 (c) , f_2 (c) \rangle )\\
-= & f_i (c)
+\begin{array}{rll}
+\text{i)} & & ( \text{Proj}_i \circ \langle f_1 , f_2 \rangle )(c)\\
+ & = & \text{Proj}_i ( \langle f_1 , f_2 \rangle (c) )\\
+ & = & \text{Proj}_i ( \langle f_1 (c) , f_2 (c) \rangle )\\
+ & = & f_i (c) \\
+\text{ii)} & & \langle \text{Proj}_1 \circ g , \text{Proj}_2 \circ g \rangle (c)\\
+ & = & \langle ( \text{Proj}_1 \circ g )(c) , ( \text{Proj}_2 \circ g )(c) \rangle \\
+ & = & \langle \text{Proj}_1 ( g(c) ) , \text{Proj}_2 ( g(c) ) \rangle \\
+ & = & g(c)
 \end{array}
 $\\
-for any $ c \in C $.
-\item[ii)] $ \langle \text{Proj}_1 \circ g , \text{Proj}_2 \circ g \rangle = g $\\
-$
-\begin{array}{ll}
-  & \langle \text{Proj}_1 \circ g , \text{Proj}_2 \circ g \rangle (c)\\
-= & \langle ( \text{Proj}_1 \circ g )(c) , ( \text{Proj}_2 \circ g )(c) \rangle \\
-= & \langle \text{Proj}_1 ( g(c) ) , \text{Proj}_2 ( g(c) ) \rangle \\
-= & g(c)
-\end{array}
-$\\
-for any $ c \in C $.
-\end{myitemize}
 \mbox\\
 
 \begin{definition}[\textbf{Coproducts}]
@@ -173,35 +163,25 @@ Let $ A $ and $ B $ be objects in a category $ \mathcal{C} $. The \emph{coproduc
 The corresponding commutative diagram to the equations above is shown in figure \ref{figure:cat_cop}, where $ \langle f_1 | f_2 \rangle $ is the unique $ g $.
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.48]{./images/cat_cop}
+\includegraphics[scale=0.42]{./images/cat_cop}
 \caption{Diagram of coproduct $ A+B $}
 \label{figure:cat_cop}
 \end{figure}
 
-The coproducts in \textsc{Set} are the disjoint unions of sets. Let $ A $ and $ B $ be two sets. The disjoint union of them is defined by $ A+B = \{ \langle a,1 \rangle | a \in A \} \cup \{ \langle b,2 \rangle | b \in B \} $ with two injection functions $ \text{I}_1 : A \to A+B $ that takes all $ a $ in $ A $ to $ \langle a,1 \rangle $ in $ A+B $ and $ \text{I}_2 : B \to A+B $ that takes all $ b $ in $ B $ to $ \langle b,2 \rangle $ in $ A+B $. Given two functions $ f_1 : A \to C $ and $ f_2 : B \to C $, the function $ \langle f_1 , f_2 \rangle : A+B \to C $ is defined by $ \langle f_1 , f_2 \rangle ( \langle x,i \rangle ) = f_i (x) $ for all $ \langle x,i \rangle \in A+B $. Given any $ f_1 : A \to C $, $ f_2 : B \to C $ and $ g: A+B \to C $, the equations in definition \ref{definition:coproducts} are satisfied:
-\begin{myitemize}
-\item[i)] $ \langle f_1 | f_2 \rangle \circ \text{I}_i = f_i $\\
+The coproducts in \textsc{Set} are the disjoint unions of sets. Let $ A $ and $ B $ be two sets. The disjoint union of them is defined by $ A+B = \{ \langle a,1 \rangle | a \in A \} \cup \{ \langle b,2 \rangle | b \in B \} $ with two injection functions $ \text{I}_1 : A \to A+B $ that takes all $ a $ in $ A $ to $ \langle a,1 \rangle $ in $ A+B $ and $ \text{I}_2 : B \to A+B $ that takes all $ b $ in $ B $ to $ \langle b,2 \rangle $ in $ A+B $. Given two functions $ f_1 : A \to C $ and $ f_2 : B \to C $, the function $ \langle f_1 | f_2 \rangle : A+B \to C $ is defined by $ \langle f_1 | f_2 \rangle ( \langle x,i \rangle ) = f_i (x) $ for all $ \langle x,i \rangle \in A+B $. Given any $ f_1 : A \to C $, $ f_2 : B \to C $ and $ g: A+B \to C $, the equations in definition \ref{definition:coproducts} are satisfied: for any $ \langle x,i \rangle \in A+B $\\
 $
-\begin{array}{ll}
-  & ( \langle f_1 | f_2 \rangle \circ \text{I}_i )(x)\\
-= & \langle f_1 | f_2 \rangle ( \text{I}_i (x))\\
-= & \langle f_1 | f_2 \rangle ( \langle x,i \rangle )\\
-= & f_i (x)
+\begin{array}{rll}
+\text{i)} & & ( \langle f_1 | f_2 \rangle \circ \text{I}_i )(x)\\
+ & = & \langle f_1 | f_2 \rangle ( \text{I}_i (x))\\
+ & = & \langle f_1 | f_2 \rangle ( \langle x,i \rangle )\\
+ & = & f_i (x)\\
+\text{i)} & & \langle g \circ \text{I}_1 | g \circ \text{I}_2 \rangle ( \langle x,i \rangle )\\
+ & = & ( g \circ \text{I}_i )(x)\\
+ & = & g( \text{I}_i (x) )\\
+ & = & g( \langle x,i \rangle )
 \end{array}
-$\\
-for any $ \langle x,i \rangle \in A+B $.
-\item[ii)] $ \langle g \circ \text{I}_1 | g \circ \text{I}_2 \rangle = g $\\
 $
-\begin{array}{ll}
-  & \langle g \circ \text{I}_1 | g \circ \text{I}_2 \rangle ( \langle x,i \rangle )\\
-= & ( g \circ \text{I}_i )(x)\\
-= & g( \text{I}_i (x) )\\
-= & g( \langle x,i \rangle )
-\end{array}
-$\\
-for any $ \langle x,i \rangle \in A+B $.
-\end{myitemize}
-\mbox\\
+\\
 \\
 One can form a set of functions which have the same domain and codomain. Similarly, the hom-set of morphisms may form an object. This idea brings our last basic construction, exponentials.
 
@@ -214,12 +194,12 @@ Let $ \mathcal{C} $ be a category with products for all objects, and $ A $ and $
 \end{myitemize}
 \end{definition}
 
-Using the definition of products of morphisms, $ f \times g = \langle f \circ \text{Proj}_1 , g \circ \text{Proj}_2 \rangle $, the two equations in definition \ref{definition:exponentials} can be rewritten as $ \text{App} \circ ( \text{Cutty}(h) \times \text{id} ) = h $ and $ \text{Curry}( \text{App} \circ (k \times \text{id})) = k $.
+According to the definition of products of morphisms, $ f \times g = \langle f \circ \text{Proj}_1 , g \circ \text{Proj}_2 \rangle $, the two equations in definition \ref{definition:exponentials} can be rewritten as $ \text{App} \circ ( \text{Cutty}(h) \times \text{id} ) = h $ and $ \text{Curry}( \text{App} \circ (k \times \text{id})) = k $.
 
-The commutative diagram representing the equations in the definition is shown in figure \ref{figure:cat_ex},where the morphism $ \text{Curry}(h): C \to (A \to B) $ is the unique $ k $.
+The commutative diagram representing the equations above is shown in figure \ref{figure:cat_ex},where the morphism $ \text{Curry}(h): C \to (A \to B) $ is the unique $ k $.
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.48]{./images/cat_ex}
+\includegraphics[scale=0.42]{./images/cat_ex}
 \caption{Diagram of exponential $ A \to B $}
 \label{figure:cat_ex}
 \end{figure}
@@ -290,19 +270,19 @@ These three equations have been proved by the diagrams in figures \ref{figure:ca
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.48]{./images/cat_eqn1}
+\includegraphics[scale=0.42]{./images/cat_eqn1}
 \caption{Diagram of $ \langle f,g \rangle \circ h = \langle f \circ h , g \circ h \rangle $}
 \label{figure:cat_eqn1}
 \end{figure}
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.48]{./images/cat_eqn2}
+\includegraphics[scale=0.42]{./images/cat_eqn2}
 \caption{Diagram of $ \langle f,g \rangle = ( f \times \text{id}_B ) \circ \langle \text{id}_C , g \rangle $}
 \label{figure:cat_eqn2}
 \end{figure}
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.48]{./images/cat_eqn3}
+\includegraphics[scale=0.42]{./images/cat_eqn3}
 \caption{Diagram of $ \text{Curry}(f) \circ h = \text{Curry}(f \circ (h \times \text{id})) $}
 \label{figure:cat_eqn3}
 \end{figure}
