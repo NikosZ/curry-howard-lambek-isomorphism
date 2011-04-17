@@ -175,7 +175,7 @@ $
  & = & \langle f_1 | f_2 \rangle ( \text{I}_i (x))\\
  & = & \langle f_1 | f_2 \rangle ( \langle x,i \rangle )\\
  & = & f_i (x)\\
-\text{i)} & & \langle g \circ \text{I}_1 | g \circ \text{I}_2 \rangle ( \langle x,i \rangle )\\
+\text{ii)} & & \langle g \circ \text{I}_1 | g \circ \text{I}_2 \rangle ( \langle x,i \rangle )\\
  & = & ( g \circ \text{I}_i )(x)\\
  & = & g( \text{I}_i (x) )\\
  & = & g( \langle x,i \rangle )
@@ -204,36 +204,25 @@ The commutative diagram representing the equations above is shown in figure \ref
 \label{figure:cat_ex}
 \end{figure}
 
-In \textsc{Set}, the exponent set $ A \to B $ of $ A $ and $ B $ is the set of functions from $ A $ to $ B $. The function $ \text{App} : (A \to B) \times A \to B $ is given by $ \text{App}( \langle f,a \rangle ) = f(a) $ for all $ f: A \to B $ and $ a \in A $. Given a function $ g: C \times A \to B $, the function $ \text{Curry}(g) $ is defined by $ ((\text{Curry}(g))(c))(a) = g( \langle c,a \rangle ) $ for all $ c \in C $ and $ a \in A $. Given any $ h: C \times A \to B $ and $ k: C \to (A \to B) $, the two equations in definition \ref{definition:exponentials} hold:
-\begin{myitemize}
-\item[i)] $ \text{App} \circ \langle \text{Curry} (h) \circ \text{Proj}_1 , \text{Proj}_2 \rangle = h $\\
+In \textsc{Set}, the exponent set $ A \to B $ of $ A $ and $ B $ is the set of functions from $ A $ to $ B $. The function $ \text{App} : (A \to B) \times A \to B $ is given by $ \text{App}( \langle f,a \rangle ) = f(a) $ for all $ f: A \to B $ and $ a \in A $. Given a function $ g: C \times A \to B $, the function $ \text{Curry}(g) $ is defined by $ ((\text{Curry}(g))(c))(a) = g( \langle c,a \rangle ) $ for all $ c \in C $ and $ a \in A $. Given any $ h: C \times A \to B $ and $ k: C \to (A \to B) $, the two equations in definition \ref{definition:exponentials} hold: for any $ a \in A $ and $ c \in C $,\\
 $
-\begin{array}{ll}
-  & ( \text{App} \circ \langle \text{Curry} (h) \circ \text{Proj}_1 , \text{Proj}_2 \rangle )( \langle c,a \rangle )\\
-= & \text{App}( \langle \text{Curry} (h) \circ \text{Proj}_1 , \text{Proj}_2 \rangle ( \langle c,a \rangle ) ) \\
-= & \text{App}( \langle ( \text{Curry} (h) \circ \text{Proj}_1 ) ( \langle c,a \rangle ) , \text{Proj}_2 ( \langle c,a \rangle ) \rangle ) \\
-= & \text{App}( \langle \text{Curry} (h) ( \text{Proj}_1 ( \langle c,a \rangle ) ), a \rangle ) \\
-= & \text{App}( \langle ( \text{Curry} (h) )(c) , a \rangle ) \\
-= & (( \text{Curry} (h) )(c))(a) \\
-= & h( \langle c,a \rangle )
+\begin{array}{rll}
+\text{i)} & & ( \text{App} \circ \langle \text{Curry} (h) \circ \text{Proj}_1 , \text{Proj}_2 \rangle )( \langle c,a \rangle )\\
+ & = & \text{App}( \langle \text{Curry} (h) \circ \text{Proj}_1 , \text{Proj}_2 \rangle ( \langle c,a \rangle ) ) \\
+ & = & \text{App}( \langle ( \text{Curry} (h) \circ \text{Proj}_1 ) ( \langle c,a \rangle ) , \text{Proj}_2 ( \langle c,a \rangle ) \rangle ) \\
+ & = & \text{App}( \langle ( \text{Curry} (h) ) ( \text{Proj}_1 ( \langle c,a \rangle ) ), a \rangle ) \\
+ & = & \text{App}( \langle ( \text{Curry} (h) )(c) , a \rangle ) \\
+ & = & (( \text{Curry} (h) )(c))(a) \\
+ & = & h( \langle c,a \rangle ) \\
+\text{ii)} & & (( \text{Curry} ( \text{App} \circ \langle k \circ \text{Proj}_1 , \text{Proj}_2 \rangle ))(c))(a)\\
+ & = & ( \text{App} \circ \langle k \circ \text{Proj}_1 , \text{Proj}_2 \rangle )( \langle c,a \rangle ) \\
+ & = & \text{App} ( \langle k \circ \text{Proj}_1 , \text{Proj}_2 \rangle ( \langle c,a \rangle ) ) \\
+ & = & \text{App} ( \langle ( k \circ \text{Proj}_1 ) ( \langle c,a \rangle ) , \text{Proj}_2 ( \langle c,a \rangle ) \rangle ) \\
+ & = & \text{App} ( \langle k ( \text{Proj}_1 ( \langle c,a \rangle ) ) , a \rangle ) \\
+ & = & \text{App} ( \langle k (c) , a \rangle ) \\
+ & = & (k(c))(a)
 \end{array}
 $\\
-for any $ a \in A $ and $ c \in C $.
-\item[ii)] $ \text{Curry} ( \text{App} \circ \langle k \circ \text{Proj}_1 , \text{Proj}_2 \rangle ) = k $\\
-$
-\begin{array}{ll}
-  & (( \text{Curry} ( \text{App} \circ \langle k \circ \text{Proj}_1 , \text{Proj}_2 \rangle ))(c))(a)\\
-= & ( \text{App} \circ \langle k \circ \text{Proj}_1 , \text{Proj}_2 \rangle )( \langle c,a \rangle ) \\
-= & \text{App} ( \langle k \circ \text{Proj}_1 , \text{Proj}_2 \rangle ( \langle c,a \rangle ) ) \\
-= & \text{App} ( \langle ( k \circ \text{Proj}_1 ) ( \langle c,a \rangle ) , \text{Proj}_2 ( \langle c,a \rangle ) \rangle ) \\
-= & \text{App} ( \langle k ( \text{Proj}_1 ( \langle c,a \rangle ) ) , a \rangle ) \\
-= & \text{App} ( \langle k (c) , a \rangle ) \\
-= & (k(c))(a)
-\end{array}
-$\\
-for any $ a \in A $ and $ c \in C $.
-\end{myitemize}
-
 
 
 %---------------------------------------------------------------------------%
@@ -260,13 +249,15 @@ The following identities hold in every cartesian closed category:
 where $ f: C \to A $, $ g: C \to B $ and $ h: D \to C $;
 \item[(2)] $ \langle f,g \rangle = ( f \times \text{id}_B ) \circ \langle \text{id}_C , g \rangle $\\
 where $ f: C \to A $ and $ g: C \to B $;
-\item[(3)] $ \text{Curry}(f) \circ h = \text{Curry}(f \circ (h \times \text{id})) $\\
-where $ f: A \times B \to C $ and $ h: D \to A $.
+\item[(3)] $ \text{Curry}(f) \circ h = \text{Curry}(f \circ (h \times \text{id}_A)) $\\
+where $ f: C \times A \to B $ and $ h: D \to C $.
 \end{myitemize}
 \end{proposition}
 
 \begin{proof}
-These three equations have been proved by the diagrams in figures \ref{figure:cat_eqn1}, \ref{figure:cat_eqn2} , and \ref{figure:cat_eqn3}. But they can also be proved by using the equations given in definition \ref{definition:products} and \ref{definition:exponentials} .
+\mbox\\
+
+These three equations have been proven by the diagrams in figures \ref{figure:cat_eqn1}, \ref{figure:cat_eqn2} , and \ref{figure:cat_eqn3}. But they can also be proven by using the equations given in definition \ref{definition:products} and \ref{definition:exponentials} .
 
 \begin{figure}[h!]
 \centering
@@ -283,7 +274,7 @@ These three equations have been proved by the diagrams in figures \ref{figure:ca
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.42]{./images/cat_eqn3}
-\caption{Diagram of $ \text{Curry}(f) \circ h = \text{Curry}(f \circ (h \times \text{id})) $}
+\caption{Diagram of $ \text{Curry}(f) \circ h = \text{Curry}(f \circ (h \times \text{id}_A)) $}
 \label{figure:cat_eqn3}
 \end{figure}
 
@@ -292,28 +283,28 @@ These three equations have been proved by the diagrams in figures \ref{figure:ca
 $ \text{Proj}_2 \circ ( \langle f,g \rangle \circ h ) = ( \text{Proj}_2 \circ \langle f,g \rangle ) \circ h = g \circ h $\\
 $ \langle \text{Proj}_1 \circ ( \langle f,g \rangle \circ h ) , \text{Proj}_2 \circ ( \langle f,g \rangle \circ h ) \rangle = \langle f \circ h , g \circ h \rangle $\\
 Since we have $ \langle \text{Proj}_1 \circ g , \text{Proj}_2 \circ g \rangle = g $ (in definition \ref{definition:products}), then $ \langle f,g \rangle \circ h = \langle f \circ h , g \circ h \rangle $ holds.
-\item[(2)] $ f \times \text{id}_B = \langle f \circ \text{Proj}_1 , \text{id}_B \circ \text{Proj}_2 \rangle $ (by the definition of products of morphisms) \\
+\item[(2)] By the definition of products of morphisms, $ f \times \text{id}_B = \langle f \circ \text{Proj}_1 , \text{id}_B \circ \text{Proj}_2 \rangle $.\\
 $
-\begin{array}{ll}
-  & ( f \times \text{id}_B ) \circ \langle \text{id}_C , g \rangle \\
-= & \langle f \circ \text{Proj}_1 , \text{id}_B \circ \text{Proj}_2 \rangle \circ \langle \text{id}_C , g \rangle \\
-= & \langle f \circ \text{Proj}_1 , \text{Proj}_2 \rangle \circ \langle \text{id}_C , g \rangle \\
-  & (\text{by } \langle f,g \rangle \circ h = \langle f \circ h , g \circ h \rangle \text{ in (1) } ) \\ 
-= & \langle f \circ \text{Proj}_1 \circ \langle \text{id}_C , g \rangle , \text{Proj}_2 \circ \langle \text{id}_C , g \rangle \rangle \\
-  & (\text{by } \text{Proj}_i \circ \langle f_1,f_2 \rangle = f_i ) \\
-= & \langle f \circ \text{id}_C , g \rangle \\
-= & \langle f, g \rangle \\
+\begin{array}{lll}
+  & ( f \times \text{id}_B ) \circ \langle \text{id}_C , g \rangle & \\
+= & \langle f \circ \text{Proj}_1 , \text{id}_B \circ \text{Proj}_2 \rangle \circ \langle \text{id}_C , g \rangle & \\
+= & \langle f \circ \text{Proj}_1 , \text{Proj}_2 \rangle \circ \langle \text{id}_C , g \rangle & (\text{by } \langle f,g \rangle \circ h = \langle f \circ h , g \circ h \rangle \text{ in (1)} ) \\ 
+= & \langle f \circ \text{Proj}_1 \circ \langle \text{id}_C , g \rangle , \text{Proj}_2 \circ \langle \text{id}_C , g \rangle \rangle & (\text{by } \text{Proj}_i \circ \langle f_1,f_2 \rangle = f_i ) \\
+\end{array}\\
+\begin{array}{lll}
+= & \langle f \circ \text{id}_C , g \rangle & \\
+= & \langle f, g \rangle & \\
 \end{array}
 $
-\item[(3)] $ f = \text{App} \circ ( \text{Curry}(f) \times \text{id})) $ (by $ \text{App} \circ ( \text{Cutty}(h) \times \text{id} ) = h $ in definition \ref{definition:exponentials})\\
+\item[(3)] By $ \text{App} \circ ( \text{Curry}(h) \times \text{id} ) = h $ in definition \ref{definition:exponentials}, $ f = \text{App} \circ ( \text{Curry}(f) \times \text{id})) $.\\
 $
 \begin{array}{ll}
   & \text{Curry}(f \circ (h \times \text{id})) \\
-= & \text{Curry}(( \text{App} \circ ( \text{Curry}(f) \times \text{id})) ) \circ (h \times \text{id})) \\
-= & \text{Curry}( \text{App} \circ (( \text{Curry}(f) \times \text{id})) \circ (h \times \text{id}))) \\
-  & (\text{by proposition } \ref{proposition:pro_of_mor} \text{ } ( g_1 \times g_2 ) \circ ( f_1 \times f_2 ) = ( g_1 \circ f_1 ) \times ( g_2 \circ f_2 ) ) \\
+= & \text{Curry}(( \text{App} \circ ( \text{Curry}(f) \times \text{id} ) ) \circ (h \times \text{id})) \\
+= & \text{Curry}( \text{App} \circ (( \text{Curry}(f) \times \text{id} ) \circ (h \times \text{id}))) \\
+  & (\text{by } ( g_1 \times g_2 ) \circ ( f_1 \times f_2 ) = ( g_1 \circ f_1 ) \times ( g_2 \circ f_2 ) \text{ in proposition } \ref{proposition:pro_of_mor} ) \\
 = & \text{Curry}( \text{App} \circ (( \text{Curry}(f) \circ h ) \times ( \text{id} \circ \text{id} ))) \\
-= & \text{Curry}( \text{App} \circ (( \text{Curry}(f) \circ h ) \times \text{id} ))) \\
+= & \text{Curry}( \text{App} \circ (( \text{Curry}(f) \circ h ) \times \text{id} ) ) \\
   & (\text{by } \text{Curry}( \text{App} \circ (k \times \text{id})) = k \text{ in definition } \ref{definition:exponentials} ) \\
 = & \text{Curry}(f) \circ h
 \end{array}
@@ -324,7 +315,7 @@ $
 The following gives some examples and one non-example of CCCs.
 \begin{myitemize}
 \item[(1)] \textsc{Set}\\
-\textsc{Set} has been already given as an example of each categorical construction. It is cartesian closed since it satisfies the three conditions:
+\textsc{Set} has been already given as an example of each categorical construction. It is cartesian closed, since it satisfies the three conditions:
   \begin{myitemize}
   \item Any singleton set can be the terminal object (it does not matter which one it exactly is since all the singleton sets are isomorphic);
   \item The product of sets $ A $ and $ B $ is the cartesian product of $ A $ and $ B $;
@@ -332,17 +323,17 @@ The following gives some examples and one non-example of CCCs.
   \end{myitemize}
   
 \item[(2)] \textsc{Pos}\\
-\textsc{Pos} is the category whose objects are posets and whose morphisms are monotone maps. The identity of object $ \mathcal{A} = (A,\leq _A) $ in \textsc{Pos} is the identity map $ \text{id}_A: A \to A $ such that $ \text{id}_A(a) = a $ for all $ a \in A $. The composition of morphisms is the composition of maps. Both identity and composition still preserve the monotonicity property.\\
+\textsc{Pos} is the category whose objects are posets and whose morphisms are monotone maps. The identity of object $ \mathcal{A} = (A,\leq _A) $  is the identity map $ \text{id}_A: A \to A $ such that $ \text{id}_A(a) = a $ for all $ a \in A $. The composition of morphisms is the composition of maps. Both identity and composition still preserve the monotonicity property.\\
 \textsc{Pos} is cartesian closed:
   \begin{myitemize}
-  \item Any singleton poset can be the terminal object $ unit $. Then the map $ \text{One}^A: A \to unit $ from any poset $ \mathcal{A} $ to this singleton poset is unique.
+  \item Any singleton poset can be the terminal object $ unit $. Since there is only one map from any poset $ \mathcal{A} $ to it, the map $ \text{One}^A: A \to unit $ is unique.
   \item The product $ \mathcal{A} \times \mathcal{B} = (A \times B, \leq_{A \times B}) $ of posets $ \mathcal{A} = (A,\leq _A) $ and $ \mathcal{B} = (B,\leq _B) $ is the cartesian product of sets $ A $ and $ B $ with the ordering $ \leq_{A \times B} $ which is defined by $ \langle a,b \rangle \leq_{A \times B} \langle a',b' \rangle $ iff $ a \leq_A a' $ and $ b \leq_B b' $.\\
   The projections are the coordinate functions $ \text{Proj}_1 : A \times B \to A $ and $ \text{Proj}_2 : A \times B \to B $ which just return one of the two components in the pair. So they preserve the monotonicity.\\
   Given two monotone maps $ f_1: A \to B $ and $ f_2: A \to C $, the map $ \langle f_1, f_2 \rangle : A \to B \times C $ is defined by $ \langle f_1, f_2 \rangle (a) = \langle f_1(a), f_2(a) \rangle $ for all $ a \in A $. Suppose $ a,a' \in A $ and $ a \leq_A a' $, then $ f_1(a) \leq_B f_1(a') $ and $ f_2(a) \leq_C f_2(a') $. According to the above definition, we have $ \langle f_1, f_2 \rangle (a) \leq_{B \times C} \langle f_1, f_2 \rangle (a') $. Hence, the map $ \langle f_1, f_2 \rangle $ is monotone.\\
   In the same way as \textsc{Set}, \textsc{Pos} satisfies the equations in definition \ref{definition:products}.
-  \item The exponential $ \mathcal{A} \to \mathcal{B} = (A \to B, \leq_{A \to B}) $ of posets $ \mathcal{A} = (A,\leq _A) $ and $ \mathcal{B} = (B,\leq _B) $ is the set of monotone maps from $ A $ to $ B $ and a ordering $ \leq_{A \to B} $ defined by, given $ f, f' : A \to B $, $ f \leq_{A \to B} f' $ iff $ f(a) \leq_B f'(a) $ for all $ a \in A $.\\
+  \item The exponential $ \mathcal{A} \to \mathcal{B} = (A \to B, \leq_{A \to B}) $ of posets $ \mathcal{A} = (A,\leq _A) $ and $ \mathcal{B} = (B,\leq _B) $ is the set of monotone maps from $ A $ to $ B $ with the ordering $ \leq_{A \to B} $ which is defined by, given $ f, f' : A \to B $, $ f \leq_{A \to B} f' $ iff $ f(a) \leq_B f'(a) $ for all $ a \in A $.\\
   Given a monotone map $ g: A \times B \to C $, the map $ \text{Curry}(g): A \to (B \to C) $ is defined by $ ((\text{Curry}(g))(a))(b) = g( \langle a,b \rangle ) $ for all $ a \in A $ and $ b \in B $. Suppose $ a,a' \in A $, $ b \in B $ and $ a \leq_A a' $, we have $ (\text{Curry}(g))(a) \leq_{B \to C} (\text{Curry}(g))(a') $ because $ ((\text{Curry}(g))(a))(b) = g( \langle a,b \rangle ) \leq_C g( \langle a',b \rangle ) = ((\text{Curry}(g))(a'))(b) $ for any $ b \in B $; therefore, \text{Curry}(g) is monotone.\\
-  The map $ \text{App} : (B \to C) \times B \to C $ is defined by $ \text{App}( \langle h,b \rangle ) = h(b) $ for all $ h: B \to C $ and $ b \in B $. Suppose $ h,h': B \to C $ and $ b.b' \in B $ with $ h \leq_{B \to C} h' $ and $ b \leq_B b' $, we have $ \langle h,b \rangle \leq_{(B \to C) \times B} \langle h',b' \rangle $ by the definition of $ \leq_{(B \to C) \times B} $ and then $ \text{App}( \langle h,b \rangle ) = h(b) \leq_C h(b') \leq_C h'(b') = \text{App}( \langle h',b' \rangle ) $; therefore, $ \text{App} $ is also monotone.\\
+  The map $ \text{App} : (B \to C) \times B \to C $ is defined by $ \text{App}( \langle h,b \rangle ) = h(b) $ for all $ h: B \to C $ and $ b \in B $. Suppose $ h,h': B \to C $ and $ b,b' \in B $ with $ h \leq_{B \to C} h' $ and $ b \leq_B b' $, we have $ \langle h,b \rangle \leq_{(B \to C) \times B} \langle h',b' \rangle $ by the definition of $ \leq_{(B \to C) \times B} $ and then $ \text{App}( \langle h,b \rangle ) = h(b) \leq_C h(b') \leq_C h'(b') = \text{App}( \langle h',b' \rangle ) $; therefore, $ \text{App} $ is also monotone.\\
   \textsc{Pos} also satisfies the equations in definition \ref{definition:exponentials}. The proof is carried out in the same way of \textsc{Set}.
   \end{myitemize}
   
@@ -354,10 +345,10 @@ Since the definition of morphisms in \textsc{Pos}$_\bot$ is still the same as th
 \item[(4)] \textsc{Pos}$_{\bot !}$ \\
 In category \textsc{Pos}$_{\bot !}$, the objects are posets with least elements and the morphisms are monotone maps that preserve the least element $ \bot $, i.e. for every monotone map $ f: A \to B $, $ f( \bot _A ) = \bot _B $.
 
-Though it looks similar to \textsc{Pos}$_\bot$, \textsc{Pos}$_{\bot !}$ is not cartesian closed. If we still define the products and exponentials in the same way as \textsc{Pos}, we we find that it cannot satisfy all the three conditions of cartesian closed categories:
+Though it looks similar to \textsc{Pos}$_\bot$, \textsc{Pos}$_{\bot !}$ is not cartesian closed. If we still define the products and exponentials in the same way as \textsc{Pos}, we will find that it cannot satisfy all the three conditions of cartesian closed categories:
 \begin{myitemize}
 \item Any singleton poset is still a terminal object in \textsc{Pos}$_{\bot !}$.
-\item The cartesian products can work as products in \textsc{Pos}$_{\bot !}$. For any $ f_1: A \to B $ and $ f_2: A \to C $, the map $ \langle f_1, f_2 \rangle $ has been proven to be monotone in (2). According to the definition of $ \langle \cdot, \cdot \rangle $, $ \langle f_1, f_2 \rangle (\bot_A) = \langle f_1(\bot_A), f_2(\bot_A) \rangle = \langle \bot_B, \bot_C \rangle = \bot_{B \times C} $. It preserves $ \bot $; therefore, the cartesian products are products in in \textsc{Pos}$_{\bot !}$.
+\item The cartesian products can work as categorical products in \textsc{Pos}$_{\bot !}$. For any $ f_1: A \to B $ and $ f_2: A \to C $, the map $ \langle f_1, f_2 \rangle $ has been proven to be monotone in (2). According to the definition of $ \langle \cdot, \cdot \rangle $, $ \langle f_1, f_2 \rangle (\bot_A) = \langle f_1(\bot_A), f_2(\bot_A) \rangle = \langle \bot_B, \bot_C \rangle = \bot_{B \times C} $; therefore, it preserves $ \bot $ as well.
 \item The exponentials defined in (2) are not exponentials in \textsc{Pos}$_{\bot !}$. Assume \textsc{Pos}$_{\bot !}$ has the same exponentials as \textsc{Pos}, then for any morphism $ f: A \times B \to C $ there should be a unique $ g = \text{Curry}(f): A \to (B \to C) $ which is isomorphic to $ f $. Since $ g(\bot _A)= \bot _{B \to C} $ and $ \bot _{B \to C} (b) = \bot _C $ for any $ b \in B $, we have $ (g(\bot _A))(b) = \bot _C $. However, $ f $ may not map all $ \langle \bot _A , b \rangle $ to $ \bot _C $, which means that $ f \ncong g $. So the exponentials in \textsc{Pos} are not exponentials in \textsc{Pos}$_{\bot !}$.
 \end{myitemize}
 One may still think that \textsc{Pos}$_{\bot !}$ is cartesian closed because we may be able to find other products or exponentials for it.\\
@@ -365,7 +356,7 @@ If we construct a ``product'' of $ A $ and $ B $ by
 \begin{center}
 $ A \bigotimes B = \{ \langle a,b \rangle | a \in A - \{ \bot_A \}, b \in B -\{ \bot_B \} \} \cup \{ \langle \bot_A, \bot_B \rangle \} $,
 \end{center}
-then the exponentials from \textsc{Pos} work in \textsc{Pos}$_{\bot !}$ now since $ \langle \bot_A,b \rangle $ is not an element in ``product'' $ A \bigotimes B $. However, this $ \bigotimes $ is not a categorical product. Given any $ f_1: A \to B $ and $ f_2: A \to C $, the map $ \langle f_1, f_2 \rangle $ should map all $ a \in A $ to elements in $ B \bigotimes C $. But $ \langle \bot_{A \to B}, f_2 \rangle (a) = \langle \bot_{A \to B}(a), f_2(a) \rangle = \langle \bot_B, f_2(a) \rangle $ and $ \langle \bot_B, f_2(a) \rangle \not\in B \bigotimes C $ if $ f_2(a) \neq \bot_C $.\\
-The fact is that \textsc{Pos}$_{\bot !}$ does not have exponentials. Let $ unit $ be the terminal object in \textsc{Pos}$_{\bot !}$. We know that for any object $ A $, $ unit \times A \cong A $. Then their hom-sets should be isomorphic as well, i.e. $ \text{Hom}(A,A) \cong \text{Hom}(unit \times A,A) $. Provided that \textsc{Pos}$_{\bot !}$ has exponentials, we have $ \text{Hom}(unit \times A,A) \cong \text{Hom}(unit, A \to A) $ and so $ \text{Hom}(A,A) \cong \text{Hom}(unit, A \to A) $. If $ A $ is not singleton (terminal object), then there can be many monotone maps from $ A $ to $ A $, which means $ \text{Hom}(A,A) $ can have many elements. However, $ \text{Hom}(unit, A \to A) $ has only one morphism since there is only one map from the singleton poset to any other poset. $ \text{Hom}(A,A) $ is not isomorphic to  $ \text{Hom}(unit, A \to A) $; therefore, \textsc{Pos}$_{\bot !}$ cannot have exponentials.
+then the exponentials from \textsc{Pos} work in \textsc{Pos}$_{\bot !}$ now, since $ \langle \bot_A,b \rangle $ is not an element in ``product'' $ A \bigotimes B $. However, this $ \bigotimes $ is not a categorical product. Given any $ f_1: A \to B $ and $ f_2: A \to C $, the map $ \langle f_1, f_2 \rangle $ should map all $ a \in A $ to elements in $ B \bigotimes C $. But $ \langle \bot_{A \to B}, f_2 \rangle (a) = \langle \bot_{A \to B}(a), f_2(a) \rangle = \langle \bot_B, f_2(a) \rangle \not\in B \bigotimes C $, if $ f_2(a) \neq \bot_C $.\\
+The fact is that \textsc{Pos}$_{\bot !}$ does not have exponentials. Let $ unit $ be the terminal object in \textsc{Pos}$_{\bot !}$. We know that for any object $ A $, $ unit \times A \cong A $. Then the hom-sets $ \text{Hom}(A,A) $ and $ \text{Hom}(unit \times A,A) $ should be isomorphic as well. Provided that \textsc{Pos}$_{\bot !}$ has exponentials, we have $ \text{Hom}(unit \times A,A) \cong \text{Hom}(unit, A \to A) $ and so $ \text{Hom}(A,A) \cong \text{Hom}(unit, A \to A) $. If $ A $ is not singleton (terminal object), then there can be many monotone maps from $ A $ to $ A $, which means $ \text{Hom}(A,A) $ can have many elements. However, $ \text{Hom}(unit, A \to A) $ has only one morphism since there is only one map from the singleton poset to any other poset. $ \text{Hom}(A,A) $ is not isomorphic to  $ \text{Hom}(unit, A \to A) $; therefore, \textsc{Pos}$_{\bot !}$ cannot have exponentials.
 
 \end{myitemize}
