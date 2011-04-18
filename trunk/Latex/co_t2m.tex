@@ -171,6 +171,9 @@ $\\[10pt]
 Therefore, for all well-typed $ \Gamma , x \tc \sigma \triangleright M: \tau $ and $ \Gamma \triangleright N: \sigma $ , it holds that $ \litp \Gamma \triangleright [N/x]M: \tau \ritp = \litp \Gamma , x \tc \sigma \triangleright M: \tau \ritp \circ \langle \textnormal{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $.
 
 \end{proof}
+\mbox\\
+\\
+Cartesian closed categories are used for describing the denotational semantics of $ \lambda^{\to} $. If a type judgement $ \Gamma \triangleright M: \sigma $ is provable, i.e. it is well-typed, then it holds semantically. This property is called \emph{soundness}. This dissertation provides a equational form of soundness for $ \lambda^{\to} $.
 
 \begin{theorem}[\textbf{Soundness}]
 \label{theorem:soundness}
@@ -187,7 +190,7 @@ During the interpretation, we can see that the names of term variables never app
 
 \emph{Stronger form of $ \alpha $-equivalence}: if terms $ x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M: \sigma $ and $ y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N: \sigma $ are well-typed, with $ N =_{\alpha} [y_1, \ldots , y_n /x_1, \ldots x_n]M $, then $ \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M: \sigma \ritp = \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N: \sigma \ritp $.
 
-This stronger form of $ \alpha $-equivalence can be proven by induction on the term $ M: \sigma $. The base case is the one when $ M $ is a variable while the inductive steps contains two cases, application and abstraction.
+This stronger form of $ \alpha $-equivalence can be proven by induction on the term $ M: \sigma $. The base case is the one when $ M $ is a variable while the inductive step contains two cases, applications and abstractions.
 
 Base case $ M: \sigma \equiv x_i: \sigma_i $ \eqnline
 $
@@ -199,9 +202,9 @@ $
 \end{array}
 $
 
-Inductive steps
+Inductive cases
 
-Application $ M: \sigma \equiv M_1M_2: \tau_2 $ 
+Applications $ M: \sigma \equiv M_1M_2: \tau_2 $ 
 
 In this case, $ N \equiv N_1N_2 $ where $ N_1 =_\alpha [y_1, \ldots , y_n /x_1, \ldots x_n]M_1 $ and $ N_2 =_\alpha [y_1, \ldots , y_n /x_1, \ldots x_n]M_2 $. The induction hypotheses contains two equations: \eqnline
 \begin{tabular}{rlcl}
@@ -220,7 +223,7 @@ $
 \end{array}
 $ \\[10pt]
 
-Abstraction $ M: \sigma \equiv \lambda x_{n+1}:\sigma_{n+1} .M':\sigma_{n+1} \to \tau $ 
+Abstractions $ M: \sigma \equiv \lambda x_{n+1}:\sigma_{n+1} .M':\sigma_{n+1} \to \tau $ 
 
 In this case, $ N \equiv \lambda y_{n+1}:\sigma_{n+1} .N' $ where $ N' =_\alpha [y_1, \ldots , y_{n+1} /x_1, \ldots x_{n+1}]M' $. We assume that $ \litp x_1:\sigma_1, \ldots , x_{n+1}:\sigma_{n+1} \triangleright M': \tau \ritp = \litp y_1:\sigma_1, \ldots , y_{n+1}:\sigma_{n+1} \triangleright N': \tau \ritp $ holds. Then we prove that \eqnline
 $
@@ -276,7 +279,9 @@ $ \\[10pt]
 Therefore, for any well-typed $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $, it holds in every CCC that $ \Gamma \triangleright M =_{\alpha \beta \eta} N: \sigma \implies \litp \Gamma \triangleright M: \sigma \ritp = \litp \Gamma \triangleright N: \sigma \ritp $.
 
 \end{proof}
-
+\mbox\\
+\\
+Semantics \emph{completeness} is the converse of soundness. The following is sometimes called \emph{``least model'' completeness}. 
 \begin{theorem}[\textbf{Completeness}]
 \label{theorem:comp}
 Given any well-typed terms $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $, there exists a CCC $ \mathcal{C} $ such that if $ \mathcal{C} \litp \Gamma \triangleright M: \sigma \ritp = \mathcal{C} \litp \Gamma \triangleright N: \sigma \ritp $, then $ \Gamma \triangleright M =_{\alpha \beta \eta} N: \sigma $.
