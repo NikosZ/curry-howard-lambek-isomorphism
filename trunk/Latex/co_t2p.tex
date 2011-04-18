@@ -1,6 +1,6 @@
 \subsection{Every type-derivation in $ \lambda ^\to $ leads to a proof in intuitionistic implicational logic}
 \label{sec:co_t2p}
-The proof trees in \ref{sec:bg_il_s} have a similar shape to the type-derivation trees in \ref{sec:bg_lc_stlc}. In fact, the rules in natural deduction system to construct relations $ \Gamma \vdash \varphi $ work in the same way as the typing rules to build well-typed $ \lambda $-terms $ \Gamma \triangleright x: \sigma $. Let us have a look at the simplest example first, the type-derivations in simply typed lambda calculus $ \lambda ^\to $ and the proofs in intuitionistic implicational logic.
+The proof trees in \ref{sec:bg_il_s} have similar shapes to the type-derivation trees in \ref{sec:bg_lc_stlc}. In fact, the rules in natural deduction system, for constructing relations $ \Gamma \vdash \varphi $, work in the same way as the typing rules, for building well-typed $ \lambda $-terms $ \Gamma \triangleright x: \sigma $. Let us have a look at a simple example first, the relation between type-derivations in simply typed lambda calculus $ \lambda ^\to $ and proofs in intuitionistic implicational logic.
 
 \begin{prooftree}
 \AxiomC{}
@@ -8,30 +8,30 @@ The proof trees in \ref{sec:bg_il_s} have a similar shape to the type-derivation
 \RightLabel{($ add $)}
 \UnaryInfC{$ x \tc \sigma , y \tc \tau \triangleright x: \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ x \tc \sigma \triangleright \lambda y \tc \tau . x: \tau \to \sigma $}
+\UnaryInfC{$ x \tc \sigma \triangleright \lambda y \tc \tau . x: \tau \ta \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \emptyset \triangleright \lambda x \tc \sigma . \lambda y \tc \tau . x: \sigma \to ( \tau \to \sigma ) $}
+\UnaryInfC{$ \triangleright \lambda x \tc \sigma . \lambda y \tc \tau . x: \sigma \ta ( \tau \ta \sigma ) $}
 \end{prooftree}
 
-The tree above is a type-derivation of $ \lambda $-term $ \lambda x \tc \sigma . \lambda y \tc \tau . x: \sigma \to ( \tau \to \sigma ) $. Let us erase the terms in the tree. If we consider every type-symbol as a propositional variable and the relation ``$ \triangleright $'' as ``$ \vdash $'', then the tree in the right side is exactly a proof tree, which means we obtain a proof of the conclusion represented by the type of the term in the bottom of the tree. Here, the proven proposition is $ \sigma \to ( \tau \to \sigma ) $.
+The tree above is a type-derivation of $ \lambda $-term $ \lambda x \tc \sigma . \lambda y \tc \tau . x: \sigma \ta ( \tau \ta \sigma ) $. Let us erase the terms in the tree. If we consider every type-symbol as a propositional variable and the relation ``$ \triangleright $'' as ``$ \vdash $'', then the result is exactly a proof tree, which means we obtain a proof of the conclusion represented by the type of the term in the bottom of the type-derivation. Here, the proven proposition is $ \sigma \to ( \tau \to \sigma ) $.
 \begin{center}
 \AxiomC{}
 \UnaryInfC{\sout{$ x \tc $} $\sigma \triangleright$ \sout{$ x: $} $ \sigma $}
 \RightLabel{($ add $)}
 \UnaryInfC{\sout{$ x \tc $} $ \sigma $, \sout{$ y \tc $} $\tau \triangleright $ \sout{$ x: $} $ \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{\sout{$ x \tc $} $ \sigma \triangleright $ \sout{$ \lambda y \tc \tau . x: $} $ \tau \to \sigma $}
+\UnaryInfC{\sout{$ x \tc $} $ \sigma \triangleright $ \sout{$ \lambda y \tc \tau . x: $} $ \tau \ta \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \emptyset \triangleright $ \sout{$ \lambda x \tc \sigma . \lambda y \tc \tau . x: $} $ \sigma \to ( \tau \to \sigma ) $}
+\UnaryInfC{$ \triangleright $ \sout{$ \lambda x \tc \sigma . \lambda y \tc \tau . x: $} $ \sigma \ta ( \tau \ta \sigma ) $}
 \DisplayProof $ \Longrightarrow $
 \AxiomC{}
-\UnaryInfC{$ \sigma \triangleright \sigma $}
+\UnaryInfC{$ \sigma \vdash \sigma $}
 \RightLabel{($ add $)}
-\UnaryInfC{$ \sigma , \tau \triangleright \sigma $}
+\UnaryInfC{$ \sigma , \tau \vdash \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \sigma \triangleright \tau \to \sigma $}
+\UnaryInfC{$ \sigma \vdash \tau \to \sigma $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \emptyset \triangleright \sigma \to ( \tau \to \sigma ) $}
+\UnaryInfC{$ \vdash \sigma \to ( \tau \to \sigma ) $}
 \DisplayProof
 \end{center}
 \mbox{}
@@ -45,7 +45,7 @@ Every type-derivation in $ \lambda ^\to $ leads to a proof in intuitionistic imp
 
 This proposition can be proven by induction on the height of type-derivation trees. In order to make the proof more readable, the types are denoted by using the propositional variable symbols ($ \varphi , \psi ... $).
 
-The base case is the one when the height of the tree is 1, i.e. a type-derivation without hypotheses which is the typing rule ($ axiom $). By erasing the term and replacing the relation symbol ``$ \triangleright $'' by ``$ \vdash $'', we obtain the axiom in the natural deduction system.
+The base case is the one when the height of the tree is 1, i.e. a type-derivation without premises, which is the typing rule ($ axiom $). By erasing the term variable and replacing the relation symbol ``$ \triangleright $'' by ``$ \vdash $'', we obtain the axiom in the natural deduction system.
 \begin{center}
 \AxiomC{}
 \RightLabel{($ axiom $)}
@@ -57,11 +57,11 @@ The base case is the one when the height of the tree is 1, i.e. a type-derivatio
 \DisplayProof
 \end{center}
 
-Assume that from very type-derivation tree of height at most $ n $, we get a corresponding proof by erasing the terms in the tree. Then, what we need to prove is that the tree of height $ n+1 $ also leads to a corresponding proof. According to the typing rules of $ \lambda ^\to $, there are two inductive cases, one with lambda abstraction and another with application:
+Assume that from every type-derivation of height at most $ n $, we get a corresponding proof by erasing the terms in the tree. Then, what we need to prove is that the tree of height $ n+1 $ also leads to a corresponding proof. According to the typing rules of $ \lambda ^\to $, there are two inductive cases, one for lambda abstraction and another for application:
 
 (1) Lambda abstraction
 
-The induction hypothesis in this case is that the following type-derivation has height $ n $ and leads to a proof on its right side,
+The induction hypothesis in this case is that the following type-derivation has height $ n $ and leads to a proof (on its right side),
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma , x \tc \varphi \triangleright M: \psi $}
@@ -70,15 +70,15 @@ The induction hypothesis in this case is that the following type-derivation has 
 \UnaryInfC{$ \Gamma ' , \varphi \vdash \psi $}
 \DisplayProof
 \end{center}
-Since the proof tree is obtained by erasing the terms in the derivation tree, the context $ \Gamma ' $ should contain all the types in $ \Gamma $ and nothing else. By using introduction rule for function type on $ \Gamma , x \tc \varphi \triangleright M: \psi $, we have a type-derivation of term $ \lambda x \tc \varphi .M$
+Since the proof tree is obtained by erasing the terms in the derivation tree, the context $ \Gamma ' $ should contain all the types in $ \Gamma $ and nothing else. By using introduction rule for function type on $ \Gamma , x \tc \varphi \triangleright M: \psi $, we have a type-derivation ending with term $ \lambda x \tc \varphi .M$:
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma , x \tc \varphi \triangleright M: \psi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \Gamma \triangleright \lambda x \tc \varphi .M: \varphi \to \psi $}
+\UnaryInfC{$ \Gamma \triangleright \lambda x \tc \varphi .M: \varphi \ta \psi $}
 \DisplayProof
 \end{center}
-By using introduction rule for implication on $ \Gamma ' , \varphi \vdash \psi $, we have the following proof
+By using introduction rule for implication on $ \Gamma ' , \varphi \vdash \psi $, we have the following proof:
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma ' , \varphi \vdash \psi $}
@@ -86,49 +86,49 @@ By using introduction rule for implication on $ \Gamma ' , \varphi \vdash \psi $
 \UnaryInfC{$ \Gamma ' \vdash \varphi \to \psi $}
 \DisplayProof
 \end{center}
-The conclusion of the proof, $ \varphi \to \psi $, is the type of term $ \lambda x \tc \varphi .M$. Besides, $ \Gamma ' $ contains all the types in $ \Gamma $. So we can say that the proof of $ \Gamma ' \vdash \varphi \to \psi $ is obtained by deleting the terms in the type derivation of  $ \Gamma \triangleright \lambda x \tc \varphi .M: \varphi \to \psi $. In other words, the derivation of $ \Gamma \triangleright \lambda x \tc \varphi .M: \varphi \to \psi $ leads to a proof of $ \Gamma ' \vdash \varphi \to \psi $.\\
+The conclusion of the proof, $ \varphi \to \psi $, is exactly the type of term $ \lambda x \tc \varphi .M$. Besides, $ \Gamma ' $ contains all the types in $ \Gamma $. As a result, the proof of $ \Gamma ' \vdash \varphi \to \psi $ can be obtained by deleting the terms in the type derivation of  $ \Gamma \triangleright \lambda x \tc \varphi .M: \varphi \to \psi $.\\
 
 (2) Application
 
-Assume that each of the following two derivation-trees, one of which has height $ n $ and another has height at most $ n $, leads to a corresponding proof
+Assume that each of the following two derivation-trees, one of which has height $ n $ and another has height at most $ n $, leads to a corresponding proof, and that $ \Gamma_1 \cup \Gamma_2 $ is consistent:
 \begin{center}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma \triangleright M: \varphi \to \psi $}
+\UnaryInfC{$ \Gamma_1 \triangleright M: \varphi \ta \psi $}
 \DisplayProof \hspace{10pt} $ \Longrightarrow $ \hspace{10pt}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma ' \vdash \varphi \to \psi $}
+\UnaryInfC{$ \Gamma_1 ' \vdash \varphi \to \psi $}
 \DisplayProof
 \end{center}
 \begin{center}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma \triangleright N: \varphi $}
+\UnaryInfC{$ \Gamma_2 \triangleright N: \varphi $}
 \DisplayProof \hspace{10pt} $ \Longrightarrow $ \hspace{10pt}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma ' \vdash \varphi $}
+\UnaryInfC{$ \Gamma_2 ' \vdash \varphi $}
 \DisplayProof
 \end{center}
-Similarly to (1), $ \Gamma ' $ contains all the types in $ \Gamma $. Then, according to function application, we obtain a derivation of $ MN$
+Similarly to (1), $ \Gamma_1 ' $ contains all the types in $ \Gamma_1 $ while $ \Gamma_2 ' $ contains all the types in $ \Gamma_2 $. In accordance with function application, we obtain a derivation of term $ MN $:
 \begin{center}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma \triangleright M: \varphi \to \psi $}
+\UnaryInfC{$ \Gamma_1 \triangleright M: \varphi \ta \psi $}
   \AxiomC{$ \vdots $}
-  \UnaryInfC{$ \Gamma \triangleright N: \varphi $}
+  \UnaryInfC{$ \Gamma_2 \triangleright N: \varphi $}
 \RightLabel{($ \to $E)}
-\BinaryInfC{$ \Gamma \triangleright MN: \psi $}
+\BinaryInfC{$ \Gamma_1 \cup \Gamma_2 \triangleright MN: \psi $}
 \DisplayProof
 \end{center}
-We also get a proof of $ \psi $ by applying \emph{modus ponens} on $ \varphi \to \psi $ and $ \varphi $
+We also get a proof of $ \psi $ by applying \emph{modus ponens} on $ \varphi \to \psi $ and $ \varphi $:
 \begin{center}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma ' \vdash \varphi \to \psi $}
+\UnaryInfC{$ \Gamma_1 ' \vdash \varphi \to \psi $}
   \AxiomC{$ \vdots $}
-  \UnaryInfC{$ \Gamma ' \vdash \varphi $}
+  \UnaryInfC{$ \Gamma_2 ' \vdash \varphi $}
 \RightLabel{($ \to $E)}
-\BinaryInfC{$ \Gamma ' \vdash \psi $}
+\BinaryInfC{$ \Gamma_1 ' \cup \Gamma_2 ' \vdash \psi $}
 \DisplayProof
 \end{center}
-Then we can see that if we erase the terms in $ \Gamma $ and term $ MN $, we also have $ \Gamma ' \vdash \psi $. Hence, the derivation of $ \Gamma \triangleright MN: \psi $ leads to a proof of $ \Gamma ' \vdash \psi $.\\
+It is obvious that $ \Gamma_1 ' \cup \Gamma_2 ' $ contains all types in $ \Gamma_1 \cup \Gamma_2 $ but nothing else. Hence, the proof of $ \Gamma_1 ' \cup \Gamma_2 ' \vdash \psi $ can be obtained by erasing all terms in the derivation of $ \Gamma_1 \cup \Gamma_2 \triangleright MN: \psi $.\\
 
-Therefore, every type-derivation in $ \lambda ^\to $ leads to a proof in intuitionistic implicational logic.
+Therefore, by erasing all terms in each type-derivation, one can obtain a corresponding proof. In other words, every type-derivation in $ \lambda ^\to $ leads to a proof in intuitionistic implicational logic.
 
 \end{proof}

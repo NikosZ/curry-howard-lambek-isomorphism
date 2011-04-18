@@ -3,8 +3,7 @@
 \label{sec:co_t2m}
 As mentioned in the previous section, cartesian closed categories can work as a more general but also more abstract framework for describing the denotational semantics of typed lambda calculus.
 
-The lambda calculus $ \lambda ^{unit, \times , \to } $ has terminal type, product types and function types. Correspondently, a CCC has terminal object, products and exponentials. A closed relation
-between them seems to be obvious. However, the lambda calculus $ \lambda ^ \to $ with only function type constructor is as expressive as $ \lambda ^{unit, \times , \to } $. Therefore, both the type expressions and well-typed lambda terms in $ \lambda ^ \to $ can be interpreted in any CCC, and this interpretation should be sound and complete.
+The lambda calculus $ \lambda ^{unit, \times , \to } $ has terminal type, product types and function types. Correspondingly, a CCC has terminal object, products and exponentials. The closed connection between them seems to be obvious. However, the lambda calculus $ \lambda ^ \to $ with only function type constructor is as expressive as $ \lambda ^{unit, \times , \to } $. Therefore, both the type expressions and well-typed lambda terms in $ \lambda ^ \to $ can be interpreted in any CCC, and this interpretation should be sound and complete.
 
 \begin{definition}
 \label{definition:inter_terms}
@@ -12,28 +11,28 @@ Given a typed lambda calculus $ \lambda ^ \to $ and a cartesian closed category 
 \begin{myitemize}
 \item[(1)] The interpretation $ \mathcal{C} \litp \sigma \ritp $ of type expression $ \sigma $ is defined as follows: \\[5pt]
   \begin{tabular}{rlcl}
-  $ \bullet $ & $ \mathcal{C} \litp b \ritp $ & = & $ \hat{b} $, given as an object constant in $ \mathcal{C} $ ; \\[5pt]
-  $ \bullet $ & $ \mathcal{C} \litp \sigma \to \tau \ritp $ & = & $ \mathcal{C} \litp \sigma \ritp \to \mathcal{C} \litp \sigma \ritp $ . \\[5pt]
+  $ \bullet $ & $ \mathcal{C} \litp \iota \ritp $ & = & $ \hat{c} $, given as an object constant in $ \mathcal{C} $ ; \\[5pt]
+  $ \bullet $ & $ \mathcal{C} \litp \sigma \ta \tau \ritp $ & = & $ \mathcal{C} \litp \sigma \ritp \to \mathcal{C} \litp \sigma \ritp $ . \\[5pt]
   \end{tabular}
 \item[(2)] The interpretation $ \mathcal{C} \litp \Gamma \ritp $ of type context $ \Gamma $ is defined by induction on the length of the context: \\[5pt]
   \begin{tabular}{rlcl}
   $ \bullet $ & $ \mathcal{C} \litp \emptyset \ritp $ & = & $ unit $ ; \\[5pt]
-  $ \bullet $ & $ \mathcal{C} \litp \Gamma , x: \sigma \ritp $ & = & $ \mathcal{C} \litp \Gamma \ritp \times \mathcal{C} \litp \sigma \ritp $ . \\[5pt]
+  $ \bullet $ & $ \mathcal{C} \litp \Gamma , x \tc \sigma \ritp $ & = & $ \mathcal{C} \litp \Gamma \ritp \times \mathcal{C} \litp \sigma \ritp $ . \\[5pt]
   \end{tabular}
-\item[(3)] The interpretation $ \mathcal{C} \litp \Gamma \triangleright M: \sigma \ritp $ of a well-typed term is a morphism from $ \mathcal{C} \litp \Gamma \ritp $ to $ \mathcal{C} \litp \sigma \ritp $ which is defined by induction on the derivation of the typing judgement $ \Gamma \triangleright M: \sigma $ : \\[5pt]
+\item[(3)] The interpretation $ \mathcal{C} \litp \Gamma \triangleright M: \sigma \ritp $ of a well-typed term is a morphism from $ \mathcal{C} \litp \Gamma \ritp $ to $ \mathcal{C} \litp \sigma \ritp $ which is defined by induction on derivations: \\[5pt]
   \begin{tabular}{rlcl}
-  $ \bullet $ & $ \mathcal{C} \litp x: \sigma \triangleright x: \sigma \ritp $ & = & $ \text{Proj}_2^{unit, \sigma} $ ; \\[5pt]
-  $ \bullet $ & $ \mathcal{C} \litp \Gamma \triangleright MN: \tau \ritp $ & = & $ \text{App}^{\sigma,\tau} \circ \langle \mathcal{C} \litp \Gamma \triangleright M: \sigma \to \tau \ritp , \mathcal{C} \litp \Gamma \triangleright N: \sigma \ritp \rangle $ ; \\[5pt]
-  $ \bullet $ & $ \mathcal{C} \litp \Gamma \triangleright \lambda x: \sigma .M: \sigma \to \tau \ritp $ & = & $ \text{Curry}( \mathcal{C} \litp \Gamma , x: \sigma \triangleright M: \tau \ritp ) $ ; \\[5pt]
-  $ \bullet $ & $ \mathcal{C} \litp \Gamma _1 , x: \sigma , \Gamma _2 \triangleright M: \tau \ritp $ & = & $ \mathcal{C} \litp \Gamma _1 , \Gamma _2 \triangleright M: \tau \ritp \circ \chi_f^{\litp \Gamma _1 , x: \sigma , \Gamma _2 \ritp} $ \\[5pt]
-  & \multicolumn{3}{l}{where $ ( \Gamma _1 , x: \sigma , \Gamma _2 )_f = \Gamma _1 , \Gamma _2 $ which contains all the free variables of $ M $.} \\[5pt]
+  $ \bullet $ & $ \mathcal{C} \litp x \tc \sigma \triangleright x: \sigma \ritp $ & = & $ \text{Proj}_2^{unit, \sigma} $ ; \\[5pt]
+  $ \bullet $ & $ \mathcal{C} \litp \Gamma \triangleright MN: \tau \ritp $ & = & $ \text{App}^{\sigma,\tau} \circ \langle \mathcal{C} \litp \Gamma \triangleright M: \sigma \ta \tau \ritp , \mathcal{C} \litp \Gamma \triangleright N: \sigma \ritp \rangle $ ; \\[5pt]
+  $ \bullet $ & $ \mathcal{C} \litp \Gamma \triangleright \lambda x \tc \sigma .M: \sigma \ta \tau \ritp $ & = & $ \text{Curry}( \mathcal{C} \litp \Gamma , x \tc \sigma \triangleright M: \tau \ritp ) $ ; \\[5pt]
+  $ \bullet $ & $ \mathcal{C} \litp \Gamma _1 , x \tc \sigma , \Gamma _2 \triangleright M: \tau \ritp $ & = & $ \mathcal{C} \litp \Gamma _1 , \Gamma _2 \triangleright M: \tau \ritp \circ \chi_f^{\litp \Gamma _1 , x \tc \sigma , \Gamma _2 \ritp} $ \\[5pt]
+  & \multicolumn{3}{l}{where $ ( \Gamma _1 , x \tc \sigma , \Gamma _2 )_f = \Gamma _1 , \Gamma _2 $ which contains all the free variables of $ M $.} \\[5pt]
   \end{tabular}
 \end{myitemize}
 \end{definition}
 
-In this definition, $ f: \{ 1, \ldots , m \} \to \{ 1, \ldots , n \} $ is called an \emph{m,n-function}. If $ \Gamma \equiv x_1:\sigma_1, \ldots , x_n:\sigma_n $ is an ordered type context of length $ n $, then the ordered type context $ \Gamma_f $ of length $ m $ is defined by $ \Gamma_f = x_{f(1)}:\sigma_{f(1)}, \ldots , x_{f(m)}:\sigma_{f(m)} $. If $ \Gamma \triangleright M: \sigma $ is a well-typed term and $ \Gamma_f $ contains all the free variables of $ M $, then the interpretation of $ \Gamma_f \triangleright M: \sigma $ can be related to the one of $ \Gamma \triangleright M: \sigma $ by using a combination $ \chi_f^{\litp \Gamma \ritp} : \litp \Gamma \ritp \to \litp \Gamma_f \ritp $ of pairing and projection functions.
+In this definition, $ f: \{ 1, \ldots , m \} \to \{ 1, \ldots , n \} $ is called an \emph{m,n-function}. If $ \Gamma \equiv x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n $ is an ordered type context of length $ n $, then the ordered type context $ \Gamma_f $ of length $ m $ is defined by $ \Gamma_f = x_{f(1)} \tc \sigma_{f(1)}, \ldots , x_{f(m)} \tc \sigma_{f(m)} $. If $ \Gamma \triangleright M: \sigma $ is well-typed and $ \Gamma_f $ contains all the free variables of $ M $, then the interpretation of $ \Gamma_f \triangleright M: \sigma $ can be related to the one of $ \Gamma \triangleright M: \sigma $ by using a combination $ \chi_f^{\litp \Gamma \ritp} : \litp \Gamma \ritp \to \litp \Gamma_f \ritp $ of pairing and projection functions.
 
-Before giving the definition of the combination, we need a few notational conventions. If $ h_i:A \to A_i $ is a morphism from object $ A $ to $ A_i $, $ 1 \leq i \leq n $, then we write $ \langle h_1, \ldots , h_n \rangle $ for $ \langle \langle \ldots \langle h_1,h_2 \rangle, \ldots \rangle , h_n \rangle : A \to (( \ldots (A_1 \times A_2) \times \ldots ) \times A_n ) $. Then we define the projections $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} : A_1 \times A_2 \times \ldots \times A_n \to A_i $ by a composition of projection morphisms $ \text{Proj}_1 $ and $ \text{Proj}_2 $. The following gives a inductive definition of projection $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} $:\\[5pt]
+Before giving the definition of the combination, we need a few notational conventions. If $ h_i:A \to A_i $ is a morphism from object $ A $ to $ A_i $, $ 1 \leq i \leq n $, then we write $ \langle h_1, \ldots , h_n \rangle $ for $ \langle \langle \ldots \langle h_1,h_2 \rangle, \ldots \rangle , h_n \rangle : A \to (( \ldots (A_1 \times A_2) \times \ldots ) \times A_n ) $. We also define the projections $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} : A_1 \times A_2 \times \ldots \times A_n \to A_i $ by a composition of projection morphisms $ \text{Proj}_1 $ and $ \text{Proj}_2 $. The following gives a inductive definition of projection $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} $:\\[5pt]
 $
 \begin{array}{rlcll}
 \bullet & \text{Proj}_1^{A} & = & \text{id}_A & \\[5pt]
@@ -42,7 +41,7 @@ $
 \end{array}
 $
 
-The tupling and projections defined above behave similarly to the pairs and $ \text{Proj}_1 $ and $ \text{Proj}_2 $. The following equations hold in any category with products:\\[5pt]
+The tupling and projections defined above behave similarly to pairing $ \langle \cdot , \cdot \rangle $, $ \text{Proj}_1 $ and $ \text{Proj}_2 $ in definition \ref{definition:products}. The following equations hold in any category with products:\\[5pt]
 $
 \begin{array}{rlcl}
 \bullet & \text{Proj}_i \circ \langle f_1, \ldots , f_n \rangle & = & f_i \\[5pt]
@@ -58,7 +57,7 @@ $
 $ \\[3pt]
 \multicolumn{1}{r}{$ : unit \times A_1 \times \ldots \times A_n \to unit \times A_{f(1)} \times \ldots \times A_{f(m)} $.}
 \end{tabular} \\[3pt]
-The terminal object $ unit $ is included in the type of $ \chi_f $ since the interpretation of any type context contains $ unit $.
+The terminal object $ unit $ is included in $ \chi_f $ since the interpretation of any type context contains $ unit $.
 \\
 \\
 Some lemmas are needed during the proof of soundness and completeness of the interpretation in definition \ref{definition:inter_terms}.
@@ -67,86 +66,85 @@ The first one is the substitution lemma, which will be used in the proof of soun
 
 \begin{lemma}[\textbf{CCC Substitution}]
 \label{lemma:subs}
-If $ \Gamma , x: \sigma \triangleright M: \tau $ and $ \Gamma \triangleright N: \sigma $ are well-typed terms, then $ \litp \Gamma \triangleright [N/x]M: \tau \ritp = \litp \Gamma , x: \sigma \triangleright M: \tau \ritp \circ \langle \textnormal{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $ holds.
+If $ \Gamma , x \tc \sigma \triangleright M: \tau $ and $ \Gamma \triangleright N: \sigma $ are well-typed terms, then $ \litp \Gamma \triangleright [N/x]M: \tau \ritp = \litp \Gamma , x \tc \sigma \triangleright M: \tau \ritp \circ \langle \textnormal{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $ holds.
 \end{lemma}
 
 \begin{proof}\mbox\\
 
-The proof is carried out by induction on typing derivation. The base case is the one whose term is a term variable. The inductive steps have two cases, application and abstraction.
+The proof is carried out by induction on type derivation. The base case is the one whose term is a term variable. The inductive step has two cases, applications and abstractions.
 
 Base case $ M: \tau \equiv x: \sigma $ \\[5pt]
 $
 \begin{array}{rll}
-   & \litp \Gamma , x: \sigma \triangleright x: \sigma \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle & \\[5pt]
+   & \litp \Gamma , x \tc \sigma \triangleright x: \sigma \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle & \\[5pt]
  = & \text{Proj}_2^{\litp \Gamma \ritp , \sigma} \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle & (\text{by } \text{Proj}_i \circ \langle f_1, f_2 \rangle = f_i ) \\[5pt]
  = & \litp \Gamma \triangleright N: \sigma \ritp & \\[5pt]
  = & \litp \Gamma \triangleright [N/x]x: \sigma \ritp & \\[10pt]
 \end{array}
 $
 
-Inductive steps
+Inductive cases
 
-Application $ M: \tau \equiv M_1 M_2 : \tau_2 $
+(1) Applications $ M: \tau \equiv M_1 M_2 : \tau_2 $
 
 Assume the following two equations hold\\[5pt]
 $
 \begin{array}{rlcl}
-\bullet & \litp \Gamma \triangleright [N/x]M_1: \tau_1 \to \tau_2 \ritp & = & \litp \Gamma , x: \sigma \triangleright M_1: \tau_1 \to \tau_2 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[5pt]
-\bullet & \litp \Gamma \triangleright [N/x]M_2: \tau_1 \ritp & = & \litp \Gamma , x: \sigma \triangleright M_2: \tau_1 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[5pt]
+\bullet & \litp \Gamma \triangleright [N/x]M_1: \tau_1 \ta \tau_2 \ritp & = & \litp \Gamma , x \tc \sigma \triangleright M_1: \tau_1 \ta \tau_2 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[5pt]
+\bullet & \litp \Gamma \triangleright [N/x]M_2: \tau_1 \ritp & = & \litp \Gamma , x \tc \sigma \triangleright M_2: \tau_1 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[5pt]
 \end{array}
 $\\[5pt]
-Then what we want to show is that $ \litp \Gamma \triangleright [N/x](M_1 M_2): \tau_2 \ritp = \litp \Gamma , x: \sigma \triangleright M_1 M_2: \tau_2 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $ holds.\\[5pt]
+Then what we want to show is that $ \litp \Gamma \triangleright [N/x](M_1 M_2): \tau_2 \ritp = \litp \Gamma , x \tc \sigma \triangleright M_1 M_2: \tau_2 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $ holds.\\[5pt]
 $
 \begin{array}{rl}
    & \litp \Gamma \triangleright [N/x](M_1 M_2): \tau_2 \ritp \\[5pt]
- = & \text{App}^{\tau_1,\tau_2} \circ \langle \litp \Gamma \triangleright [N/x]M_1: \tau_1 \to \tau_2 \ritp , \litp \Gamma \triangleright [N/x]M_2: \tau_1 \ritp \rangle \\[5pt]
- = & \text{App}^{\tau_1,\tau_2} \circ \langle \litp \Gamma , x: \sigma \triangleright M_1: \tau_1 \to \tau_2 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle , \\[5pt]
- \multicolumn{2}{r}{\litp \Gamma , x: \sigma \triangleright M_2: \tau_1 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \rangle} \\[5pt]
+ = & \text{App}^{\tau_1,\tau_2} \circ \langle \litp \Gamma \triangleright [N/x]M_1: \tau_1 \ta \tau_2 \ritp , \litp \Gamma \triangleright [N/x]M_2: \tau_1 \ritp \rangle \\[5pt]
+ = & \text{App}^{\tau_1,\tau_2} \circ \langle \litp \Gamma , x \tc \sigma \triangleright M_1: \tau_1 \ta \tau_2 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle , \\[5pt]
+ \multicolumn{2}{r}{\litp \Gamma , x \tc \sigma \triangleright M_2: \tau_1 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \rangle} \\[5pt]
    & (\text{by } \langle f,g \rangle \circ h = \langle f \circ h , g \circ h \rangle \text{ in proposition \ref{proposition:eqns} } ) \\[5pt]
- = & \text{App}^{\tau_1,\tau_2} \circ ( \langle \litp \Gamma , x: \sigma \triangleright M_1: \tau_1 \to \tau_2 \ritp , \litp \Gamma , x: \sigma \triangleright M_2: \tau_1 \ritp \rangle \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle ) \\[5pt]
- = & ( \text{App}^{\tau_1,\tau_2} \circ \langle \litp \Gamma , x: \sigma \triangleright M_1: \tau_1 \to \tau_2 \ritp , \litp \Gamma , x: \sigma \triangleright M_2: \tau_1 \ritp \rangle ) \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[5pt]
- = & \litp \Gamma , x: \sigma \triangleright M_1 M_2: \tau_2 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[10pt]
+ = & \text{App}^{\tau_1,\tau_2} \circ ( \langle \litp \Gamma , x \tc \sigma \triangleright M_1: \tau_1 \ta \tau_2 \ritp , \litp \Gamma , x \tc \sigma \triangleright M_2: \tau_1 \ritp \rangle \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle ) \\[5pt]
+ = & ( \text{App}^{\tau_1,\tau_2} \circ \langle \litp \Gamma , x \tc \sigma \triangleright M_1: \tau_1 \ta \tau_2 \ritp , \litp \Gamma , x \tc \sigma \triangleright M_2: \tau_1 \ritp \rangle ) \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[5pt]
+ = & \litp \Gamma , x \tc \sigma \triangleright M_1 M_2: \tau_2 \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[10pt]
 \end{array}
 $
 
-Abstraction $ M: \tau \equiv \lambda y: \rho . M' : \rho \to \tau $
+(2) Abstractions $ M: \tau \equiv \lambda y \tc \rho . M' : \rho \to \tau $
 
-Assume $ \litp \Gamma , y: \rho \triangleright [N/x]M': \tau \ritp = \litp \Gamma , y: \rho , x: \sigma \triangleright M': \tau \ritp \circ \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle $, then we have \\[5pt]
+Assume $ \litp \Gamma , y \tc \rho \triangleright [N/x]M': \tau \ritp = \litp \Gamma , y \tc \rho , x \tc \sigma \triangleright M': \tau \ritp \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle $, then we have \\[5pt]
 $
 \begin{array}{rl}
-   & \litp \Gamma , y: \rho \triangleright [N/x]M': \tau \ritp \\[5pt]
- = & \litp \Gamma , y: \rho , x: \sigma \triangleright M': \tau \ritp \circ \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle \\[5pt]
-   & ((\Gamma , y: \rho , x: \sigma )_f = \Gamma , x: \sigma , y: \rho \text{ which swaps the positions of } y \text{ and } x) \\[5pt]
- = & (\litp \Gamma , x: \sigma , y: \rho \triangleright M': \tau \ritp \circ \chi_f^{\litp \Gamma , y: \rho , x: \sigma \ritp}) \circ \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle \\[5pt]
- = & \litp \Gamma , x: \sigma , y: \rho \triangleright M': \tau \ritp \circ ( \chi_f^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle ) \\[5pt]
- = & \litp \Gamma , x: \sigma , y: \rho \triangleright M': \tau \ritp \circ ( \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \times \text{id}_{\litp \rho \ritp} ) \\[10pt]
+   & \litp \Gamma , y \tc \rho \triangleright [N/x]M': \tau \ritp \\[5pt]
+ = & \litp \Gamma , y \tc \rho , x \tc \sigma \triangleright M': \tau \ritp \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle \\[5pt]
+   & ((\Gamma , y \tc \rho , x \tc \sigma )_f = \Gamma , x \tc \sigma , y \tc \rho \text{ which swaps the positions of } y \text{ and } x) \\[5pt]
+ = & (\litp \Gamma , x \tc \sigma , y \tc \rho \triangleright M': \tau \ritp \circ \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp}) \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle \\[5pt]
+ = & \litp \Gamma , x \tc \sigma , y \tc \rho \triangleright M': \tau \ritp \circ ( \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle ) \\[5pt]
+ = & \litp \Gamma , x \tc \sigma , y \tc: \rho \triangleright M': \tau \ritp \circ ( \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \times \text{id}_{\litp \rho \ritp} ) \\[10pt]
 \end{array}
 $
 
-The step simplifying $ \chi_f^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle $ is a routine calculation involving pairing and projection morphisms. According to the definitions of tupling and $ \chi $,\\[5pt]
-\begin{tabular}{m{0.95\textwidth}}
-$ \chi_f^{\litp \Gamma , y: \rho , x: \sigma \ritp} = \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \rangle $ \\[5pt]
-\multicolumn{1}{r}{$ : \litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp \to \litp \Gamma \ritp \times \litp \sigma \ritp \times \litp \rho \ritp $}
-\end{tabular}\\
-where $ k $ is the length of $ \litp \Gamma \ritp $ and $ g $ is a $ n,m $-function such that $ (\Gamma , y: \rho , x: \sigma)_g = \Gamma $. Then the simplification is done as follows:\\[5pt]
+The step simplifying $ \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle $ is a routine calculation involving pairing and projection morphisms. According to the definitions of $ \chi $,\\[5pt]
+$ \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} = \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \rangle : \litp \Gamma \ritp \mathord{\times} \litp \rho \ritp \mathord{\times} \litp \sigma \ritp \ta \litp \Gamma \ritp \mathord{\times} \litp \sigma \ritp \mathord{\times} \litp \rho \ritp $ \\[5pt]
+where $ k $ is the length of $ \litp \Gamma \ritp $ and $ g $ is an $ n,m $-function such that $ (\Gamma , y \tc \rho , x \tc \sigma)_g = \Gamma $. Then the simplification is done as follows:\\[8pt]
 $
 \begin{array}{rl}
-   & \chi_f^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle \\[5pt]
-   & (\text{denote } h \text{ as } \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle ) \\[5pt]
- = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \rangle \circ h \\[5pt]
+   & \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle \\[5pt]
+   & (\text{denote } h \text{ as } \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle ) \\[5pt]
+ = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \rangle \circ h \\[5pt]
    & (\text{by } \langle f_1, \ldots , f_n \rangle \circ h = \langle f_1 \circ h, \ldots , f_n \circ h \rangle ) \\[5pt]
- = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ h , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
+ = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
    & (\text{by } \text{Proj}_n^{A_1 \times \ldots \times A_n} = \text{Proj}_2^{(A_1 \times \ldots \times A_{n-1}), A_n} ) \\[5pt]
- = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ h , \text{Proj}_2^{(\litp \Gamma \ritp \times \litp \rho \ritp), \litp \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y: \rho \ritp} , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp \rangle , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
+ = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \text{Proj}_2^{(\litp \Gamma \ritp \times \litp \rho \ritp), \litp \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
+\end{array}\\
+\begin{array}{rl}
    & (\text{by } \text{Proj}_2 \circ \langle f_1,f_2 \rangle = f_2 ) \\[5pt]
- = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ h , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
+ = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
    & (\text{by the definition of } \text{Proj}_i ) \\[5pt]
- = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ h , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \circ \text{Proj}_1^{\litp \Gamma \ritp \times \litp \rho \ritp , \litp \sigma \ritp} \circ h \rangle \\[5pt]
- = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ h , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \circ \text{id}_{\litp \Gamma , y: \rho \ritp} \rangle \\[5pt]
- = & \langle \chi_g^{\litp \Gamma , y: \rho , x: \sigma \ritp} \circ h , \litp \Gamma , y: \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \rangle \\[5pt]
+ = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \circ \text{Proj}_1^{\litp \Gamma \ritp \times \litp \rho \ritp , \litp \sigma \ritp} \circ h \rangle \\[5pt]
+ = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \circ \text{id}_{\litp \Gamma , y \tc \rho \ritp} \rangle \\[5pt]
+ = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \rangle \\[5pt]
    & ( \text{by the definitions of } \chi \text{ and } \text{Proj}_i ) \\[5pt]
- = & \langle \text{id}_{\litp \Gamma \ritp} \circ \text{Proj}_1^{\litp \Gamma \ritp , \litp \rho \ritp}, \litp \Gamma , y: \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \rangle \\[5pt]
-   & (\text{if } (\Gamma , y: \rho)_{f'}=\Gamma \text{, then } \chi_{f'} = \text{Proj}_1^{\litp \Gamma \ritp, \litp \rho \ritp} ) \\[5pt]
+ = & \langle \text{id}_{\litp \Gamma \ritp} \circ \text{Proj}_1^{\litp \Gamma \ritp , \litp \rho \ritp}, \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \rangle \\[5pt]
+   & (\text{if } (\Gamma , y \tc \rho)_{f'}=\Gamma \text{, then } \chi_{f'} = \text{Proj}_1^{\litp \Gamma \ritp, \litp \rho \ritp} ) \\[5pt]
  = & \langle \text{id}_{\litp \Gamma \ritp} \circ \text{Proj}_1^{\litp \Gamma \ritp , \litp \rho \ritp}, \litp \Gamma \triangleright N: \sigma \ritp \circ \text{Proj}_1^{\litp \Gamma \ritp , \litp \rho \ritp} , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \rangle \\[5pt]
  = & \langle \langle \text{id}_{\litp \Gamma \ritp} \circ \text{Proj}_1^{\litp \Gamma \ritp , \litp \rho \ritp}, \litp \Gamma \triangleright N: \sigma \ritp \circ \text{Proj}_1^{\litp \Gamma \ritp , \litp \rho \ritp} \rangle , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \rangle \\[5pt]
    & (\text{by } \langle f,g \rangle \circ h = \langle f \circ h, g \circ h \rangle ) \\[5pt]
@@ -157,24 +155,23 @@ $
 \end{array}
 $
 
-Now we need to show that $ \litp \Gamma \triangleright [N/x](\lambda y: \rho .M'): \rho \to \tau \ritp = \litp \Gamma , x: \sigma \triangleright \lambda y: \rho .M': \rho \to \tau \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $ holds. \\[5pt]
+Now what we need to prove is that $ \litp \Gamma \triangleright [N/x](\lambda y \tc \rho .M'): \rho \ta \tau \ritp = \litp \Gamma , x \tc \sigma \triangleright \lambda y \tc \rho .M': \rho \ta \tau \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $ holds. \\[5pt]
 $
 \begin{array}{rl}
-   & \litp \Gamma \triangleright [N/x](\lambda y: \rho .M'): \rho \to \tau \ritp \\[5pt]
- = & \litp \Gamma \triangleright \lambda y: \rho .[N/x]M': \rho \to \tau \ritp \\[5pt]
- = & \text{Curry}(\litp \Gamma , y: \rho \triangleright [N/x]M': \tau \ritp) \\[5pt]
- = & \text{Curry}(\litp \Gamma , x: \sigma , y: \rho \triangleright M': \tau \ritp \circ ( \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \times \text{id}_{\litp \rho \ritp} )) \\[5pt]
+   & \litp \Gamma \triangleright [N/x](\lambda y \tc \rho .M'): \rho \ta \tau \ritp \\[5pt]
+ = & \litp \Gamma \triangleright \lambda y \tc \rho .[N/x]M': \rho \ta \tau \ritp \\[5pt]
+ = & \text{Curry}(\litp \Gamma , y \tc \rho \triangleright [N/x]M': \tau \ritp) \\[5pt]
+ = & \text{Curry}(\litp \Gamma , x \tc \sigma , y \tc \rho \triangleright M': \tau \ritp \circ ( \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \times \text{id}_{\litp \rho \ritp} )) \\[5pt]
    & (\text{by } \text{Curry}(f) \circ h = \text{Curry}(f \circ (h \times \text{id})) \text{ in proposition \ref{proposition:eqns}}) \\[5pt]
- = & \text{Curry}(\litp \Gamma , x: \sigma , y: \rho \triangleright M': \tau \ritp) \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[5pt]
- = & \litp \Gamma , x: \sigma \triangleright \lambda y: \rho .M': \rho \to \tau \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[5pt]
+ = & \text{Curry}(\litp \Gamma , x \tc \sigma , y \tc \rho \triangleright M': \tau \ritp) \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[5pt]
+ = & \litp \Gamma , x \tc \sigma \triangleright \lambda y \tc \rho .M': \rho \ta \tau \ritp \circ \langle \text{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle \\[5pt]
 \end{array}
 $\\[10pt]
 
-Therefore, for all well-typed $ \Gamma , x: \sigma \triangleright M: \tau $ and $ \Gamma \triangleright N: \sigma $ , it holds that $ \litp \Gamma \triangleright [N/x]M: \tau \ritp = \litp \Gamma , x: \sigma \triangleright M: \tau \ritp \circ \langle \textnormal{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $.
+Therefore, for all well-typed $ \Gamma , x \tc \sigma \triangleright M: \tau $ and $ \Gamma \triangleright N: \sigma $ , it holds that $ \litp \Gamma \triangleright [N/x]M: \tau \ritp = \litp \Gamma , x \tc \sigma \triangleright M: \tau \ritp \circ \langle \textnormal{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $.
 
 \end{proof}
 
-\clearpage
 \begin{theorem}[\textbf{Soundness}]
 \label{theorem:soundness}
 Given any well-typed $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $ with $ M =_{\alpha \beta \eta} N $, then they have the same interpretation, i.e. $ \litp \Gamma \triangleright M: \sigma \ritp = \litp \Gamma \triangleright N: \sigma \ritp $, in every CCC.
@@ -280,7 +277,6 @@ Therefore, for any well-typed $ \Gamma \triangleright M: \sigma $ and $ \Gamma \
 
 \end{proof}
 
-\clearpage
 \begin{theorem}[\textbf{Completeness}]
 \label{theorem:comp}
 Given any well-typed terms $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $, there exists a CCC $ \mathcal{C} $ such that if $ \mathcal{C} \litp \Gamma \triangleright M: \sigma \ritp = \mathcal{C} \litp \Gamma \triangleright N: \sigma \ritp $, then $ \Gamma \triangleright M =_{\alpha \beta \eta} N: \sigma $.

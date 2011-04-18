@@ -7,60 +7,60 @@ Proposition \ref{proposition:t2p} in last section tells us that, from every type
 \AxiomC{}
 \UnaryInfC{$ \varphi \vdash \varphi $}
 \RightLabel{($ add $)}
-\UnaryInfC{$ \varphi , \tau \vdash \varphi $}
+\UnaryInfC{$ \varphi , \psi \vdash \varphi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \varphi \vdash \tau \to \varphi $}
+\UnaryInfC{$ \varphi \vdash \psi \to \varphi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \vdash \varphi \to ( \tau \to \varphi ) $}
+\UnaryInfC{$ \vdash \varphi \to ( \psi \to \varphi ) $}
 \end{prooftree}
 
-Given the above proof of proposition $ \varphi \to ( \tau \to \varphi ) $, we construct a type-derivation tree in the following steps:
+Given the above proof of proposition $ \varphi \to ( \psi \to \varphi ) $, we construct a type-derivation tree in the following steps:
 \begin{myitemize}
-\item[(1)] Treat each proposition in the context as a type and assign a term variable to it. Atomic propositions are considered as atomic types while implications, conjunctions, disjunctions and contradiction correspond to function types, product types, sum types and initial type, respectively. The same term variables are assigned to the same propositions in all the contexts through out the whole tree. Each term variable is assigned to one proposition only in order to make the type context consistent.
+\item[(1)] Treat each proposition in the context as a type and assign a term variable to it. Atomic propositions are considered as atomic types while implications, conjunctions, disjunctions and contradiction correspond to function types, product types, sum types and initial type, respectively. The same term variables are assigned to the same propositions in all the contexts throughout the whole tree. Each term variable is assigned to one proposition only in order to make the type context consistent.
 \begin{prooftree}
 \AxiomC{}
-\UnaryInfC{$ x: \varphi \vdash \varphi $}
+\UnaryInfC{$ x \tc \varphi \vdash \varphi $}
 \RightLabel{($ add $)}
-\UnaryInfC{$ x: \varphi , y: \tau \vdash \varphi $}
+\UnaryInfC{$ x \tc \varphi , y \tc \psi \vdash \varphi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ x: \varphi \vdash \tau \to \varphi $}
+\UnaryInfC{$ x \tc \varphi \vdash \psi \to \varphi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \vdash \varphi \to ( \tau \to \varphi ) $}
+\UnaryInfC{$ \vdash \varphi \to ( \psi \to \varphi ) $}
 \end{prooftree}
 
-\item[(2)] Use the type assignments in the context $ \Gamma $ to construct a proper term $ M $ of type $ \varphi $ from the top of the tree. Then a typing judgement $ \Gamma \vdash M: \varphi $ is obtained. If the proposition (or type) on the right side of $ \vdash $ already exists in the context, then the term of that type is the term variable which has been assign to that type in the context.
+\item[(2)] Use the type assignments in the context $ \Gamma $ to construct a proper term $ M $ of type $ \varphi $ from the top of the tree. Then a typing judgement $ \Gamma \vdash M: \varphi $ is obtained. If the proposition (or type) on the right side of $ \vdash $ already exists in the context, then the term of that type is the term variable which has been assigned to that type in the context.
 \begin{prooftree}
 \AxiomC{}
-\UnaryInfC{$ x: \varphi \vdash x: \varphi $}
+\UnaryInfC{$ x \tc \varphi \vdash x: \varphi $}
 \RightLabel{($ add $)}
-\UnaryInfC{$ x: \varphi , y: \tau \vdash x: \varphi $}
+\UnaryInfC{$ x \tc \varphi , y \tc \psi \vdash x: \varphi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ x: \varphi \vdash ?: \tau \to \varphi $}
+\UnaryInfC{$ x \tc \varphi \vdash ?: \psi \to \varphi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \vdash ?: \varphi \to ( \tau \to \varphi ) $}
+\UnaryInfC{$ \vdash ?: \varphi \to ( \psi \to \varphi ) $}
 \end{prooftree}
-In the third typing judgement (counted from the top of the tree), the proposition $ \tau \to \varphi $ does not appear in the context. So the term of type $ \tau \to \varphi $ is not a term variable. Besides, there is only one sub-tree above the judgement. So the term must be a lambda abstraction where the bound variable in the abstractor has type $ \tau $ and the scope has type $ \varphi $. Then we need to go up to look for the variable which is assigned to $ \tau $ in the context and the term which has type $ \varphi $. From the second typing judgement, we know $ y $ is assigned to $ \tau $ and term $ x $ has type $ \varphi $. Therefore, we construct the term in the third typing judgement as $ \lambda y: \tau .x: \tau \to \varphi $. The last typing judgement is obtained in the same way.
+In the third typing judgement (counted from the top of the tree), the proposition $ \psi \to \varphi $ does not appear in the context. So the term of type $ \psi \to \varphi $ is not a term variable. Besides, there is only one sub-tree above the judgement. So the term must be a lambda abstraction where the bound variable in the abstractor has type $ \psi $ and the scope has type $ \varphi $. Then we need to go up to look for the variable which is assigned to $ \psi $ in the context and the term which has type $ \varphi $. From the second typing judgement, we know $ y $ is assigned to $ \psi $ and term $ x $ has type $ \varphi $. Therefore, we construct the term in the third typing judgement as $ \lambda y \tc \psi .x: \psi \ta \varphi $. The last typing judgement is obtained in the same way.
 \begin{prooftree}
 \AxiomC{}
-\UnaryInfC{$ x: \varphi \vdash x: \varphi $}
+\UnaryInfC{$ x \tc \varphi \vdash x : \varphi $}
 \RightLabel{($ add $)}
-\UnaryInfC{$ x: \varphi , y: \tau \vdash x: \varphi $}
+\UnaryInfC{$ x \tc \varphi , y \tc \psi \vdash x: \varphi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ x: \varphi \vdash \lambda y: \tau .x: \tau \to \varphi $}
+\UnaryInfC{$ x \tc \varphi \vdash \lambda y \tc \psi .x: \psi \ta \varphi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \vdash \lambda x: \varphi . \lambda y: \tau .x: \varphi \to ( \tau \to \varphi ) $}
+\UnaryInfC{$ \vdash \lambda x \tc \varphi . \lambda y \tc \psi .x: \varphi \ta ( \psi \ta \varphi ) $}
 \end{prooftree}
 
-\item[(3)] Replace the relation ``$ \vdash $'' by ``$ \triangleright $''.
+\item[(3)] Replace the relation symbol ``$ \vdash $'' by ``$ \triangleright $''.
 \begin{prooftree}
 \AxiomC{}
-\UnaryInfC{$ x: \varphi \triangleright x: \varphi $}
+\UnaryInfC{$ x \tc \varphi \triangleright x: \varphi $}
 \RightLabel{($ add $)}
-\UnaryInfC{$ x: \varphi , y: \tau \triangleright x: \varphi $}
+\UnaryInfC{$ x \tc \varphi , y \tc \psi \triangleright x: \varphi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ x: \varphi \triangleright \lambda y: \tau .x: \tau \to \varphi $}
+\UnaryInfC{$ x \tc \varphi \triangleright \lambda y \tc \psi .x: \psi \ta \varphi $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \triangleright \lambda x: \varphi . \lambda y: \tau .x: \varphi \to ( \tau \to \varphi ) $}
+\UnaryInfC{$ \triangleright \lambda x \tc \varphi . \lambda y \tc \psi .x: \varphi \ta ( \psi \ta \varphi ) $}
 \end{prooftree}
 \end{myitemize}
 \mbox\\
@@ -82,21 +82,21 @@ The base case is the proof tree of height 1 which is the axiom in the natural de
 \DisplayProof $ \Longrightarrow $
 \AxiomC{}
 \RightLabel{($ axiom $)}
-\UnaryInfC{$ x: \sigma \triangleright x: \sigma $}
+\UnaryInfC{$ x \tc \sigma \triangleright x: \sigma $}
 \DisplayProof
 \end{center}
 
-In the inductive step, let us assume that all the proofs of height at most $ n $ lead to a corresponding type-derivation. Then what we want to prove is that the proof of height $ n + 1 $ can lead to a type-derivation as well. Except the axiom, the natural deduction system of intuitionisitic propositional logic has several other inference rules for all the propositional connectives, $ \to $, $ \land $, $ \lor $, and $ \bot $. Each them is an inductive case.
+In the inductive step, let us assume that all the proofs of height at most $ n $ lead to a corresponding type-derivation. Then what we want to prove is that the proof of height $ n + 1 $ can lead to a type-derivation as well. Except the axiom, the natural deduction system of intuitionisitic propositional logic has several other inference rules for all the propositional connectives, $ \to $, $ \land $, $ \lor $, and $ \bot $. Each of them is an inductive case.
 
 (1) ($ \to $I)
 
-The induction hypothesis here is that the proof of height $ n $ with conclusion $ \Gamma , \sigma \vdash \tau $ lead to a type derivation of  $ \Gamma ', x: \sigma \triangleright M: \tau $ where $ \Gamma ' $ is a consistent type context whose types are propositions in $ \Gamma $.
+The induction hypothesis here is that the proof of height $ n $ with conclusion $ \Gamma , \sigma \vdash \tau $ leads to a type derivation of $ \Gamma ', x: \sigma \triangleright M: \tau $ where $ \Gamma ' $ is a consistent type context whose types are propositions in $ \Gamma $.
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma , \sigma \vdash \tau $}
 \DisplayProof \hspace*{10pt} $ \Longrightarrow $ \hspace*{10pt}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma ', x: \sigma \triangleright M: \tau $}
+\UnaryInfC{$ \Gamma ', x \tc \sigma \triangleright M: \tau $}
 \DisplayProof
 \end{center}
 By following the introduction rule of implication ($ \to $I), we get the following proof whose height is $ n+1 $.
@@ -110,53 +110,53 @@ By following the introduction rule of implication ($ \to $I), we get the followi
 According to the typing rule for introducing function type ($ \to $I), we get another type derivation as follows.
 \begin{center}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma ', x: \sigma \triangleright M: \tau $}
+\UnaryInfC{$ \Gamma ', x \tc \sigma \triangleright M: \tau $}
 \RightLabel{($ \to $I)}
-\UnaryInfC{$ \Gamma ' \triangleright \lambda x: \sigma .M: \sigma \to \tau $}
+\UnaryInfC{$ \Gamma ' \triangleright \lambda x \tc \sigma .M: \sigma \to \tau $}
 \DisplayProof
 \end{center}
-Since all the types in type context $ \Gamma ' $ are the propositions in $ \Gamma $ and the term $ \lambda x: \sigma .M $ has type $ \sigma \to \tau $, the proof of $ \Gamma \vdash \sigma \to \tau $ leads to the derivation of $ \Gamma ' \triangleright \lambda x: \sigma .M: \sigma \to \tau $.
+Since all the types in type context $ \Gamma ' $ are the propositions in $ \Gamma $ and the term $ \lambda x \tc \sigma .M $ has type $ \sigma \to \tau $, the proof of $ \Gamma \vdash \sigma \to \tau $ leads to the derivation of $ \Gamma ' \triangleright \lambda x \tc \sigma .M: \sigma \to \tau $.
 
 (2) ($ \to $E)
 
-In this case, we assume the two proofs below, one of which has height $ n $ and another one has height at most $ n $, lead to the type derivations next to them.
+In this case, we assume that the two proofs below, one of which has height $ n $ and another one has height at most $ n $, lead to the type derivations next to them, and that the type context $ \Gamma_1 ' \cup \Gamma_2 ' $ is consistent.
 \begin{center}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma \vdash \sigma \to \tau $}
+\UnaryInfC{$ \Gamma_1 \vdash \sigma \to \tau $}
 \DisplayProof \hspace*{10pt} $ \Longrightarrow $ \hspace*{10pt}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma ' \triangleright M: \sigma \to \tau $}
+\UnaryInfC{$ \Gamma_1 ' \triangleright M: \sigma \to \tau $}
 \DisplayProof
 \end{center}
 \begin{center}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma \vdash \sigma $}
+\UnaryInfC{$ \Gamma_2 \vdash \sigma $}
 \DisplayProof \hspace*{10pt} $ \Longrightarrow $ \hspace*{10pt}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma ' \triangleright N: \sigma $}
+\UnaryInfC{$ \Gamma_2 ' \triangleright N: \sigma $}
 \DisplayProof
 \end{center}
 We use modus ponens ($ \to $E) and then have a proof of $ \Gamma \vdash \tau $.
 \begin{center}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma \vdash \sigma \to \tau $}
+\UnaryInfC{$ \Gamma_1 \vdash \sigma \to \tau $}
   \AxiomC{$ \vdots $}
-  \UnaryInfC{$ \Gamma \vdash \sigma $}
+  \UnaryInfC{$ \Gamma_2 \vdash \sigma $}
 \RightLabel{($ \to $E)}
-\BinaryInfC{$ \Gamma \vdash \tau $}
+\BinaryInfC{$ \Gamma_1 \cup \Gamma_2 \vdash \tau $}
 \DisplayProof
 \end{center}
 We use function application ($ \to $E) and then have a type derivation with conclusion $ \Gamma ' \triangleright MN: \tau $.
 \begin{center}
 \AxiomC{$ \vdots $}
-\UnaryInfC{$ \Gamma ' \triangleright N: \sigma $}
+\UnaryInfC{$ \Gamma_1 ' \triangleright M: \sigma \to \tau $}
   \AxiomC{$ \vdots $}
-  \UnaryInfC{$ \Gamma ' \triangleright N: \sigma $}
+  \UnaryInfC{$ \Gamma_2 ' \triangleright N: \sigma $}
 \RightLabel{($ \to $E)}
-\BinaryInfC{$ \Gamma ' \triangleright MN: \tau $}
+\BinaryInfC{$ \Gamma_1 ' \cup \Gamma_2 ' \triangleright MN: \tau $}
 \DisplayProof
 \end{center}
-We can see that $ \Gamma ' $ encodes all the propositions in $ \Gamma $ and $ MN $ has type $ \tau $; therefore, the proof of $ \Gamma \vdash \tau $ leads to the type derivation of  $ \Gamma ' \triangleright MN: \tau $.
+We know that $ \Gamma_1 ' \cup \Gamma_2 ' $ encodes all the propositions in $ \Gamma_1 \cup \Gamma_2 $ and $ MN $ has type $ \tau $; therefore, the proof of $ \Gamma_1 \cup \Gamma_2 \vdash \tau $ leads to the type derivation of  $ \Gamma_1 ' \cup \Gamma_2 ' \triangleright MN: \tau $.
 
 (3) ($ \land $I)
 
@@ -197,7 +197,7 @@ By introduction rule of product type ($ \times $I), we get a type derivation of 
 \BinaryInfC{$ \Gamma ' \triangleright \langle M,N \rangle : \sigma \times \tau $}
 \DisplayProof
 \end{center}
-Then, the proof of $ \Gamma \vdash \sigma \land \tau $ leads to the type derivation of $ \Gamma ' \triangleright \langle M,N \rangle : \sigma \times \tau $.
+Hence, the proof of $ \Gamma \vdash \sigma \land \tau $ leads to the type derivation of $ \Gamma ' \triangleright \langle M,N \rangle : \sigma \times \tau $.
 
 (4) ($ \land $E)
 
@@ -316,7 +316,7 @@ By the elimination rule of disjunction ($ \lor $E), we get a proof of $ \Gamma \
 \TrinaryInfC{$ \Gamma \vdash \rho $}
 \DisplayProof
 \end{center}
-By the elimination rule of sum type ($ + $E), we get a type derivation of $ \Gamma ' \vdash \text{Case }MNP: \rho $.
+By the elimination rule of sum type ($ + $E), we get a type derivation of $ \Gamma ' \triangleright \text{Case }MNP: \rho $.
 \begin{center}
 \AxiomC{$ \vdots $}
 \UnaryInfC{$ \Gamma ' \triangleright M: \sigma + \tau $}
@@ -341,7 +341,7 @@ Assume that we have a proof of $ \bot $ under the context $ \Gamma $ and from th
 \UnaryInfC{$ \Gamma ' \triangleright M: null $}
 \DisplayProof
 \end{center}
-This may look very strange since we mentioned in section \ref{sec:bg_lc_ot} that there is no instance of initial type but here we say term $ M $ has initial type. The reason for this is that there is no closed term of initial type. But under some particular assumptions (type contexts), some terms with free variables can have initial type. For instance, if we apply term $ x: \tau $ to $ f: \tau \to null $ where both of them appear in the type context, then the application $ fx $ should have type $ null $ in the same context, in accordance with function application.
+This may look very strange since we mentioned in section \ref{sec:bg_lc_ot} that there is no instance of initial type, but here we say term $ M $ has initial type. The reason for this is that though there is no closed term of initial type, under some particular assumptions (type contexts), some terms with free variables can have initial type. For instance, if we apply term $ x: \tau $ to $ f: \tau \to null $ where both of them appear in the type context, then the application $ fx $ should have type $ null $ in the same context, in accordance with \emph{function application}.
 
 By the inference rule ($\bot$E), we have a proof for any $ \sigma $ in the same context $ \Gamma $.
 \begin{center}
@@ -363,15 +363,17 @@ Since for every type $ \sigma $ there is always a unique term $ \text{Zero}^{\si
 \end{center}
 Hence, the proof of $ \Gamma \vdash \sigma $ leads to the type derivation of $ \Gamma ' \triangleright \text{Zero}^{\sigma} M: \sigma $.
 
-Therefore, every proof in intuitionistic propositional logic can be encoded by a lambda term in full simply typed lambda calculus.
-
 \end{proof}
 
-According to proposition \ref{proposition:unique_derivation}, each well-typed lambda term uniquely determines a type-derivation. As a result, \emph{every proof can be encoded in a well-typed lambda term}. Specifically, the proofs of theorems (whose contexts are empty) can be encoded in closed terms while the ones of propositions having assumptions in their contexts can be encoded in terms with the free variables encoding the assumptions in the typing contexts. For instance, the combinator $ \textbf{K} \equiv \lambda x:\sigma . \lambda y:\tau . x: \sigma \to (\tau \to \sigma) $ encodes the proof of theorem $ \vdash \sigma \to (\tau \to \sigma) $. Once the proof of the theorem is required, we just build the type-derivation tree of the term and then erase all the terms but keep the types in the tree. Then the proof is decoded from its corresponding term.
+According to proposition \ref{proposition:unique_derivation}, each well-typed lambda term uniquely determines a type-derivation. As a result, \emph{every proof can be encoded in a well-typed lambda term}. Specifically, the proofs of theorems (whose contexts are empty) can be encoded in closed terms while the ones of propositions having assumptions in their contexts can be encoded in terms with the free variables encoding the assumptions in the typing contexts. For instance, the combinator $ \textbf{K} \equiv \lambda x \tc \sigma . \lambda y \tc \tau . x: \sigma \to (\tau \to \sigma) $ encodes the proof of theorem $ \vdash \sigma \to (\tau \to \sigma) $. Once the proof of the theorem is required, we just build the type-derivation tree of the term and then erase all the terms but keep the types in the tree. Then the proof is obtained by decoding its corresponding term.
 \\
 \\
 This and the last sections demonstrate a closed connection between proofs in intuitionistic propositional logic and terms in simply typed lambda calculus. To put it more specific, let us have a look at this correspondence from the following points of view.
 
-For one thing, \emph{propositions correspond to types}. If we take the set of propositional variables equal to the set of type variables, then the set of propositional formulas is identical to the set of simple types. The reason for this is that each propositional connective corresponds to a simple type constructor. Implication $ \to $ corresponds to function constructor $ \to $, conjunction $ \land $ to product constructor $ \times $, and disjunction $ \lor $ to sum constructor $ + $.
+First of all, \emph{propositions correspond to types}. If we take the set of propositional variables equal to the set of type variables, then the set of propositional formulas is identical to the set of simple types. The reason for this is that each propositional connective corresponds to a simple type constructor. Implication $ \to $ corresponds to function constructor $ \to $, conjunction $ \land $ to product constructor $ \times $, and disjunction $ \lor $ to sum constructor $ + $.
 
-For another, \emph{proofs correspond to terms}. Since propositional connectives correspond to simple type constructors, the inference rule for these connectives should have the same behaviour with the typing rules for the simple type constructors. From \ref{sec:co_t2p} and \ref{sec:co_p2t}, it is obvious that the inference rules in natural deduction system build proof trees in the same way as the typing rules build type derivations.
+Furthermore, \emph{proofs correspond to terms}. Since propositional connectives correspond to simple type constructors, the inference rule for these connectives should have the same behaviour with the typing rules for the simple type constructors. From \ref{sec:co_t2p} and \ref{sec:co_p2t}, it is obvious that the inference rules in natural deduction system build proof trees in the same way as the typing rules building type derivations.
+
+In addition, some typical problems in these two subjects correspond to each other. To illustrate, proof checking corresponds to type checking and provability to inhabitation.
+
+This correspondence can be extended to higher logics and more expressive languages, e.g. first order logic corresponds to dependent types and second order logic to polymorphic types. Once the correspondence is established, it helps to prove theorems in each field. For instance, the proof showing that provability in first order logic is undecidable helps to prove the undecidability of inhabitation in dependent types.

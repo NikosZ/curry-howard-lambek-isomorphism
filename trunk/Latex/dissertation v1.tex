@@ -13,10 +13,10 @@
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage[normalem]{ulem}
+\usepackage{longtable}
 
 \pagestyle{fancy}
 %\fancyhf{}
-\cfoot{Page \thepage\ of \pageref{LastPage}}
 
 \onehalfspace
 
@@ -85,13 +85,16 @@ Prof. Achim \textsc{Jung}
 \end{center}
 \end{titlepage}
 
+\pagenumbering{roman}
+\cfoot{\thepage}
 \begin{abstract}
+\addcontentsline{toc}{section}{Abstract}
 Systems of formal logic, as encountered in \emph{proof theory}, tightly correspond to computational calculi, as found in \emph{type theory}, which is known as the \emph{Curry-Howard Isomorphism}. This correspondence has been extended to cartesian closed categories, a special kind of categories in \emph{category theory}. This project focuses on this three-way correspondence and the ways in which they connect to each other. While the correspondence looks superficially straightforward, a considerable quantity of care has to be applied to prove it in full generality. Most of the proofs given in this dissertation are carried out by induction on derivations or terms. The main conclusions drawn from this study are that one can obtain a lambda term in simply typed lambda calculus from a proof in intuitionistic propositional logic, and vice versa. In addition, cartesian closed categories can be used as a framework for describing the denotational semantics of both the simply typed lambda calculus and intuitionistic propositional logic.\\[50pt]
 \end{abstract}
-\addcontentsline{toc}{section}{Abstract}
 
 \renewcommand{\abstractname}{Acknowledgements}
 \begin{abstract}
+\addcontentsline{toc}{section}{Acknowledgements}
 I am sincerely indebted and grateful to Achim Jung, my supervisor, for his encouragement, guidance and kindness, for keeping this research-oriented project enjoyable, and for helping me develop an understanding in the subject of theoretical computer science.
 
 My heartfelt gratitude also goes to Martin Escardo, for supervising my individual study project and organising the course of domain theory, both of which are greatly beneficial to this project as well as my preparation for further study in their research area.
@@ -100,11 +103,15 @@ Besides, I would like to thank the group of Mathematical Foundations of Computer
 
 Last but not least, words alone cannot express the gratitude I owe to my family, particularly to my parents, for the unconditional love and everything they have given me.
 \end{abstract}
-\addcontentsline{toc}{section}{Acknowledgements}
+
 
 \newpage
 \tableofcontents
 
+\clearpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+\cfoot{Page \thepage\ of \pageref{LastPage}}
 \include{introduction}
 
 \newpage
