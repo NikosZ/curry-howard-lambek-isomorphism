@@ -7,7 +7,7 @@ The lambda calculus $ \lambda ^{unit, \times , \to } $ has terminal type, produc
 
 \begin{definition}
 \label{definition:inter_terms}
-Given a typed lambda calculus $ \lambda ^ \to $ and a cartesian closed category $ \mathcal{C} $, we choose an object of C for each type constant, and then all type expressions and type contexts can be interpreted as objects and well-typed terms as morphisms. For notational simplicity, $ \mathcal{C} \litp \cdot \ritp $ is omitted to denote the interpretation of type expressions, type contexts and terms of $ \lambda ^ \to $ in $ \mathcal{C} $:
+Given a simply typed lambda calculus $ \lambda ^ \to $ and a cartesian closed category $ \mathcal{C} $, we choose an object of C for each type constant, and then all type expressions and type contexts can be interpreted as objects and well-typed terms as morphisms. For notational simplicity, $ \mathcal{C} \litp \cdot \ritp $ is omitted to denote the interpretation of type expressions, type contexts and terms of $ \lambda ^ \to $ in $ \mathcal{C} $:
 \begin{myitemize}
 \item[(1)] The interpretation $ \mathcal{C} \litp \sigma \ritp $ of type expression $ \sigma $ is defined as follows: \\[5pt]
   \begin{tabular}{rlcl}
@@ -32,7 +32,7 @@ Given a typed lambda calculus $ \lambda ^ \to $ and a cartesian closed category 
 
 In this definition, $ f: \{ 1, \ldots , m \} \to \{ 1, \ldots , n \} $ is called an \emph{m,n-function}. If $ \Gamma \equiv x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n $ is an ordered type context of length $ n $, then $ \Gamma_f $ of length $ m $ is defined by $ \Gamma_f = x_{f(1)} \tc \sigma_{f(1)}, \ldots , x_{f(m)} \tc \sigma_{f(m)} $. If $ \Gamma \triangleright M: \sigma $ is well-typed and $ \Gamma_f $ contains all the free variables of $ M $, then the interpretation of $ \Gamma_f \triangleright M: \sigma $ can be related to the one of $ \Gamma \triangleright M: \sigma $ by using a combination $ \chi_f^{\litp \Gamma \ritp} : \litp \Gamma \ritp \to \litp \Gamma_f \ritp $ of pairing and projection functions.
 
-Before giving the definition of the combination, we need a few notational conventions. If $ h_i:A \to A_i $ is a morphism from object $ A $ to $ A_i $, $ 1 \leq i \leq n $, then we write $ \langle h_1, \ldots , h_n \rangle $ for $ \langle \langle \ldots \langle h_1,h_2 \rangle, \ldots \rangle , h_n \rangle : A \to (( \ldots (A_1 \times A_2) \times \ldots ) \times A_n ) $. We also define the projections $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} : A_1 \times A_2 \times \ldots \times A_n \to A_i $ by a composition of projection morphisms $ \text{Proj}_1 $ and $ \text{Proj}_2 $. The following gives a inductive definition of projection $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} $:\\[5pt]
+Before giving the definition of the combination, we need a few notational conventions. If $ h_i:A \to A_i $ is a morphism from object $ A $ to $ A_i $, $ 1 \leq i \leq n $, then we write $ \langle h_1, \ldots , h_n \rangle $ for $ \langle \langle \ldots \langle h_1,h_2 \rangle, \ldots \rangle , h_n \rangle : A \to (( \ldots (A_1 \times A_2) \times \ldots ) \times A_n ) $. We also define the projections $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} : A_1 \times A_2 \times \ldots \times A_n \to A_i $ by a composition of projection morphisms $ \text{Proj}_1 $ and $ \text{Proj}_2 $. The following gives an inductive definition of projection $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} $:\\[5pt]
 $
 \begin{array}{rlcll}
 \bullet & \text{Proj}_1^{A} & = & \text{id}_A & \\[5pt]
@@ -122,7 +122,7 @@ $
 \end{array}
 $
 
-The step simplifying $ \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle $ is a routine calculation involving pairing and projection morphisms. According to the definitions of $ \chi $,\\[5pt]
+The step simplifying $ \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle $ is a routine calculation involving pairing and projection morphisms. According to the definition of $ \chi $,\\[5pt]
 $ \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} = \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \rangle : \litp \Gamma \ritp \mathord{\times} \litp \rho \ritp \mathord{\times} \litp \sigma \ritp \ta \litp \Gamma \ritp \mathord{\times} \litp \sigma \ritp \mathord{\times} \litp \rho \ritp $ \\[5pt]
 where $ k $ is the length of $ \litp \Gamma \ritp $ and $ g $ is an $ m,n $-function such that $ (\Gamma , y \tc \rho , x \tc \sigma)_g = \Gamma $. Then the simplification is done as follows:\\[8pt]
 $
@@ -177,7 +177,7 @@ If a type assertion $ \Gamma \triangleright M: \sigma $ is provable, i.e. it is 
 
 \begin{theorem}[\textbf{Soundness}]
 \label{theorem:soundness}
-Given any well-typed $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $ with $ M =_{\alpha \beta \eta} N $, then they have the same interpretation, i.e. $ \litp \Gamma \triangleright M: \sigma \ritp = \litp \Gamma \triangleright N: \sigma \ritp $, in every CCC.
+Given any well-typed $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $ with $ M =_{\alpha \beta \eta} N $, they have the same interpretation, i.e. $ \litp \Gamma \triangleright M: \sigma \ritp = \litp \Gamma \triangleright N: \sigma \ritp $, in every CCC.
 \end{theorem}
 
 \begin{proof}\mbox\\
@@ -249,12 +249,12 @@ $
    & \litp \Gamma \triangleright (\lambda x \tc \sigma .M)N: \tau \ritp \eqnline
  = & \text{App} \circ \langle \litp \Gamma \triangleright \lambda x \tc \sigma .M : \sigma \ta \tau \ritp , \litp \Gamma \triangleright N : \sigma \ritp \rangle \eqnline
  = & \text{App} \circ \langle \text{Curry}(\litp \Gamma , x \tc \sigma \triangleright M : \tau \ritp) , \litp \Gamma \triangleright N : \sigma \ritp \rangle \eqnline
-   & (\text{by } \langle f,g \rangle = (f \times \text{id}) \circ \langle \text{id},g \rangle ) \eqnline
+   & (\text{by } \langle f,g \rangle = (f \times \text{id}) \circ \langle \text{id},g \rangle \text{ in proposition \ref{proposition:eqns}}) \eqnline
  = & \text{App} \circ (( \text{Curry}(\litp \Gamma , x \tc \sigma \triangleright M : \tau \ritp) \times \text{id} ) \circ \langle \text{id} , \litp \Gamma \triangleright N : \sigma \ritp \rangle ) \eqnline
  = & ( \text{App} \circ ( \text{Curry}(\litp \Gamma , x \tc \sigma \triangleright M : \tau \ritp) \times \text{id} ) ) \circ \langle \text{id} , \litp \Gamma \triangleright N : \sigma \ritp \rangle \eqnline
-   & (\text{by } \text{App} \circ (\text{Curry}(h) \times \text{id}) = h ) \eqnline
+   & (\text{by } \text{App} \circ (\text{Curry}(h) \times \text{id}) = h \text{ in definition \ref{definition:exponentials}}) \eqnline
  = & \litp \Gamma , x \tc \sigma \triangleright M : \tau \ritp \circ \langle \text{id} , \litp \Gamma \triangleright N : \sigma \ritp \rangle \eqnline
-   & (\text{by Substitution Lemma}) \eqnline 
+   & (\text{by Substitution Lemma \ref{lemma:subs}}) \eqnline 
  = & \litp \Gamma \triangleright [N/x]M: \tau \ritp
 \end{array}
 $
@@ -273,7 +273,7 @@ $
    & (\text{if } (\Gamma , x \tc \sigma)_f = \Gamma \text{, then } \chi_f = \text{Proj}_1^{\litp \Gamma \ritp, \litp \sigma \ritp} ) \eqnline
  = & \text{Curry}(\text{App} \circ \langle \litp \Gamma \triangleright M: \sigma \ta \tau \ritp \circ \text{Proj}_1^{\litp \Gamma \ritp, \litp \sigma \ritp} , \litp \Gamma , x \tc \sigma \triangleright x: \sigma \ritp \rangle) \eqnline
  = & \text{Curry}(\text{App} \circ \langle \litp \Gamma \triangleright M: \sigma \ta \tau \ritp \circ \text{Proj}_1^{\litp \Gamma \ritp, \litp \sigma \ritp} , \text{Proj}_2^{\litp \Gamma \ritp, \litp \sigma \ritp} \rangle) \eqnline
-   & (\text{by } \text{Curry} ( \text{App} \circ \langle k \circ \text{Proj}_1 , \text{Proj}_2 \rangle ) = k) \eqnline
+   & (\text{by } \text{Curry} ( \text{App} \circ \langle k \circ \text{Proj}_1 , \text{Proj}_2 \rangle ) = k \text{ in definition \ref{definition:exponentials}}) \eqnline
  = & \litp \Gamma \triangleright M: \sigma \ta \tau \ritp \eqnline
 \end{array}
 $ \\[10pt]
@@ -407,7 +407,7 @@ we have \eqnline
  \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l, \vec{y}_m \tc \vec{\sigma}_m \triangleright y_i \tc \sigma_i \vsep i = 1, \ldots , m ] \rangle $} \eqnline
  = & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m  \triangleright \lambda \vec{y}_m \tc  \vec{\sigma}_m . M_i \tc \vec{\sigma}_m \ta \tau_i  \vsep i = 1, \ldots , n ], $ \eqnline
  \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l, \vec{y}_m \tc \vec{\sigma}_m \triangleright y_i \tc \sigma_i \vsep i = 1, \ldots , m ] \rangle $} \eqnline
- = & $ [ \vec{f}_n \tc \vec{\sigma}_m \to \vec{\tau}_n , \vec{z}_m \tc \vec{\sigma}_m \triangleright f_i \hspace{2pt} z_1 \hspace{2pt} \ldots \hspace{2pt} z_m \tc \tau_i \vsep i = 1, \ldots , n ] \circ $ \eqnline
+ = & $ [ \vec{f}_n \tc \vec{\sigma}_m \ta \vec{\tau}_n , \vec{z}_m \tc \vec{\sigma}_m \triangleright f_i \hspace{2pt} z_1 \hspace{2pt} \ldots \hspace{2pt} z_m \tc \tau_i \vsep i = 1, \ldots , n ] \circ $ \eqnline
  \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . M_1 \tc \vec{\sigma}_m \ta \tau_1 , \ldots , \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . M_n \tc \vec{\sigma}_m \ta \tau_n , $} \eqnline
  \multicolumn{2}{r}{$ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright y_1 \tc \sigma_1 , \ldots , \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright y_m \tc \sigma_m ] $} \eqnline
    & (let $ \vec{P}_n \equiv \lambda \vec{y}_m \tc \vec{\sigma}_m.M_1, \ldots , \lambda \vec{y}_m \tc \vec{\sigma}_m.M_n  $) \eqnline
@@ -448,7 +448,7 @@ Given a well typed term $ \Gamma \triangleright M: \sigma $ in $ \lambda^\to $, 
 We write $ \Gamma $ as $ \vec{x}_n \tc \vec{\tau}_n $, then its interpretation is the product of the interpretations of the types in it, according to definition \ref{definition:inter_terms}. Products in $ \mathcal{C} $ are defined as sequences of types; therefore, the interpretation of $ \Gamma $ in $ \mathcal{C} $ is the sequence $ \vec{\tau}_n $ and the interpretation of the whole term should be a morphism from $ \vec{\tau}_n $ to $ \sigma $ which is the single tuple of its equivalence class, i.e. \eqnline
 \begin{tabular}{ll}
    & $ \mathcal{C} \litp \Gamma \triangleright M: \sigma \ritp $ \eqnline
- = & $ [ \vec{x}_n \tc \vec{\tau}_n \triangleright M: \tau ] $ \eqnline
+ = & $ [ \vec{x}_n \tc \vec{\tau}_n \triangleright M: \sigma ] $ \eqnline
  = & $ \langle \{ \vec{x}_n \tc \vec{\tau}_n \triangleright N: \sigma \vsep \vec{x}_n \tc \vec{\tau}_n \triangleright M = N: \sigma \} \rangle : \vec{\tau}_n \to \sigma $ \\[10pt]
 \end{tabular}
 
