@@ -1,7 +1,7 @@
 \clearpage
 \subsection{Every well-typed lambda term can be interpreted as a morphism in a cartesian closed category}
 \label{sec:co_t2m}
-As mentioned in the previous section, cartesian closed categories can work as a more general but also more abstract framework for describing the denotational semantics of typed lambda calculus.
+The connection between cartesian closed categories and the other two systems is different from the one discussed in section \ref{sec:co_t2p} and \ref{sec:co_p2t}. As mentioned in the previous section, cartesian closed categories can work as a more general but also more abstract framework for describing the denotational semantics of typed lambda calculus.
 
 The lambda calculus $ \lambda ^{unit, \times , \to } $ has terminal type, product types and function types. Correspondingly, a CCC has terminal object, products and exponentials. The closed connection between them seems to be obvious. However, the lambda calculus $ \lambda ^ \to $ with only function type constructor is as expressive as $ \lambda ^{unit, \times , \to } $. Therefore, both the type expressions and well-typed lambda terms in $ \lambda ^ \to $ can be interpreted in any CCC, and this interpretation should be sound and complete.
 
@@ -30,7 +30,7 @@ Given a typed lambda calculus $ \lambda ^ \to $ and a cartesian closed category 
 \end{myitemize}
 \end{definition}
 
-In this definition, $ f: \{ 1, \ldots , m \} \to \{ 1, \ldots , n \} $ is called an \emph{m,n-function}. If $ \Gamma \equiv x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n $ is an ordered type context of length $ n $, then the ordered type context $ \Gamma_f $ of length $ m $ is defined by $ \Gamma_f = x_{f(1)} \tc \sigma_{f(1)}, \ldots , x_{f(m)} \tc \sigma_{f(m)} $. If $ \Gamma \triangleright M: \sigma $ is well-typed and $ \Gamma_f $ contains all the free variables of $ M $, then the interpretation of $ \Gamma_f \triangleright M: \sigma $ can be related to the one of $ \Gamma \triangleright M: \sigma $ by using a combination $ \chi_f^{\litp \Gamma \ritp} : \litp \Gamma \ritp \to \litp \Gamma_f \ritp $ of pairing and projection functions.
+In this definition, $ f: \{ 1, \ldots , m \} \to \{ 1, \ldots , n \} $ is called an \emph{m,n-function}. If $ \Gamma \equiv x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n $ is an ordered type context of length $ n $, then $ \Gamma_f $ of length $ m $ is defined by $ \Gamma_f = x_{f(1)} \tc \sigma_{f(1)}, \ldots , x_{f(m)} \tc \sigma_{f(m)} $. If $ \Gamma \triangleright M: \sigma $ is well-typed and $ \Gamma_f $ contains all the free variables of $ M $, then the interpretation of $ \Gamma_f \triangleright M: \sigma $ can be related to the one of $ \Gamma \triangleright M: \sigma $ by using a combination $ \chi_f^{\litp \Gamma \ritp} : \litp \Gamma \ritp \to \litp \Gamma_f \ritp $ of pairing and projection functions.
 
 Before giving the definition of the combination, we need a few notational conventions. If $ h_i:A \to A_i $ is a morphism from object $ A $ to $ A_i $, $ 1 \leq i \leq n $, then we write $ \langle h_1, \ldots , h_n \rangle $ for $ \langle \langle \ldots \langle h_1,h_2 \rangle, \ldots \rangle , h_n \rangle : A \to (( \ldots (A_1 \times A_2) \times \ldots ) \times A_n ) $. We also define the projections $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} : A_1 \times A_2 \times \ldots \times A_n \to A_i $ by a composition of projection morphisms $ \text{Proj}_1 $ and $ \text{Proj}_2 $. The following gives a inductive definition of projection $ \text{Proj}_i^{A_1 \times A_2 \times \ldots \times A_n} $:\\[5pt]
 $
@@ -51,7 +51,7 @@ $
 $
 
 Given an $m,n$-function $ f $, we define $ \chi_f^{unit \times A_1 \times \ldots \times A_n} $ by \\[3pt]
-\begin{tabular}{m{0.95\textwidth}}
+\begin{tabular}{m{0.94\textwidth}}
 $
 \chi_f^{unit \times A_1 \times \ldots \times A_n} = \langle \text{One}^{unit \times A_1 \times \ldots \times A_n}, \text{Proj}_{f(1)+1}^{unit \times A_1 \times \ldots \times A_n}, \ldots , \text{Proj}_{f(m)+1}^{unit \times A_1 \times \ldots \times A_n} \rangle
 $ \\[3pt]
@@ -66,12 +66,12 @@ The first one is the substitution lemma, which will be used in the proof of soun
 
 \begin{lemma}[\textbf{CCC Substitution}]
 \label{lemma:subs}
-If $ \Gamma , x \tc \sigma \triangleright M: \tau $ and $ \Gamma \triangleright N: \sigma $ are well-typed terms, then $ \litp \Gamma \triangleright [N/x]M: \tau \ritp = \litp \Gamma , x \tc \sigma \triangleright M: \tau \ritp \circ \langle \textnormal{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $ holds.
+If both $ \Gamma , x \tc \sigma \triangleright M: \tau $ and $ \Gamma \triangleright N: \sigma $ are well-typed, then $ \litp \Gamma \triangleright [N/x]M: \tau \ritp = \litp \Gamma , x \tc \sigma \triangleright M: \tau \ritp \circ \langle \textnormal{id}_{\litp \Gamma \ritp} , \litp \Gamma \triangleright N: \sigma \ritp \rangle $ holds.
 \end{lemma}
 
 \begin{proof}\mbox\\
 
-The proof is carried out by induction on type derivation. The base case is the one whose term is a term variable. The inductive step has two cases, applications and abstractions.
+The proof is by induction on type derivation. The base case is the one whose term is a term variable. The inductive step has two cases, applications and abstractions.
 
 Base case $ M: \tau \equiv x: \sigma $ \\[5pt]
 $
@@ -108,7 +108,7 @@ $
 \end{array}
 $
 
-(2) Abstractions $ M: \tau \equiv \lambda y \tc \rho . M' : \rho \to \tau $
+(2) Abstractions $ M: \tau \equiv \lambda y \tc \rho . M' : \rho \ta \tau $
 
 Assume $ \litp \Gamma , y \tc \rho \triangleright [N/x]M': \tau \ritp = \litp \Gamma , y \tc \rho , x \tc \sigma \triangleright M': \tau \ritp \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle $, then we have \\[5pt]
 $
@@ -124,24 +124,24 @@ $
 
 The step simplifying $ \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle $ is a routine calculation involving pairing and projection morphisms. According to the definitions of $ \chi $,\\[5pt]
 $ \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} = \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \rangle : \litp \Gamma \ritp \mathord{\times} \litp \rho \ritp \mathord{\times} \litp \sigma \ritp \ta \litp \Gamma \ritp \mathord{\times} \litp \sigma \ritp \mathord{\times} \litp \rho \ritp $ \\[5pt]
-where $ k $ is the length of $ \litp \Gamma \ritp $ and $ g $ is an $ n,m $-function such that $ (\Gamma , y \tc \rho , x \tc \sigma)_g = \Gamma $. Then the simplification is done as follows:\\[8pt]
+where $ k $ is the length of $ \litp \Gamma \ritp $ and $ g $ is an $ m,n $-function such that $ (\Gamma , y \tc \rho , x \tc \sigma)_g = \Gamma $. Then the simplification is done as follows:\\[8pt]
 $
 \begin{array}{rl}
    & \chi_f^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle \\[5pt]
-   & (\text{denote } h \text{ as } \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle ) \\[5pt]
+   & (\text{by the definition of } \chi \text{ and denoting } \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle \text{ as } h ) \\[5pt]
  = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \rangle \circ h \\[5pt]
    & (\text{by } \langle f_1, \ldots , f_n \rangle \circ h = \langle f_1 \circ h, \ldots , f_n \circ h \rangle ) \\[5pt]
  = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \text{Proj}_{k+2}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
    & (\text{by } \text{Proj}_n^{A_1 \times \ldots \times A_n} = \text{Proj}_2^{(A_1 \times \ldots \times A_{n-1}), A_n} ) \\[5pt]
  = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \text{Proj}_2^{(\litp \Gamma \ritp \times \litp \rho \ritp), \litp \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
-\end{array}\\
-\begin{array}{rl}
    & (\text{by } \text{Proj}_2 \circ \langle f_1,f_2 \rangle = f_2 ) \\[5pt]
  = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_{k+1}^{\litp \Gamma \ritp \times \litp \rho \ritp \times \litp \sigma \ritp} \circ h \rangle \\[5pt]
+\end{array}\\
+\begin{array}{rl}
    & (\text{by the definition of } \text{Proj}_i ) \\[5pt]
- = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \circ \text{Proj}_1^{\litp \Gamma \ritp \times \litp \rho \ritp , \litp \sigma \ritp} \circ h \rangle \\[5pt]
+ = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \circ \text{Proj}_1^{\litp \Gamma \ritp \times \litp \rho \ritp , \litp \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle \rangle \\[5pt]
  = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \circ \text{id}_{\litp \Gamma , y \tc \rho \ritp} \rangle \\[5pt]
- = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ h , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \rangle \\[5pt]
+ = & \langle \chi_g^{\litp \Gamma , y \tc \rho , x \tc \sigma \ritp} \circ \langle \text{id}_{\litp \Gamma , y \tc \rho \ritp} , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp \rangle , \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \rangle \\[5pt]
    & ( \text{by the definitions of } \chi \text{ and } \text{Proj}_i ) \\[5pt]
  = & \langle \text{id}_{\litp \Gamma \ritp} \circ \text{Proj}_1^{\litp \Gamma \ritp , \litp \rho \ritp}, \litp \Gamma , y \tc \rho \triangleright N: \sigma \ritp , \text{Proj}_2^{\litp \Gamma \ritp , \litp \rho \ritp} \rangle \\[5pt]
    & (\text{if } (\Gamma , y \tc \rho)_{f'}=\Gamma \text{, then } \chi_{f'} = \text{Proj}_1^{\litp \Gamma \ritp, \litp \rho \ritp} ) \\[5pt]
@@ -173,7 +173,7 @@ Therefore, for all well-typed $ \Gamma , x \tc \sigma \triangleright M: \tau $ a
 \end{proof}
 \mbox\\
 \\
-Cartesian closed categories are used for describing the denotational semantics of $ \lambda^{\to} $. If a type judgement $ \Gamma \triangleright M: \sigma $ is provable, i.e. it is well-typed, then it holds semantically. This property is called \emph{soundness}. This dissertation provides a equational form of soundness for $ \lambda^{\to} $.
+If a type assertion $ \Gamma \triangleright M: \sigma $ is provable, i.e. it is well-typed, then it holds semantically. This property is called \emph{soundness}. This dissertation provides the equational form of soundness for $ \lambda^{\to} $ as well as its proof.
 
 \begin{theorem}[\textbf{Soundness}]
 \label{theorem:soundness}
@@ -182,23 +182,23 @@ Given any well-typed $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangler
 
 \begin{proof}\mbox\\
 
-The proof is divided into three sub-proofs, one for $ \alpha $-equivalence, one for $ \beta $-equivalence, and the last one for $ \eta $-equivalence.
+The proof is separated into three sub-proofs, one for $ \alpha $-equivalence, one for $ \beta $-equivalence, and the last one for $ \eta $-equivalence.
 
 (1) $ \alpha $-equivalence
 
-During the interpretation, we can see that the names of term variables never appear in the interpretation; therefore, $ \alpha $-equivalence should be preserved in the interpretation. Here, an equational proof of a stronger form of $ \alpha $-equivalence is given.
+From definition \ref{definition:inter_terms}, we can see that the names of term variables never appear in the interpretation; therefore, $ \alpha $-equivalence should be preserved in the interpretation. Here, an equational proof of the stronger form of $ \alpha $-equivalence is given.
 
-\emph{Stronger form of $ \alpha $-equivalence}: if terms $ x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M: \sigma $ and $ y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N: \sigma $ are well-typed, with $ N =_{\alpha} [y_1, \ldots , y_n /x_1, \ldots x_n]M $, then $ \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M: \sigma \ritp = \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N: \sigma \ritp $.
+\emph{Stronger form of $ \alpha $-equivalence}: if $ x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright M: \sigma $ and $ y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright N: \sigma $ are well-typed, with $ N =_{\alpha} [y_1, \ldots , y_n /x_1, \ldots x_n]M $, then $ \litp x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright M: \sigma \ritp = \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright N: \sigma \ritp $.
 
 This stronger form of $ \alpha $-equivalence can be proven by induction on the term $ M: \sigma $. The base case is the one when $ M $ is a variable while the inductive step contains two cases, applications and abstractions.
 
 Base case $ M: \sigma \equiv x_i: \sigma_i $ \eqnline
 $
 \begin{array}{rl}
-   & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright [y_1, \ldots , y_n /x_1, \ldots x_n]x_i: \sigma_i \ritp \eqnline
- = & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright y_i: \sigma_i \ritp \eqnline
+   & \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright [y_1, \ldots , y_n /x_1, \ldots x_n]x_i: \sigma_i \ritp \eqnline
+ = & \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright y_i: \sigma_i \ritp \eqnline
  = & \text{Proj}_{i+1}^{unit \times \litp \sigma_1 \ritp \times \ldots \times \litp \sigma_n \ritp } \eqnline
- = & \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright x_i: \sigma_i \ritp \\[10pt]
+ = & \litp x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright x_i: \sigma_i \ritp \\[10pt]
 \end{array}
 $
 
@@ -206,52 +206,54 @@ Inductive cases
 
 Applications $ M: \sigma \equiv M_1M_2: \tau_2 $ 
 
-In this case, $ N \equiv N_1N_2 $ where $ N_1 =_\alpha [y_1, \ldots , y_n /x_1, \ldots x_n]M_1 $ and $ N_2 =_\alpha [y_1, \ldots , y_n /x_1, \ldots x_n]M_2 $. The induction hypotheses contains two equations: \eqnline
+In this case, we let $ N \equiv N_1N_2 $, where $ N_1 =_\alpha [y_1, \ldots , y_n /x_1, \ldots x_n]M_1 $ and $ N_2 =_\alpha [y_1, \ldots , y_n /x_1, \ldots x_n]M_2 $. The induction hypothesis contains two equations: \eqnline
 \begin{tabular}{rlcl}
-$ \bullet $ & $ \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M_1: \tau_1 \to \tau_2 \ritp $ & = & $ \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N_1: \tau_1 \to \tau_2 \ritp $ \eqnline
-$ \bullet $ & $ \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M_2: \tau_1 \ritp $ & = & $ \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N_2: \tau_1 \ritp $
-\end{tabular} \\[10pt]
+$ \bullet $ & $ \litp x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright M_1: \tau_1 \ta \tau_2 \ritp $ & = & $ \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright N_1: \tau_1 \ta \tau_2 \ritp $ \eqnline
+$ \bullet $ & $ \litp x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright M_2: \tau_1 \ritp $ & = & $ \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright N_2: \tau_1 \ritp $
+\end{tabular} \\
 
 With the two equations above, we can show that \eqnline
 $
 \begin{array}{rl}
-   & \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M_1M_2: \tau_2 \ritp \eqnline
- = & \text{App} \circ \langle \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M_1: \tau_1 \to \tau_2 \ritp , \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M_2: \tau_1 \ritp \rangle \eqnline
- = & \text{App} \circ \langle \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N_1: \tau_1 \to \tau_2 \ritp , \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N_2: \tau_1 \ritp \rangle \eqnline
- = & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N_1N_2: \tau_2 \ritp \eqnline
- = & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright [y_1, \ldots , y_n /x_1, \ldots x_n](M_1M_2): \tau_2 \ritp
+   & \litp x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright M_1M_2: \tau_2 \ritp \eqnline
+ = & \text{App} \circ \langle \litp x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright M_1: \tau_1 \ta \tau_2 \ritp , \litp x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright M_2: \tau_1 \ritp \rangle \eqnline
+ = & \text{App} \circ \langle \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright N_1: \tau_1 \ta \tau_2 \ritp , \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright N_2: \tau_1 \ritp \rangle \eqnline
+ = & \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright N_1N_2: \tau_2 \ritp \eqnline
+ = & \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright [y_1, \ldots , y_n /x_1, \ldots x_n](M_1M_2): \tau_2 \ritp
 \end{array}
-$ \\[10pt]
+$ \\
 
-Abstractions $ M: \sigma \equiv \lambda x_{n+1}:\sigma_{n+1} .M':\sigma_{n+1} \to \tau $ 
+Abstractions $ M: \sigma \equiv \lambda x_{n+1} \tc \sigma_{n+1} .M':\sigma_{n+1} \ta \tau $ 
 
-In this case, $ N \equiv \lambda y_{n+1}:\sigma_{n+1} .N' $ where $ N' =_\alpha [y_1, \ldots , y_{n+1} /x_1, \ldots x_{n+1}]M' $. We assume that $ \litp x_1:\sigma_1, \ldots , x_{n+1}:\sigma_{n+1} \triangleright M': \tau \ritp = \litp y_1:\sigma_1, \ldots , y_{n+1}:\sigma_{n+1} \triangleright N': \tau \ritp $ holds. Then we prove that \eqnline
+In this case, $ N \equiv \lambda y_{n+1} \tc \sigma_{n+1} .N' $ where $ N' =_\alpha [y_1, \ldots , y_{n+1} /x_1, \ldots x_{n+1}]M' $. We assume that $ \litp x_1 \tc \sigma_1, \ldots , x_{n+1} \tc \sigma_{n+1} \triangleright M': \tau \ritp = \litp y_1 \tc \sigma_1, \ldots , y_{n+1} \tc \sigma_{n+1} \triangleright N': \tau \ritp $ holds. Then we are able to prove that \eqnline
 $
 \begin{array}{rl}
-   & \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright \lambda x_{n+1}:\sigma_{n+1} .M':\sigma_{n+1} \to \tau \ritp \eqnline
- = & \text{Curry}( \litp x_1:\sigma_1, \ldots , x_{n+1}:\sigma_{n+1} \triangleright M': \tau \ritp ) \eqnline
- = & \text{Curry}( \litp y_1:\sigma_1, \ldots , y_{n+1}:\sigma_{n+1} \triangleright N': \tau \ritp ) \eqnline
- = & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright \lambda y_{n+1}:\sigma_{n+1} .N':\sigma_{n+1} \to \tau \ritp \eqnline
- = & \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright [y_1, \ldots , y_n /x_1, \ldots x_n](\lambda y_{n+1}:\sigma_{n+1} .M'):\sigma_{n+1} \to \tau \ritp \\[10pt]
+   & \litp x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright \lambda x_{n+1} \tc \sigma_{n+1} .M':\sigma_{n+1} \ta \tau \ritp \eqnline
+ = & \text{Curry}( \litp x_1 \tc \sigma_1, \ldots , x_{n+1} \tc \sigma_{n+1} \triangleright M': \tau \ritp ) \eqnline
+ = & \text{Curry}( \litp y_1 \tc \sigma_1, \ldots , y_{n+1} \tc \sigma_{n+1} \triangleright N': \tau \ritp ) \eqnline
+\end{array}\\
+\begin{array}{rl}
+ = & \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright \lambda y_{n+1} \tc \sigma_{n+1} .N':\sigma_{n+1} \ta \tau \ritp \eqnline
+ = & \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright [y_1, \ldots , y_n /x_1, \ldots x_n](\lambda y_{n+1} \tc \sigma_{n+1} .M'):\sigma_{n+1} \ta \tau \ritp \\[10pt]
 \end{array}
 $
 
-Hence, it holds that $ \litp x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M: \sigma \ritp = \litp y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N: \sigma \ritp $ for all well typed $ x_1:\sigma_1, \ldots , x_n:\sigma_n \triangleright M: \sigma $ and $ y_1:\sigma_1, \ldots , y_n:\sigma_n \triangleright N: \sigma $ with $ N =_{\alpha} [y_1, \ldots , y_n /x_1, \ldots x_n]M $. 
+Hence, $ \litp x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright M: \sigma \ritp = \litp y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright N: \sigma \ritp $ holds for all well-typed $ x_1 \tc \sigma_1, \ldots , x_n \tc \sigma_n \triangleright M: \sigma $ and $ y_1 \tc \sigma_1, \ldots , y_n \tc \sigma_n \triangleright N: \sigma $, with $ N =_{\alpha} [y_1, \ldots , y_n /x_1, \ldots x_n]M $. 
 \\
 
 (2) $ \beta $-equivalence
 
-To prove that the interpretation preserves $ \beta $-equivalence, we need show that\\ $ \Gamma \triangleright (\lambda x: \sigma .M)N =_\beta [N/x]M: \tau \implies \litp \Gamma \triangleright (\lambda x: \sigma .M)N: \tau \ritp = \litp \Gamma \triangleright [N/x]M: \tau \ritp $.\eqnline
+To prove that the interpretation preserves $ \beta $-equivalence, we need show that\\ $ \Gamma \triangleright (\lambda x \tc \sigma .M)N =_\beta [N/x]M: \tau \implies \litp \Gamma \triangleright (\lambda x \tc \sigma .M)N: \tau \ritp = \litp \Gamma \triangleright [N/x]M: \tau \ritp $.\eqnline
 $
 \begin{array}{rl}
-   & \litp \Gamma \triangleright (\lambda x: \sigma .M)N: \tau \ritp \eqnline
- = & \text{App} \circ \langle \litp \Gamma \triangleright \lambda x: \sigma .M : \sigma \to \tau \ritp , \litp \Gamma \triangleright N : \tau \ritp \rangle \eqnline
- = & \text{App} \circ \langle \text{Curry}(\litp \Gamma , x: \sigma \triangleright M : \tau \ritp) , \litp \Gamma \triangleright N : \tau \ritp \rangle \eqnline
+   & \litp \Gamma \triangleright (\lambda x \tc \sigma .M)N: \tau \ritp \eqnline
+ = & \text{App} \circ \langle \litp \Gamma \triangleright \lambda x \tc \sigma .M : \sigma \ta \tau \ritp , \litp \Gamma \triangleright N : \sigma \ritp \rangle \eqnline
+ = & \text{App} \circ \langle \text{Curry}(\litp \Gamma , x \tc \sigma \triangleright M : \tau \ritp) , \litp \Gamma \triangleright N : \sigma \ritp \rangle \eqnline
    & (\text{by } \langle f,g \rangle = (f \times \text{id}) \circ \langle \text{id},g \rangle ) \eqnline
- = & \text{App} \circ (( \text{Curry}(\litp \Gamma , x: \sigma \triangleright M : \tau \ritp) \times \text{id} ) \circ \langle \text{id} , \litp \Gamma \triangleright N : \tau \ritp \rangle ) \eqnline
- = & ( \text{App} \circ ( \text{Curry}(\litp \Gamma , x: \sigma \triangleright M : \tau \ritp) \times \text{id} ) ) \circ \langle \text{id} , \litp \Gamma \triangleright N : \tau \ritp \rangle \eqnline
+ = & \text{App} \circ (( \text{Curry}(\litp \Gamma , x \tc \sigma \triangleright M : \tau \ritp) \times \text{id} ) \circ \langle \text{id} , \litp \Gamma \triangleright N : \sigma \ritp \rangle ) \eqnline
+ = & ( \text{App} \circ ( \text{Curry}(\litp \Gamma , x \tc \sigma \triangleright M : \tau \ritp) \times \text{id} ) ) \circ \langle \text{id} , \litp \Gamma \triangleright N : \sigma \ritp \rangle \eqnline
    & (\text{by } \text{App} \circ (\text{Curry}(h) \times \text{id}) = h ) \eqnline
- = & \litp \Gamma , x: \sigma \triangleright M : \tau \ritp \circ \langle \text{id} , \litp \Gamma \triangleright N : \tau \ritp \rangle \eqnline
+ = & \litp \Gamma , x \tc \sigma \triangleright M : \tau \ritp \circ \langle \text{id} , \litp \Gamma \triangleright N : \sigma \ritp \rangle \eqnline
    & (\text{by Substitution Lemma}) \eqnline 
  = & \litp \Gamma \triangleright [N/x]M: \tau \ritp
 \end{array}
@@ -261,55 +263,53 @@ $
 (3) $ \eta $-equivalence
 
 The preservation of $ \eta $-equivalence can be represented by\\
-$ \Gamma \triangleright \lambda x:\sigma .Mx =_\eta M: \sigma \to \tau \implies \litp \Gamma \triangleright \lambda x:\sigma .Mx: \sigma \to \tau \ritp = \litp \Gamma \triangleright M: \sigma \to \tau \ritp $\\
-for all $ x \not\in FV(M) $.\eqnline
+$ \Gamma \triangleright \lambda x \tc \sigma .Mx =_\eta M: \sigma \ta \tau \implies \litp \Gamma \triangleright \lambda x \tc \sigma .Mx: \sigma \ta \tau \ritp = \litp \Gamma \triangleright M: \sigma \ta \tau \ritp $\\
+where $ x \not\in FV(M) $.\eqnline
 $
 \begin{array}{rl}
-   & \litp \Gamma \triangleright \lambda x: \sigma .Mx: \sigma \to \tau \ritp \eqnline
- = & \text{Curry}(\litp \Gamma , x: \sigma \triangleright Mx: \tau \ritp) \eqnline
- = & \text{Curry}(\text{App} \circ \langle \litp \Gamma , x: \sigma \triangleright M: \sigma \to \tau \ritp , \litp \Gamma , x: \sigma \triangleright x: \sigma \ritp \rangle) \eqnline
-   & (\text{if } (\Gamma , x: \sigma)_f = \Gamma \text{, then } \chi_f = \text{Proj}_1^{\litp \Gamma \ritp, \litp \sigma \ritp} ) \eqnline
- = & \text{Curry}(\text{App} \circ \langle \litp \Gamma \triangleright M: \sigma \to \tau \ritp \circ \text{Proj}_1^{\litp \Gamma \ritp, \litp \sigma \ritp} , \litp \Gamma , x: \sigma \triangleright x: \sigma \ritp \rangle) \eqnline
- = & \text{Curry}(\text{App} \circ \langle \litp \Gamma \triangleright M: \sigma \to \tau \ritp \circ \text{Proj}_1^{\litp \Gamma \ritp, \litp \sigma \ritp} , \text{Proj}_2^{\litp \Gamma \ritp, \litp \sigma \ritp} \rangle) \eqnline
+   & \litp \Gamma \triangleright \lambda x \tc \sigma .Mx: \sigma \ta \tau \ritp \eqnline
+ = & \text{Curry}(\litp \Gamma , x \tc \sigma \triangleright Mx: \tau \ritp) \eqnline
+ = & \text{Curry}(\text{App} \circ \langle \litp \Gamma , x \tc \sigma \triangleright M: \sigma \ta \tau \ritp , \litp \Gamma , x \tc \sigma \triangleright x: \sigma \ritp \rangle) \eqnline
+   & (\text{if } (\Gamma , x \tc \sigma)_f = \Gamma \text{, then } \chi_f = \text{Proj}_1^{\litp \Gamma \ritp, \litp \sigma \ritp} ) \eqnline
+ = & \text{Curry}(\text{App} \circ \langle \litp \Gamma \triangleright M: \sigma \ta \tau \ritp \circ \text{Proj}_1^{\litp \Gamma \ritp, \litp \sigma \ritp} , \litp \Gamma , x \tc \sigma \triangleright x: \sigma \ritp \rangle) \eqnline
+ = & \text{Curry}(\text{App} \circ \langle \litp \Gamma \triangleright M: \sigma \ta \tau \ritp \circ \text{Proj}_1^{\litp \Gamma \ritp, \litp \sigma \ritp} , \text{Proj}_2^{\litp \Gamma \ritp, \litp \sigma \ritp} \rangle) \eqnline
    & (\text{by } \text{Curry} ( \text{App} \circ \langle k \circ \text{Proj}_1 , \text{Proj}_2 \rangle ) = k) \eqnline
- = & \litp \Gamma \triangleright M: \sigma \to \tau \ritp \eqnline
+ = & \litp \Gamma \triangleright M: \sigma \ta \tau \ritp \eqnline
 \end{array}
 $ \\[10pt]
 
 Therefore, for any well-typed $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $, it holds in every CCC that $ \Gamma \triangleright M =_{\alpha \beta \eta} N: \sigma \implies \litp \Gamma \triangleright M: \sigma \ritp = \litp \Gamma \triangleright N: \sigma \ritp $.
-
-\end{proof}
-\mbox\\
+\end{proof}\mbox\\
 \\
-Semantics \emph{completeness} is the converse of soundness. The following is sometimes called \emph{``least model'' completeness}. 
+Semantic \emph{completeness} is the converse of soundness, i.e. if a type assertion holds semantically, then it is provable. The following is the equational form of completeness.
 \begin{theorem}[\textbf{Completeness}]
 \label{theorem:comp}
-Given any well-typed terms $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $, there exists a CCC $ \mathcal{C} $ such that if $ \mathcal{C} \litp \Gamma \triangleright M: \sigma \ritp = \mathcal{C} \litp \Gamma \triangleright N: \sigma \ritp $, then $ \Gamma \triangleright M =_{\alpha \beta \eta} N: \sigma $.
+Given any well-typed $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $, there exists a CCC $ \mathcal{C} $ such that if $ \mathcal{C} \litp \Gamma \triangleright M: \sigma \ritp = \mathcal{C} \litp \Gamma \triangleright N: \sigma \ritp $, then $ \Gamma \triangleright M =_{\alpha \beta \eta} N: \sigma $.
 \end{theorem}
 
 \begin{proof}\mbox\\
 
-The category $ \mathcal{C} $ is generated by $ \lambda^\to $ in the following way:
+The category $ \mathcal{C} $ is generated from $ \lambda^\to $ in the following way:
 
-The objects of $ \mathcal{C} $ are sequences of type expressions. To be specific, the empty sequence is the terminal object $ unit $ and a sequence $ [ \sigma_1, \ldots \sigma_n ] $ represents the products of the $ [ \sigma_i ] $. For notational convenience, we write $ \vec{x}_k $ for a sequence $ [ x_1, \ldots , x_k ] $ of $ k $ variables, similarly $ \vec{\sigma}_k $ for a sequence of $ k $ type expressions, and $ \vec{x}_k : \vec{\sigma}_k $ for type context $ x_1:\sigma_1, \ldots , x_k:\sigma_k $.
+The objects of $ \mathcal{C} $ are sequences of type expressions. To be specific, the empty sequence is the terminal object $ unit $ and a sequence $ [ \sigma_1, \ldots , \sigma_n ] $ represents the products of the $ [ \sigma_i ] $. For notational convenience, we write $ \vec{x}_k $ for a sequence $ [ x_1, \ldots , x_k ] $ of $ k $ variables, similarly $ \vec{\sigma}_k $ for a sequence of $ k $ type expressions, and $ \vec{x}_k \tc \vec{\sigma}_k $ for type context $ x_1 \tc \sigma_1, \ldots , x_k \tc \sigma_k $.
 
-The morphisms from $ \vec{\sigma}_m $ to $ \vec{\tau}_n $ are given by $ n $-tuples of terms over $ m $ free variables. To put it more specifically, a morphism from $ \vec{\sigma}_m $ to $ \vec{\tau}_n $ is a $ n $-tuple of equivalence classes of terms, i.e. \eqnline
-\begin{tabular}{r p{0.92\textwidth}}
-   & $[ \vec{x}_m : \vec{\sigma}_m \triangleright M_i : \tau_i | i = 1, \ldots , n ]$ \eqnline
-$=$& $[ \vec{x}_m : \vec{\sigma}_m \triangleright M_1 : \tau_1 , \ldots , \vec{x}_m : \vec{\sigma}_m \triangleright M_n : \tau_n ]$ \eqnline
-$=$& $\langle \{\vec{x}_m : \vec{\sigma}_m \triangleright N_1: \tau_1|\vec{x}_m : \vec{\sigma}_m \triangleright M_1=N_1: \tau_1\} , \ldots , $ \eqnline
-\multicolumn{2}{r}{$ \{\vec{x}_m : \vec{\sigma}_m \triangleright N_n: \tau_n|\vec{x}_m : \vec{\sigma}_m \triangleright M_n=N_n: \tau_n\} \rangle $} \\[10pt]
+The morphisms from $ \vec{\sigma}_m $ to $ \vec{\tau}_n $ are given by $ n $-tuples of terms over $ m $ free variables. To put it more specifically, a morphism from $ \vec{\sigma}_m $ to $ \vec{\tau}_n $ is an $ n $-tuple of equivalence classes of terms, i.e. \eqnline
+\begin{tabular}{r p{0.94\textwidth}}
+   & $[ \vec{x}_m \tc \vec{\sigma}_m \triangleright M_i \tc \tau_i \vsep i = 1, \ldots , n ]$ \eqnline
+$=$& $[ \vec{x}_m \tc \vec{\sigma}_m \triangleright M_1 \tc \tau_1 , \ldots , \vec{x}_m \tc \vec{\sigma}_m \triangleright M_n \tc \tau_n ]$ \eqnline
+$=$& $\langle \{\vec{x}_m \tc \vec{\sigma}_m \triangleright N_1 \tc \tau_1 \vsep \vec{x}_m \tc \vec{\sigma}_m \triangleright M_1=N_1: \tau_1\} , \ldots , $ \eqnline
+\multicolumn{2}{r}{$ \{\vec{x}_m \tc \vec{\sigma}_m \triangleright N_n \tc \tau_n \vsep \vec{x}_m \tc \vec{\sigma}_m \triangleright M_n=N_n: \tau_n\} \rangle $} \\[10pt]
 \end{tabular}
 
-Compositions in $ \mathcal{C} $ is defined by substitution. Given a morphism from $ \vec{\sigma}_l $ to $ \vec{\tau}_m $ and another one from $ \vec{\tau}_m $ to $ \vec{\rho}_n $, their composition is \eqnline
+Compositions in $ \mathcal{C} $ are defined by substitution. Given a morphism from $ \vec{\sigma}_l $ to $ \vec{\tau}_m $ and another one from $ \vec{\tau}_m $ to $ \vec{\rho}_n $, their composition is \eqnline
 $
 \begin{array}{rl}
-   & [ \vec{y}_m : \vec{\tau}_m \triangleright N_i : \rho_i | i = 1, \ldots , n ] \circ [ \vec{x}_l : \vec{\sigma}_l \triangleright M_i : \tau_i | i = 1, \ldots , m ] \eqnline
- = & [ \vec{x}_l : \vec{\sigma}_l \triangleright [\vec{y}_m/\vec{M}_m]N_i: \rho_i | i=1, \ldots , n ] : \vec{\sigma}_l \to \vec{\rho}_n \\[10pt]
+   & [ \vec{y}_m \tc \vec{\tau}_m \triangleright N_i \tc \rho_i \vsep i = 1, \ldots , n ] \circ [ \vec{x}_l \tc \vec{\sigma}_l \triangleright M_i \tc \tau_i \vsep i = 1, \ldots , m ] \eqnline
+ = & [ \vec{x}_l \tc \vec{\sigma}_l \triangleright [\vec{M}_m/\vec{y}_m]N_i \tc \rho_i \vsep i=1, \ldots , n ] : \vec{\sigma}_l \to \vec{\rho}_n \\[10pt]
 \end{array}
 $
 
-The identity for $ \vec{\sigma}_n $ is the morphism $ [ \vec{x}_n : \vec{\sigma}_n \triangleright x_i : \sigma_i | i = 1, \ldots , n ] : \vec{\sigma}_n \to \vec{\sigma}_n $.
+The identity for $ \vec{\sigma}_n $ is the morphism $ [ \vec{x}_n \tc \vec{\sigma}_n \triangleright x_i \tc \sigma_i \vsep i = 1, \ldots , n ] : \vec{\sigma}_n \to \vec{\sigma}_n $.
 
 After defining the category $ \mathcal{C} $, we need to show that it is cartesian closed and then that two terms are $ \alpha \beta \eta $-equivalent if they have the same interpretation in $ \mathcal{C} $.
 
@@ -317,143 +317,139 @@ After defining the category $ \mathcal{C} $, we need to show that it is cartesia
 
 The cartesian closed structure of $ \mathcal{C} $ is obtained as follows:
 
-(\textrm{i}) Terminal object $ unit $ with morphism $ \text{One} $
+\textrm{i}) Terminal object $ unit $ with morphism $ \text{One} $
 
-The empty sequence of types is the terminal object $ unit $. According to the above definition, a morphism from an object to $ \vec{\tau}_n $ is given by a $ n $-tuple of terms. Then the morphism from an object to $ unit $, the empty sequence, should be given by the empty tuple, i.e. $ \text{One}^{\vec{\sigma}_k} = [\text{ }]: \vec{\sigma}_k \to unit $, for every object $ \vec{\sigma}_k $. Since empty tuple is unique, $ \text{One}^{\vec{\sigma}_k} $ is unique for every $ \vec{\sigma}_k $.
+The empty sequence of types is the terminal object $ unit $. According to the above definition, a morphism from an object to $ \vec{\tau}_n $, sequence of length $ n $, is given by an $ n $-tuple. Consequently, the morphism from an object to $ unit $, the empty sequence, should be given by the empty tuple, i.e. $ \text{One}^{\vec{\sigma}_k} = [\text{ }]: \vec{\sigma}_k \to unit $, for every object $ \vec{\sigma}_k $. Since empty tuple is unique, $ \text{One}^{\vec{\sigma}_k} $ is unique for every $ \vec{\sigma}_k $.
 
-(\textrm{ii}) Products with projections $ \text{Proj}_i $ and pairing $ \langle \cdot , \cdot \rangle $
+\textrm{ii}) Products with projections $ \text{Proj}_i $ and pairing $ \langle \cdot , \cdot \rangle $
 
-Given two object $ \vec{\sigma}_m $ and $ \vec{\tau}_n $, their product $ \vec{\sigma}_m \times \vec{\tau}_n $ is obtained by their concatenation $ [ \sigma_1, \ldots , \sigma_m, \tau_1, \ldots , \tau_n ] $. Then, the projection morphisms are defined by \eqnline
+Given two objects $ \vec{\sigma}_m $ and $ \vec{\tau}_n $, their product $ \vec{\sigma}_m \times \vec{\tau}_n $ is obtained by their concatenation $ [ \sigma_1, \ldots , \sigma_m, \tau_1, \ldots , \tau_n ] $. The projection morphisms are defined by \eqnline
 $
 \begin{array}{lcll}
-\text{Proj}_1^{\vec{\sigma}_m,\vec{\tau}_n} & = & [ \vec{x}_m:\vec{\sigma}_m,\vec{y}_n:\vec{\tau}_n \triangleright x_i:\sigma_i | i = 1, \ldots , m ] & : \vec{\sigma}_m \times \vec{\tau}_n \to \vec{\sigma}_m \eqnline
-\text{Proj}_2^{\vec{\sigma}_m,\vec{\tau}_n} & = & [ \vec{x}_m:\vec{\sigma}_m,\vec{y}_n:\vec{\tau}_n \triangleright y_i:\tau_i | i = 1, \ldots , n ] & : \vec{\sigma}_m \times \vec{\tau}_n \to \vec{\tau}_n
+\text{Proj}_1^{\vec{\sigma}_m,\vec{\tau}_n} & = & [ \vec{x}_m \tc \vec{\sigma}_m,\vec{y}_n \tc \vec{\tau}_n \triangleright x_i \tc \sigma_i \vsep i = 1, \ldots , m ] & : \vec{\sigma}_m \times \vec{\tau}_n \to \vec{\sigma}_m \eqnline
+\text{Proj}_2^{\vec{\sigma}_m,\vec{\tau}_n} & = & [ \vec{x}_m \tc \vec{\sigma}_m,\vec{y}_n \tc \vec{\tau}_n \triangleright y_i \tc \tau_i \vsep i = 1, \ldots , n ] & : \vec{\sigma}_m \times \vec{\tau}_n \to \vec{\tau}_n
 \end{array}
 $ \eqnline
-Given $ [ \vec{x}_l:\vec{\rho}_l \triangleright M_i:\sigma_i | i = 1, \ldots , m ] : \vec{\rho}_l \to \vec{\sigma}_m $ and $ [ \vec{x}_l:\vec{\rho}_l \triangleright N_i:\tau_i | i = 1, \ldots , n ] : \vec{\rho}_l \to \vec{\tau}_n $, their paring is defined by the concatenation of these two tuples \eqnline
+Given $ [ \vec{x}_l \tc \vec{\rho}_l \triangleright M_i \tc \sigma_i \vsep i = 1, \ldots , m ] : \vec{\rho}_l \to \vec{\sigma}_m $ and $ [ \vec{x}_l \tc \vec{\rho}_l \triangleright N_i \tc \tau_i \vsep i = 1, \ldots , n ] : \vec{\rho}_l \to \vec{\tau}_n $, their pairing is defined by the concatenation of these two tuples \eqnline
 $
 \begin{array}{rl}
-   & \langle [ \vec{x}_l:\vec{\rho}_l \triangleright M_i:\sigma_i | i = 1, \ldots , m ], [ \vec{x}_l:\vec{\rho}_l \triangleright N_i:\tau_i | i = 1, \ldots , n ] \rangle \eqnline
- = & [ \vec{x}_l:\vec{\rho}_l \triangleright M_1:\sigma_1, \ldots , \vec{x}_l:\vec{\rho}_l \triangleright M_m:\sigma_n, \vec{x}_l:\vec{\rho}_l \triangleright N_1:\tau_1, \ldots, \vec{x}_l:\vec{\rho}_l \triangleright N_n:\tau_n ] \eqnline
- \multicolumn{2}{r}{: \vec{\rho}_l \to \vec{\sigma}_m \times \vec{\tau}_n}
+   & \langle [ \vec{x}_l \tc \vec{\rho}_l \triangleright M_i \tc \sigma_i \vsep i = 1, \ldots , m ], [ \vec{x}_l \tc \vec{\rho}_l \triangleright N_i \tc \tau_i \vsep i = 1, \ldots , n ] \rangle \eqnline
+ = & [ \vec{x}_l \tc \vec{\rho}_l \triangleright M_1 \tc \sigma_1, \ldots , \vec{x}_l \tc \vec{\rho}_l \triangleright M_m \tc \sigma_m, \hspace{3pt} \vec{x}_l \tc \vec{\rho}_l \triangleright N_1 \tc \tau_1, \ldots, \vec{x}_l \tc \vec{\rho}_l \triangleright N_n \tc \tau_n ] : \vec{\rho}_l \to \vec{\sigma}_m \times \vec{\tau}_n \eqnline
 \end{array}
 $
 
 In order to show that the products defined above are categorical products in $ \mathcal{C} $, we should prove that they satisfy the equations in definition \ref{definition:products}. For any \eqnline
 $
 \begin{array}{lcl}
-f_1 & = & [ \vec{x}_l:\vec{\rho}_l \triangleright M_i:\sigma_i | i = 1, \ldots , m ] : \vec{\rho}_l \to \vec{\sigma}_m , \eqnline
-f_2 & = & [ \vec{x}_l:\vec{\rho}_l \triangleright N_i:\tau_i | i = 1, \ldots , n ] : \vec{\rho}_l \to \vec{\tau}_n , \text{and} \eqnline
-g & = & [ \vec{x}_l:\vec{\rho}_l \triangleright P_1:\sigma_1, \ldots , \vec{x}_l:\vec{\rho}_l \triangleright P_m:\sigma_n, \vec{x}_l:\vec{\rho}_l \triangleright Q_1:\tau_1, \ldots, \vec{x}_l:\vec{\rho}_l \triangleright Q_n:\tau_n ] \eqnline
- \multicolumn{3}{r}{: \vec{\rho}_l \to \vec{\sigma}_m \times \vec{\tau}_n,}
+f_1 & = & [ \vec{x}_l \tc \vec{\rho}_l \triangleright M_i \tc \sigma_i \vsep i = 1, \ldots , m ] : \vec{\rho}_l \to \vec{\sigma}_m , \eqnline
+f_2 & = & [ \vec{x}_l \tc \vec{\rho}_l \triangleright N_i \tc \tau_i \vsep i = 1, \ldots , n ] : \vec{\rho}_l \to \vec{\tau}_n , \text{ and} \eqnline
+g & = & [ \vec{x}_l \tc \vec{\rho}_l \triangleright P_1 \tc \sigma_1, \ldots , \vec{x}_l \tc \vec{\rho}_l \triangleright P_m \tc \sigma_m, \hspace{3pt} \vec{x}_l \tc \vec{\rho}_l \triangleright Q_1 \tc \tau_1, \ldots, \vec{x}_l \tc \vec{\rho}_l \triangleright Q_n \tc \tau_n ] : \vec{\rho}_l \to \vec{\sigma}_m \times \vec{\tau}_n, 
 \end{array}
 $ \eqnline
 we have \eqnline
-\begin{tabular}{r p{0.92\textwidth}}
+\begin{tabular}{r p{0.94\textwidth}}
    & $ \text{Proj}_1^{\vec{\sigma}_m , \vec{\tau}_n} \circ \langle f_1 , f_2 \rangle $ \eqnline
- = & $ [ \vec{y}_m:\vec{\sigma}_m,\vec{z}_n:\vec{\tau}_n \triangleright y_i:\sigma_i | i = 1, \ldots , m ] \circ $ \eqnline
- \multicolumn{2}{r}{$ \langle [ \vec{x}_l:\vec{\rho}_l \triangleright M_i:\sigma_i | i = 1, \ldots , m ], [ \vec{x}_l:\vec{\rho}_l \triangleright N_i:\tau_i | i = 1, \ldots , n ] \rangle $} \eqnline
- = & $ [ \vec{y}_m:\vec{\sigma}_m,\vec{z}_n:\vec{\tau}_n \triangleright y_i:\sigma_i | i = 1, \ldots , m ] \circ $ \eqnline
- \multicolumn{2}{r}{$ [ \vec{x}_l:\vec{\rho}_l \triangleright M_1:\sigma_1, \ldots , \vec{x}_l:\vec{\rho}_l \triangleright M_m:\sigma_n, \vec{x}_l:\vec{\rho}_l \triangleright N_1:\tau_1, \ldots, \vec{x}_l:\vec{\rho}_l \triangleright N_n:\tau_n ] $} \eqnline
- = & $ [ \vec{x}_l:\vec{\rho}_l \triangleright [ \vec{y}_m, \vec{z}_n / \vec{M}_m, \vec{N}_n ]y_i:\sigma_i | i = 1, \ldots , m ] $ \eqnline
- = & $ [ \vec{x}_l:\vec{\rho}_l \triangleright M_i:\sigma_i | i = 1, \ldots , m ] $ \eqnline
+ = & $ [ \vec{y}_m \tc \vec{\sigma}_m,\vec{z}_n \tc \vec{\tau}_n \triangleright y_i \tc \sigma_i \vsep i = 1, \ldots , m ] \circ $ \eqnline
+ \multicolumn{2}{r}{$ \langle [ \vec{x}_l \tc \vec{\rho}_l \triangleright M_i \tc \sigma_i \vsep i = 1, \ldots , m ], [ \vec{x}_l \tc \vec{\rho}_l \triangleright N_i \tc \tau_i \vsep i = 1, \ldots , n ] \rangle $} \eqnline
+ = & $ [ \vec{y}_m \tc \vec{\sigma}_m,\vec{z}_n \tc \vec{\tau}_n \triangleright y_i \tc \sigma_i \vsep i = 1, \ldots , m ] \circ $ \eqnline
+ \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l \triangleright M_1 \tc \sigma_1, \ldots , \vec{x}_l \tc \vec{\rho}_l \triangleright M_m \tc \sigma_m, \hspace{3pt} \vec{x}_l \tc \vec{\rho}_l \triangleright N_1 \tc \tau_1, \ldots, \vec{x}_l \tc \vec{\rho}_l \triangleright N_n \tc \tau_n ] $} \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l \triangleright [ \vec{M}_m, \vec{N}_n / \vec{y}_m, \vec{z}_n ]y_i \tc \sigma_i \vsep i = 1, \ldots , m ] $ \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l \triangleright M_i \tc \sigma_i \vsep i = 1, \ldots , m ] $ \eqnline
  = & $ f_1 $ \\[10pt]
 \end{tabular}
 
 In the same way, we can show that $ \text{Proj}_2^{\vec{\sigma}_m , \vec{\tau}_n} \circ \langle f_1 , f_2 \rangle = f_2 $. \\[10pt]
-\begin{tabular}{r p{0.92\textwidth}}
+\begin{tabular}{r p{0.94\textwidth}}
    & $ \text{Proj}_1^{\vec{\sigma}_m , \vec{\tau}_n} \circ g $ \eqnline
- = & $ [ \vec{y}_m:\vec{\sigma}_m,\vec{z}_n:\vec{\tau}_n \triangleright y_i:\sigma_i | i = 1, \ldots , m ] \circ $ \eqnline
- \multicolumn{2}{r}{$ [ \vec{x}_l:\vec{\rho}_l \triangleright P_1:\sigma_1, \ldots , \vec{x}_l:\vec{\rho}_l \triangleright P_m:\sigma_n, \vec{x}_l:\vec{\rho}_l \triangleright Q_1:\tau_1, \ldots, \vec{x}_l:\vec{\rho}_l \triangleright Q_n:\tau_n ] $} \eqnline
- = & $ [ \vec{x}_l:\vec{\rho}_l \triangleright [ \vec{y}_m, \vec{z}_n / \vec{P}_m, \vec{Q}_n ]y_i:\sigma_i | i = 1, \ldots , m ] $ \eqnline
- = & $ [ \vec{x}_l:\vec{\rho}_l \triangleright P_i:\sigma_i | i = 1, \ldots , m ] $ \eqnline
+ = & $ [ \vec{y}_m \tc \vec{\sigma}_m,\vec{z}_n \tc \vec{\tau}_n \triangleright y_i \tc \sigma_i \vsep i = 1, \ldots , m ] \circ $ \eqnline
+ \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l \triangleright P_1 \tc \sigma_1, \ldots , \vec{x}_l \tc \vec{\rho}_l \triangleright P_m \tc \sigma_m, \hspace{3pt} \vec{x}_l \tc \vec{\rho}_l \triangleright Q_1 \tc \tau_1, \ldots, \vec{x}_l \tc \vec{\rho}_l \triangleright Q_n \tc \tau_n ] $} \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l \triangleright [ \vec{P}_m, \vec{Q}_n / \vec{y}_m, \vec{z}_n ]y_i \tc \sigma_i \vsep i = 1, \ldots , m ] $ \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l \triangleright P_i \tc \sigma_i \vsep i = 1, \ldots , m ] $ \eqnline
 \end{tabular}
 
-Similarly, we also have $ \text{Proj}_2^{\vec{\sigma}_m , \vec{\tau}_n} \circ g = [ \vec{x}_l:\vec{\rho}_l \triangleright Q_i:\tau_i | i = 1, \ldots , n ] $. Then, \eqnline
-\begin{tabular}{r p{0.92\textwidth}}
+Similarly, we also have $ \text{Proj}_2^{\vec{\sigma}_m , \vec{\tau}_n} \circ g = [ \vec{x}_l \tc \vec{\rho}_l \triangleright Q_i \tc \tau_i \vsep i = 1, \ldots , n ] $. Then, \eqnline
+\begin{tabular}{r p{0.94\textwidth}}
    & $ \langle \text{Proj}_1^{\vec{\sigma}_m , \vec{\tau}_n} \circ g , \text{Proj}_2^{\vec{\sigma}_m , \vec{\tau}_n} \circ g \rangle $ \eqnline
- = & $ \langle [ \vec{x}_l:\vec{\rho}_l \triangleright P_i:\sigma_i | i = 1, \ldots , m ] , [ \vec{x}_l:\vec{\rho}_l \triangleright Q_i:\tau_i | i = 1, \ldots , n ] \rangle $ \eqnline
- = & $ [ \vec{x}_l:\vec{\rho}_l \triangleright P_1:\sigma_1, \ldots , \vec{x}_l:\vec{\rho}_l \triangleright P_m:\sigma_n, \vec{x}_l:\vec{\rho}_l \triangleright Q_1:\tau_1, \ldots, \vec{x}_l:\vec{\rho}_l \triangleright Q_n:\tau_n ] $ \eqnline
+ = & $ \langle [ \vec{x}_l \tc \vec{\rho}_l \triangleright P_i \tc \sigma_i \vsep i = 1, \ldots , m ] , [ \vec{x}_l \tc \vec{\rho}_l \triangleright Q_i \tc \tau_i \vsep i = 1, \ldots , n ] \rangle $ \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l \triangleright P_1 \tc \sigma_1, \ldots , \vec{x}_l \tc \vec{\rho}_l \triangleright P_m \tc \sigma_m, \hspace{3pt} \vec{x}_l \tc \vec{\rho}_l \triangleright Q_1 \tc \tau_1, \ldots, \vec{x}_l \tc \vec{\rho}_l \triangleright Q_n \tc \tau_n ] $ \eqnline
  = & $ g $
 \end{tabular}\\
 
-(\textrm{iii}) Exponentials with currying $ \text{Curry} $ and evaluation $ \text{App} $
+\textrm{iii}) Exponentials with currying map $ \text{Curry} $ and evaluation morphism $ \text{App} $
 
-Given two object $ \vec{\sigma}_m $ and $ \vec{\tau}_n $, their exponential $ \vec{\sigma}_m \to \vec{\tau}_n $ is the type sequence of the patter $ [ \sigma_1 \to \cdots \to \sigma_m \to \tau_1, \ldots , \sigma_1 \to \cdots \to \sigma_m \to \tau_n ] $.
+Given two object $ \vec{\sigma}_m $ and $ \vec{\tau}_n $, their exponential $ \vec{\sigma}_m \to \vec{\tau}_n $ is the type sequence of the patter $ [ \sigma_1 \ta \cdots \ta \sigma_m \ta \tau_1, \hspace{3pt} \ldots , \hspace{3pt} \sigma_1 \ta \cdots \ta \sigma_m \ta \tau_n ] $. In  particular, we write type $ \sigma_1 \ta \cdots \ta \sigma_m \ta \tau $ as $ \vec{\sigma}_m \ta \tau $.
 
-For every $ h = [ \vec{x}_l: \vec{\rho}_l , \vec{y}_m: \vec{\sigma}_m \triangleright M_i: \tau_i | i = 1, \ldots , n ]: \vec{\rho_l} \times \vec{\sigma}_m \to \vec{\tau}_n $, the morphism $ \text{Curry}(h): \vec{\rho_l} \to ( \vec{\sigma}_m \to \vec{\tau}_n ) $ is defined by \eqnline
-\begin{tabular}{r p{0.92\textwidth}}
+For every $ h = [ \vec{x}_l \tc \vec{\rho}_l , \vec{y}_m \tc \vec{\sigma}_m \triangleright M_i \tc \tau_i \vsep i = 1, \ldots , n ]: \vec{\rho_l} \times \vec{\sigma}_m \to \vec{\tau}_n $, the morphism $ \text{Curry}(h): \vec{\rho_l} \to ( \vec{\sigma}_m \to \vec{\tau}_n ) $ is defined by \eqnline
+\begin{tabular}{r p{0.94\textwidth}}
    & $ \text{Curry}(h) $ \eqnline
- = & $ \text{Curry}([ \vec{x}_l: \vec{\rho}_l , \vec{y}_m: \vec{\sigma}_m \triangleright M_i: \tau_i | i = 1, \ldots , n ]) $ \eqnline
- = & $ [ \vec{x}_l: \vec{\rho}_l \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . M_i: \sigma_1 \to \cdots \to \sigma_m \to \tau_i | i = 1, \ldots , n ]: \vec{\rho_l} \to ( \vec{\sigma}_m \to \vec{\tau}_n ) $ \\[10pt]
+ = & $ \text{Curry}([ \vec{x}_l \tc \vec{\rho}_l , \vec{y}_m \tc \vec{\sigma}_m \triangleright M_i \tc \tau_i \vsep i = 1, \ldots , n ]) $ \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . M_i \tc \vec{\sigma}_m \ta \tau_i \vsep i = 1, \ldots , n ]: \vec{\rho_l} \to ( \vec{\sigma}_m \to \vec{\tau}_n ) $ \\[10pt]
 \end{tabular}
 
 Given $ \vec{\sigma}_m $ and $ \vec{\tau}_n $, the morphism $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n}: ( \vec{\sigma}_m \to \vec{\tau}_n ) \times \vec{\sigma}_m \to \vec{\tau}_n $ is defined by \eqnline
-\begin{tabular}{r p{0.92\textwidth}}
-   & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} $ \eqnline
- = & $ [ \vec{f}_n: \vec{\sigma}_m \to \vec{\tau}_n , \vec{x}_m: \vec{\sigma}_m \triangleright f_i \text{ } x_1 \ldots x_m : \tau_i | i = 1, \ldots , n ]: ( \vec{\sigma}_m \to \vec{\tau}_n ) \times \vec{\sigma}_m \to \vec{\tau}_n $ \\[10pt]
-\end{tabular}
+$ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} = [ \vec{f}_n \tc \vec{\sigma}_m \ta \vec{\tau}_n , \vec{x}_m \tc \vec{\sigma}_m \triangleright f_i \hspace{2pt} x_1 \hspace{2pt} \ldots \hspace{2pt} x_m \tc \tau_i \vsep i = 1, \ldots , n ] : ( \vec{\sigma}_m \to \vec{\tau}_n ) \times \vec{\sigma}_m \to \vec{\tau}_n. \\
+$
 
 The following shows that the equations in definition \ref{definition:exponentials} hold in $ \mathcal{C} $ so that the exponentials defined above are exactly the categorical exponentials in $ \mathcal{C} $. For any \eqnline
 $
 \begin{array}{lcl}
-h & = & [ \vec{x}_l: \vec{\rho}_l , \vec{y}_m: \vec{\sigma}_m \triangleright M_i: \tau_i | i = 1, \ldots , n ]: \vec{\rho_l} \times \vec{\sigma}_m \to \vec{\tau}_n \text{ and} \eqnline
-k & = & [ \vec{x}_l: \vec{\rho}_l \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . N_i: \sigma_1 \to \cdots \to \sigma_m \to \tau_i | i = 1, \ldots , n ]: \vec{\rho_l} \to ( \vec{\sigma}_m \to \vec{\tau}_n )
+h & = & [ \vec{x}_l \tc \vec{\rho}_l , \vec{y}_m \tc \vec{\sigma}_m \triangleright M_i \tc \tau_i \vsep i = 1, \ldots , n ] : \vec{\rho_l} \times \vec{\sigma}_m \to \vec{\tau}_n \text{ and} \eqnline
+k & = & [ \vec{x}_l \tc \vec{\rho}_l \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . N_i \tc \vec{\sigma}_m \ta \tau_i \vsep i = 1, \ldots , n ]: \vec{\rho_l} \to ( \vec{\sigma}_m \to \vec{\tau}_n ),
 \end{array}
 $ \eqnline
 we have \eqnline
-\begin{tabular}{r p{0.92\textwidth}}
+\begin{tabular}{r p{0.94\textwidth}}
    & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle \text{Curry}(h) \circ \text{Proj}_1^{\vec{\rho}_l , \vec{\sigma}_m} , \text{Proj}_2^{\vec{\rho_l} , \vec{\sigma}_m} \rangle $ \eqnline
- = & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle \text{Curry}([ \vec{x}_l: \vec{\rho}_l , \vec{y}_m: \vec{\sigma}_m \triangleright M_i: \tau_i | i = 1, \ldots , n ]) \circ \text{Proj}_1^{\vec{\rho}_l , \vec{\sigma}_m} , \text{Proj}_2^{\vec{\rho_l} , \vec{\sigma}_m} \rangle $ \eqnline
- = & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l: \vec{\rho}_l \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . M_i: \sigma_1 \to \cdots \to \sigma_m \to \tau_i | i = 1, \ldots , n ] \circ $ \eqnline
- \multicolumn{2}{r}{$ [ \vec{x}_l:\vec{\rho}_l, \vec{y}_m:\vec{\sigma}_m \triangleright x_i:\rho_i | i = 1, \ldots , l ] , \text{Proj}_2^{\vec{\rho}_l , \vec{\sigma}_m} \rangle $} \eqnline
- = & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l: \vec{\rho}_l , \vec{y}_m:\vec{\sigma}_m \triangleright [ \vec{x}_l / \vec{x}_l ] ( \lambda \vec{y}_m: \vec{\sigma}_m . M_i ): \sigma_1 \to \cdots \to \sigma_m \to \tau_i $ \eqnline
- \multicolumn{2}{r}{$ | i = 1, \ldots , n ], [ \vec{x}_l:\vec{\rho}_l, \vec{y}_m:\vec{\sigma}_m \triangleright y_i:\sigma_i | i = 1, \ldots , m ] \rangle $} \eqnline
- = & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . M_i: \sigma_i \to \cdots \to \sigma_m \to \tau_i , $ \eqnline
- \multicolumn{2}{r}{$ | i = 1, \ldots , n ] [ \vec{x}_l:\vec{\rho}_l, \vec{y}_m:\vec{\sigma}_m \triangleright y_i:\sigma_i | i = 1, \ldots , m ] \rangle $} \eqnline
- = & $ [ \vec{f}_n: \vec{\sigma}_m \to \vec{\tau}_n , \vec{z}_m: \vec{\sigma}_m \triangleright f_i \text{ } z_1 \ldots z_m : \tau_i | i = 1, \ldots , n ] \circ $ \eqnline
- \multicolumn{2}{r}{$ [ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . M_1: \sigma_1 \to \cdots \to \sigma_m \to \tau_1 , \ldots , $} \eqnline
- \multicolumn{2}{r}{$ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . M_n: \sigma_1 \to \cdots \to \sigma_m \to \tau_n , $} \eqnline
- \multicolumn{2}{r}{$ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright y_1: \sigma_1 , \ldots , \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright y_m: \sigma_m ] $} \eqnline
-\end{tabular}\eqnline
-\begin{tabular}{r p{0.92\textwidth}}
- = & $ [ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright [ \vec{f}_n, \vec{z}_m / \vec{N}_n, \vec{y}_m ](f_i z_1 \ldots z_m): \tau_i | i = 1, \ldots , n ] $ \eqnline
-   & (where $ \vec{N}_n \equiv \lambda \vec{y}_m:\vec{\tau}_m.M_1, \ldots , \lambda \vec{y}_m:\vec{\tau}_m.M_m  $) \eqnline
- = & $ [ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright ( \lambda \vec{y}_m:\vec{\tau}_m.M_i ) y_1 \ldots y_m: \tau_i | i = 1, \ldots , n ] $ \eqnline
- = & $ [ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright [ \vec{y}_m / \vec{y}_m ] M_i: \tau_i | i = 1, \ldots , n ] $ \eqnline
- = & $ [ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright M_i: \tau_i | i = 1, \ldots , n ] $ \eqnline
+ = & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle \text{Curry}([ \vec{x}_l \tc \vec{\rho}_l , \vec{y}_m \tc \vec{\sigma}_m \triangleright M_i \tc \tau_i \vsep i = 1, \ldots , n ]) \circ \text{Proj}_1^{\vec{\rho}_l , \vec{\sigma}_m} , \text{Proj}_2^{\vec{\rho_l} , \vec{\sigma}_m} \rangle $ \eqnline
+ = & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l \tc \vec{\rho}_l \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . M_i \tc \vec{\sigma}_m \ta \tau_i \vsep i = 1, \ldots , n ] \circ $ \eqnline
+ \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l, \vec{y}_m \tc \vec{\sigma}_m \triangleright x_i \tc \rho_i \vsep i = 1, \ldots , l ] , \text{Proj}_2^{\vec{\rho}_l , \vec{\sigma}_m} \rangle $} \eqnline
+ = & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l \tc \vec{\rho}_l , \vec{y}_m \tc \vec{\sigma}_m \triangleright [ \vec{x}_l / \vec{x}_l ] ( \lambda \vec{y}_m \tc \vec{\sigma}_m . M_i ) \tc \vec{\sigma}_m \ta \tau_i \vsep i = 1, \ldots , n ], $ \eqnline
+ \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l, \vec{y}_m \tc \vec{\sigma}_m \triangleright y_i \tc \sigma_i \vsep i = 1, \ldots , m ] \rangle $} \eqnline
+ = & $ \text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m  \triangleright \lambda \vec{y}_m \tc  \vec{\sigma}_m . M_i \tc \vec{\sigma}_m \ta \tau_i  \vsep i = 1, \ldots , n ], $ \eqnline
+ \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l, \vec{y}_m \tc \vec{\sigma}_m \triangleright y_i \tc \sigma_i \vsep i = 1, \ldots , m ] \rangle $} \eqnline
+ = & $ [ \vec{f}_n \tc \vec{\sigma}_m \to \vec{\tau}_n , \vec{z}_m \tc \vec{\sigma}_m \triangleright f_i \hspace{2pt} z_1 \hspace{2pt} \ldots \hspace{2pt} z_m \tc \tau_i \vsep i = 1, \ldots , n ] \circ $ \eqnline
+ \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . M_1 \tc \vec{\sigma}_m \ta \tau_1 , \ldots , \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . M_n \tc \vec{\sigma}_m \ta \tau_n , $} \eqnline
+ \multicolumn{2}{r}{$ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright y_1 \tc \sigma_1 , \ldots , \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright y_m \tc \sigma_m ] $} \eqnline
+   & (let $ \vec{P}_n \equiv \lambda \vec{y}_m \tc \vec{\sigma}_m.M_1, \ldots , \lambda \vec{y}_m \tc \vec{\sigma}_m.M_n  $) \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright [ \vec{P}_n, \vec{y}_m / \vec{f}_n, \vec{z}_m ](f_i \hspace{2pt} z_1 \hspace{2pt} \ldots \hspace{2pt} z_m) \tc \tau_i \vsep i = 1, \ldots , n ] $ \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright ( \lambda \vec{y}_m \tc \vec{\sigma}_m.M_i ) \hspace{2pt} y_1 \hspace{2pt} \ldots \hspace{2pt} y_m \tc \tau_i \vsep i = 1, \ldots , n ] $ \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m  \triangleright [ \vec{y}_m / \vec{y}_m ] M_i \tc \tau_i \vsep i = 1, \ldots , n ] $ \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m  \triangleright M_i \tc \tau_i \vsep i = 1, \ldots , n ] $ \eqnline
  = & $ h $ \eqnline
-\end{tabular} \\[10pt]
-\begin{tabular}{r p{0.92\textwidth}}
+\end{tabular} \\
+and\eqnline
+\begin{tabular}{r p{0.94\textwidth}}
    & $ \text{Curry}(\text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle k \circ \text{Proj}_1^{\vec{\rho}_l , \vec{\sigma}_m} , \text{Proj}_2^{\vec{\rho_l} , \vec{\sigma}_m} \rangle) $ \eqnline
- = & $ \text{Curry}(\text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l: \vec{\rho}_l \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . N_i: \sigma_1 \to \cdots \to \sigma_m \to \tau_i | i = 1, \ldots , n ] \circ $ \eqnline
- \multicolumn{2}{r}{$ [ \vec{x}_l:\vec{\rho}_l, \vec{y}_m:\vec{\sigma}_m \triangleright x_i:\rho_i | i = 1, \ldots , l ] , \text{Proj}_2^{\vec{\rho}_l , \vec{\sigma}_m} \rangle ) $} \eqnline
- = & $ \text{Curry}(\text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ $ \eqnline
- \multicolumn{2}{r}{$ \langle [ \vec{x}_l: \vec{\rho}_l, \vec{y}_m:\vec{\sigma}_m \triangleright [\vec{x}_l/\vec{x}_l] (\lambda \vec{y}_m: \vec{\sigma}_m . N_i): \sigma_1 \to \cdots \to \sigma_m \to \tau_i | i = 1, \ldots , n ] , $} \eqnline
- \multicolumn{2}{r}{$ [ \vec{x}_l:\vec{\rho}_l, \vec{y}_m:\vec{\sigma}_m \triangleright y_i:\sigma_i | i = 1, \ldots , m ] \rangle ) $} \eqnline
- = & $ \text{Curry}(\text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ $ \eqnline
- \multicolumn{2}{r}{$ \langle [ \vec{x}_l: \vec{\rho}_l, \vec{y}_m:\vec{\sigma}_m \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . N_i: \sigma_1 \to \cdots \to \sigma_m \to \tau_i | i = 1, \ldots , n ] , $} \eqnline
- \multicolumn{2}{r}{$ [ \vec{x}_l:\vec{\rho}_l, \vec{y}_m:\vec{\sigma}_m \triangleright y_i:\sigma_i | i = 1, \ldots , m ] \rangle ) $} \eqnline
- = & $ \text{Curry}( [ \vec{f}_n: \vec{\sigma}_m \to \vec{\tau}_n , \vec{z}_m: \vec{\sigma}_m \triangleright f_i \text{ } z_1 \ldots z_m : \tau_i | i = 1, \ldots , n ] \circ $ \eqnline
- \multicolumn{2}{r}{$ [ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . N_1: \sigma_1 \to \cdots \to \sigma_m \to \tau_1 , \ldots , $} \eqnline
- \multicolumn{2}{r}{$ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . N_n: \sigma_1 \to \cdots \to \sigma_m \to \tau_n , $} \eqnline
- \multicolumn{2}{r}{$ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright y_1: \sigma_1 , \ldots , \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright y_m: \sigma_m ] ) $} \eqnline
- = & $ \text{Curry}([ \vec{x}_l: \vec{\rho}_l ,\vec{y}_m:\vec{\sigma}_m  \triangleright N_i: \tau_i | i = 1, \ldots , n ]) $ \eqnline
- = & $ [ \vec{x}_l: \vec{\rho}_l \triangleright \lambda \vec{y}_m: \vec{\sigma}_m . N_i: \sigma_1 \to \cdots \to \sigma_m \to \tau_i | i = 1, \ldots , n ] $ \eqnline
+ = & $ \text{Curry}(\text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l \tc \vec{\rho}_l \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . N_i \tc \vec{\sigma}_m \ta \tau_i \vsep i = 1, \ldots , n ] \circ $ \eqnline
+ \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l, \vec{y}_m \tc \vec{\sigma}_m \triangleright x_i \tc \rho_i \vsep i = 1, \ldots , l ] , \text{Proj}_2^{\vec{\rho}_l , \vec{\sigma}_m} \rangle ) $} \eqnline
+ = & $ \text{Curry}(\text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l \tc \vec{\rho}_l, \vec{y}_m \tc \vec{\sigma}_m \triangleright [\vec{x}_l/\vec{x}_l] (\lambda \vec{y}_m \tc \vec{\sigma}_m . N_i) \tc \vec{\sigma}_m \ta \tau_i \vsep i = 1, \ldots , n ] , $ \eqnline
+ \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l, \vec{y}_m \tc \vec{\sigma}_m \triangleright y_i \tc \sigma_i \vsep i = 1, \ldots , m ] \rangle ) $} \eqnline
+\end{tabular}\\
+\begin{tabular}{r p{0.94\textwidth}}
+ = & $ \text{Curry}(\text{App}^{\vec{\sigma}_m, \vec{\tau}_n} \circ \langle [ \vec{x}_l \tc \vec{\rho}_l, \vec{y}_m \tc \vec{\sigma}_m \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . N_i \tc \vec{\sigma}_m \ta \tau_i \vsep i = 1, \ldots , n ] ,$ \eqnline
+ \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l, \vec{y}_m \tc \vec{\sigma}_m \triangleright y_i \tc \sigma_i \vsep i = 1, \ldots , m ] \rangle ) $} \eqnline
+ = & $ \text{Curry}( [ \vec{f}_n \tc \vec{\sigma}_m \ta \vec{\tau}_n , \vec{z}_m \tc \vec{\sigma}_m \triangleright f_i \hspace{2pt} z_1 \hspace{2pt} \ldots \hspace{2pt} z_m \tc \tau_i \vsep i = 1, \ldots , n ] \circ $ \eqnline
+ \multicolumn{2}{r}{$ [ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . N_1 \tc \vec{\sigma}_m \ta \tau_1 , \ldots , \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m  \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . N_n \tc \vec{\sigma}_m \ta \tau_n , $} \eqnline
+ \multicolumn{2}{r}{$ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m  \triangleright y_1 \tc \sigma_1 , \ldots , \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m \triangleright y_m \tc \sigma_m ] ) $} \eqnline
+   & (let $ \vec{Q}_n \equiv \lambda \vec{y}_m \tc \vec{\sigma}_m.N_1, \ldots , \lambda \vec{y}_m \tc \vec{\sigma}_m.N_n  $) \eqnline
+ = & $ \text{Curry}([ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m  \triangleright [\vec{Q}_n,\vec{y}_m / \vec{f}_n,\vec{z}_m ](f_i \hspace{2pt} z_1 \hspace{2pt} \ldots \hspace{2pt} z_m) \tc \tau_i \vsep i = 1, \ldots , n ]) $ \eqnline
+ = & $ \text{Curry}([ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m  \triangleright (\lambda \vec{y}_m \tc \vec{\sigma}_m.N_i) \hspace{2pt} y_1 \hspace{2pt} \ldots \hspace{2pt} y_m \tc \tau_i \vsep i = 1, \ldots , n ]) $ \eqnline
+ = & $ \text{Curry}([ \vec{x}_l \tc \vec{\rho}_l ,\vec{y}_m \tc \vec{\sigma}_m  \triangleright N_i \tc \tau_i \vsep i = 1, \ldots , n ]) $ \eqnline
+ = & $ [ \vec{x}_l \tc \vec{\rho}_l \triangleright \lambda \vec{y}_m \tc \vec{\sigma}_m . N_i \tc \vec{\sigma}_m \ta \tau_i \vsep i = 1, \ldots , n ] $ \eqnline
  = & $ k $ \\[10pt]
 \end{tabular}
 
-Therefore, the category $ \mathcal{C} $ generated by $ \lambda^\to $ is cartesian closed.\\
+Therefore, the category $ \mathcal{C} $ generated from $ \lambda^\to $ is cartesian closed.\\
 
 (2) $ \mathcal{C} \litp \Gamma \triangleright M: \sigma \ritp = \mathcal{C} \litp \Gamma \triangleright N: \sigma \ritp \implies \Gamma \triangleright M =_{\alpha \beta \eta} N: \sigma $
 
-Given a well typed term $ \Gamma \triangleright M: \tau $ in $ \lambda^\to $, its interpretation in $ \mathcal{C} $ obtained from (1) is its equivalence class.
+Given a well typed term $ \Gamma \triangleright M: \sigma $ in $ \lambda^\to $, its interpretation in $ \mathcal{C} $ obtained from (1) is its equivalence class.
 
-We write $ \Gamma $ as $ \vec{x}_n: \vec{\sigma}_n $, then its interpretation is the product of the interpretations of the types in it, according to definition \ref{definition:inter_terms}. Products in $ \mathcal{C} $ are defined as sequences of types; therefore, the interpretation of $ \Gamma $ in $ \mathcal{C} $ is the sequence $ \vec{\sigma}_n $ and the interpretation of the whole term should be a morphism from $ \vec{\sigma}_n $ to $ \vec{\tau}_1 $ which is the single tuple of its equivalence class, i.e. \eqnline
+We write $ \Gamma $ as $ \vec{x}_n \tc \vec{\tau}_n $, then its interpretation is the product of the interpretations of the types in it, according to definition \ref{definition:inter_terms}. Products in $ \mathcal{C} $ are defined as sequences of types; therefore, the interpretation of $ \Gamma $ in $ \mathcal{C} $ is the sequence $ \vec{\tau}_n $ and the interpretation of the whole term should be a morphism from $ \vec{\tau}_n $ to $ \sigma $ which is the single tuple of its equivalence class, i.e. \eqnline
 \begin{tabular}{ll}
-   & $ \mathcal{C} \litp \Gamma \triangleright M: \tau \ritp $ \eqnline
- = & $ [ \vec{x}_n: \vec{\sigma}_n \triangleright M: \tau ] $ \eqnline
- = & $ \langle \{ \vec{x}_n: \vec{\sigma}_n \triangleright N: \tau | \vec{x}_n: \vec{\sigma}_n \triangleright M = N: \tau \} \rangle : \vec{\sigma}_n \to \vec{\tau}_1 $ \\[10pt]
+   & $ \mathcal{C} \litp \Gamma \triangleright M: \sigma \ritp $ \eqnline
+ = & $ [ \vec{x}_n \tc \vec{\tau}_n \triangleright M: \tau ] $ \eqnline
+ = & $ \langle \{ \vec{x}_n \tc \vec{\tau}_n \triangleright N: \sigma \vsep \vec{x}_n \tc \vec{\tau}_n \triangleright M = N: \sigma \} \rangle : \vec{\tau}_n \to \sigma $ \\[10pt]
 \end{tabular}
 
 Then, If $ \Gamma \triangleright M: \sigma $ and $ \Gamma \triangleright N: \sigma $ have the same interpretation in $ \mathcal{C} $, they should be in the same equivalence class, i.e. $ \Gamma \triangleright M =_{\alpha \beta \eta} N: \sigma $. \\

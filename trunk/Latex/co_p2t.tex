@@ -341,7 +341,7 @@ Assume that we have a proof of $ \bot $ under the context $ \Gamma $ and from th
 \UnaryInfC{$ \Gamma ' \triangleright M: null $}
 \DisplayProof
 \end{center}
-This may look very strange since we mentioned in section \ref{sec:bg_lc_ot} that there is no instance of initial type, but here we say term $ M $ has initial type. The reason for this is that though there is no closed term of initial type, under some particular assumptions (type contexts), some terms with free variables can have initial type. For instance, if we apply term $ x: \tau $ to $ f: \tau \to null $ where both of them appear in the type context, then the application $ fx $ should have type $ null $ in the same context, in accordance with \emph{function application}.
+This may look very strange since we mentioned in section \ref{sec:bg_lc_ot} that there is no instance of initial type, but here we say term $ M $ has initial type. The reason for this is that though there is no closed term of initial type, under some particular assumptions (type contexts), some terms with free variables can have initial type. For instance, if we apply function $ f: \tau \to null $ to $ x: \tau $ where both of them appear in the type context, then the application $ fx $ should have type $ null $ in the same context, in accordance with \emph{function application}.
 
 By the inference rule ($\bot$E), we have a proof for any $ \sigma $ in the same context $ \Gamma $.
 \begin{center}

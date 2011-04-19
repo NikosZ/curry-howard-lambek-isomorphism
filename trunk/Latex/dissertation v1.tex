@@ -13,7 +13,6 @@
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage[normalem]{ulem}
-\usepackage{longtable}
 
 \pagestyle{fancy}
 %\fancyhf{}
@@ -49,9 +48,11 @@
 \newcommand{\litp}{[\![}
 \newcommand{\ritp}{]\!]}
 \newcommand{\eqnline}{\\[5pt]}
+\newcommand{\vsep}{\hspace{3pt}|\hspace{3pt}}
 
-\newcommand{\tc}{\mathord{:}}
-\newcommand{\ta}{\mathord{\to}}
+\newcommand{\tc}{\hspace{1pt}\mathord{:}\hspace{1pt}}
+\newcommand{\ta}{\hspace{1pt}\mathord{\to}\hspace{1pt}}
+\renewcommand{\ldots}{...}
 
 \begin{document}
 
