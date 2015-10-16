@@ -1,0 +1,1 @@
+This project is about the three-way-correspondence between intuitionistic logic, lambda calculus and cartesion closed categories.
